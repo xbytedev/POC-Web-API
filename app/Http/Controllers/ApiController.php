@@ -1133,7 +1133,8 @@ class ApiController extends Controller
             $response = array('status'=>false,'message'=>'Input data missing','user_id'=>0,'role'=>'');
         }
         return response()->json($response);
-    }    
+    }
+
     public function user_logs(Request $request){
         if(!empty($request->user_id)){
             $add = new UserLogs;

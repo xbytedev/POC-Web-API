@@ -21,6 +21,15 @@ Auth::routes();
 // HomeController
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// SendMailController
+Route::get('/forgot_password', [App\Http\Controllers\SendMailController::class, 'forgot_password']);
+Route::post('/sendOTP_and_generator_otp',[App\Http\Controllers\SendMailController::class, 'sendOTP_and_generator_otp']);
+Route::get('/otp_verify/{id}',[App\Http\Controllers\SendMailController::class, 'otp_verify']);
+Route::post('/check_otp',[App\Http\Controllers\SendMailController::class, 'check_otp']);
+Route::get('/update_password/{id}',[App\Http\Controllers\SendMailController::class, 'update_password']);
+Route::post('/update_pass',[App\Http\Controllers\SendMailController::class, 'update_pass']);
+
+
 // UserController
 Route::get('/user_list', [App\Http\Controllers\admin\UserController::class, 'user_list']);
 Route::get('/add_user', [App\Http\Controllers\admin\UserController::class, 'index']);
