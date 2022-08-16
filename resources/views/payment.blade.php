@@ -68,6 +68,7 @@
                                                 <h5>Your Order is Completed !</h5>
                                                 <p class="text-muted">You Will receive an order confirmation email with details of your order.</p>
                                             </div> -->
+                                        
                                             <div class="row">
                                                 @foreach($trip_pepole as $trip_pepole_data)
                                                     <div class="col-xl-6 col-md-6">

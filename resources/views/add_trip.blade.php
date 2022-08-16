@@ -7,7 +7,6 @@
                 <div class="card-header">
                     <h4 class="card-title mb-0">Trip</h4>
                 </div>
-                <!-- end card header -->
                 <div class="card-body form-steps">
                     <div class="vertical-navs-step">
                         <div class="row gy-5">
@@ -39,18 +38,11 @@
                                         </span>
                                     </a>
                                 </div>
-                                <!-- end nav -->
                             </div>
-                            <!-- end col-->
                             <div class="col-lg-7 mx-auto">
                                 <div class="px-lg-4">
                                     <div class="tab-content">
-                                        <div class="tab-pane fade  show active" id="v-pills-bill-info" role="tabpanel" aria-labelledby="v-pills-bill-info-tab">
-                                           <!--  <div>
-                                                <h5>Billing Info</h5>
-                                                <p class="text-muted">Fill all information below</p>
-                                            </div>
-                                            -->
+                                        <div class="tab-pane fade show active" id="v-pills-bill-info" role="tabpanel" aria-labelledby="v-pills-bill-info-tab">
                                             <div>
                                                 <div class="row g-3">
                                                     <div class="col-sm-12">
@@ -83,13 +75,16 @@
 
                                             <form action="{{url('add_trip_TripPeople')}}" method="post" enctype="multipart/form-data" parsley-validate>
                                                 @csrf
+                                                {{-- <div class="text-end">
+                                                    <button class="btn btn-primary">Save as draft</button>
+                                                </div> --}}
                                                 <div>
                                                     <input type="hidden" class="append_trip_id" name="trip_id">
+
                                                     <div class="row g-3">
                                                         <div class="col-12">
                                                             <label for="address" class="form-label">Name</label>
                                                             <input type="text" class="form-control" name="name" id="address" placeholder="Name" required/>
-                                                            
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="address" class="form-label">Family Name</label>
@@ -127,7 +122,7 @@
 
                                                         <div class="col-12">
                                                             <label for="address2" class="form-label">Document Number</label>
-                                                            <input type="number" class="form-control" name="document_number" id="address2" placeholder="Document Number" required/>
+                                                            <input type="text" class="form-control" name="document_number" id="address2" placeholder="Document Number" required/>
                                                         </div>
 
                                                         <div class="col-12">
@@ -192,16 +187,16 @@
                                                     <br><h4>Trip Data</h4>
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Visa Number</label>
-                                                        <input type="number" required name="trip_data_visa_information" class="form-control" id="address" placeholder="Visa Number"/>
+                                                        <input type="number" name="trip_data_visa_information" class="form-control" id="address" placeholder="Visa Number"/>
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Expiration Date</label>
-                                                        <input type="date" name="experience_date" required class="form-control" id="address" />
+                                                        <input type="date" name="experience_date" class="form-control" id="address" />
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <label for="address" class="form-label">Visa motive</label>
-                                                            <select required class="form-control" name="visa_motive" id="">
+                                                            <select class="form-control" name="visa_motive" id="">
                                                                 <option value="">Select visa motive</option>
                                                                 @foreach($motivation_of_trip as $motivation_of_trip_data)
                                                                     <option value="{{$motivation_of_trip_data->id}}">{{$motivation_of_trip_data->name}}</option>
@@ -210,7 +205,7 @@
                                                         </div>
                                                         <div class="col-6">
                                                             <label for="address" class="form-label">Upload Visa Document</label>
-                                                            <input type="file"  name="visa_document" class="form-control">
+                                                            <input type="file" name="visa_document" class="form-control">
                                                         </div>
                                                     </div>
                                                     <br><h4>Motivation Of Trip</h4>
@@ -236,7 +231,7 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="address" class="form-label">Document number/PNR</label>
-                                                        <input type="number" class="form-control" required placeholder="Document number/PNR">
+                                                        <input type="text" class="form-control" name="document_number_pnr" required placeholder="Document number/PNR">
                                                     </div>
                                                     <br><h4>Originating From</h4>
                                                     <div class="row">
@@ -257,7 +252,7 @@
 
                                                         <div class="col-4">
                                                             <label for="address" class="form-label">Via</label>
-                                                            <input type="text" required name="originating_from_via" class="form-control" id="address" placeholder="Via"/>
+                                                            <input type="text" name="originating_from_via" class="form-control" id="address" placeholder="Via"/>
                                                         </div>
                                                     </div>
                                                     <br><h4>Hotel Details</h4>
@@ -324,7 +319,6 @@
                                                         <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to Payment
                                                     </button>
                                                 </div>
-                                                
                                             </form>
                                         </div>
                                         <!-- end tab pane -->
@@ -426,46 +420,46 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js"></script>
 <script>
-    $(".save_trip").click(function(){
-        var start_date = $(".start_date").val();
-        var trip_name = $(".trip_name").val();
-        var end_date = $(".end_date").val();
-        if(start_date){
-            $('.error_message_start_date').html('');
-        }else{
-            $('.error_message_start_date').html('');
-            $('.error_message_start_date').append('Select Trip Start Date');
-        }
-        if(trip_name){
-            $('.error_message_trip_name').html('');
-        }else{
-            $('.error_message_trip_name').html('');
-            $('.error_message_trip_name').append('Select Trip Name');
-        }
-        if(end_date){
-            $('.error_message_end_date').html('');
-        }else{
-            $('.error_message_end_date').html('');
-            $('.error_message_end_date').append('Select Trip Name');
-        }
+$(".save_trip").click(function(){
+    var start_date = $(".start_date").val();
+    var trip_name = $(".trip_name").val();
+    var end_date = $(".end_date").val();
+    if(start_date){
+        $('.error_message_start_date').html('');
+    }else{
+        $('.error_message_start_date').html('');
+        $('.error_message_start_date').append('Select Trip Start Date');
+    }
+    if(trip_name){
+        $('.error_message_trip_name').html('');
+    }else{
+        $('.error_message_trip_name').html('');
+        $('.error_message_trip_name').append('Select Trip Name');
+    }
+    if(end_date){
+        $('.error_message_end_date').html('');
+    }else{
+        $('.error_message_end_date').html('');
+        $('.error_message_end_date').append('Select Trip Name');
+    }
 
-        if(end_date && trip_name && start_date){
-            $.ajax({
-                url: '{{url("add_trip")}}',
-                type: 'POST',
-                data: { _token: '{{ csrf_token() }}',trip_name: trip_name,trip_end_date: end_date,trip_start_date:start_date},
-                success: function(response){
-                    console.log(response.trip_id);
-                    $( ".append_trip_id" ).val(response.trip_id);
-                    $( ".click_button_People" ).trigger("click");
-                },
-                error: function (){
+    if(end_date && trip_name && start_date){
+        $.ajax({
+            url: '{{url("add_trip")}}',
+            type: 'POST',
+            data: { _token: '{{ csrf_token() }}',trip_name: trip_name,trip_end_date: end_date,trip_start_date:start_date},
+            success: function(response){
+                console.log(response.trip_id);
+                $( ".append_trip_id" ).val(response.trip_id);
+                $( ".click_button_People" ).trigger("click");
+            },
+            error: function (){
 
-                }, 
-            });
-        }
+            }, 
+        });
+    }
 
-    });
+});
 </script>
 
 @endsection

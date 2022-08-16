@@ -18,4 +18,14 @@ class PaymentController extends Controller
         }
         return view('admin.payment_list',compact('payment'));
     }
+
+    public function get_payment_list_frontside()
+    {
+        if(!isset($_SESSION['user'])){
+            session_start();
+        }
+        $payment = Payment::where('enduser_id',$_SESSION['user']->id)->with('end_user','partner','trip')->get();
+        return view('user_payments',compact('payment'));
+    }
+
 }

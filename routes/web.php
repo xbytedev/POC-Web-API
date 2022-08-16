@@ -45,6 +45,7 @@ Route::get('/view_people_individual/{id}', [App\Http\Controllers\admin\TripContr
 
 // PaymentController
 Route::get('/payment_list', [App\Http\Controllers\admin\PaymentController::class, 'payment_list']);
+Route::get('/user_payment_list', [App\Http\Controllers\admin\PaymentController::class, 'get_payment_list_frontside']);
 
 // LogsController
 Route::get('/user_logs', [App\Http\Controllers\admin\LogsController::class, 'user_logs']);
@@ -69,9 +70,8 @@ Route::get('/trips', [App\Http\Controllers\TripController::class, 'trip'])->midd
 Route::post('/add_trip', [App\Http\Controllers\TripController::class, 'add_trip'])->middleware("checklogin");
 Route::post('/add_trip_TripPeople', [App\Http\Controllers\TripController::class, 'add_trip_TripPeople'])->middleware("checklogin");
 
-
 Route::get('/paymentpage/{id}', [App\Http\Controllers\TripController::class, 'paymentpage'])->middleware("checklogin");
-
+Route::post('/get_trip_wise_people_datas', [App\Http\Controllers\TripController::class, 'get_trip_wise_people_datas'])->middleware("checklogin");
 
 Route::get('/get_trip/{id}', [App\Http\Controllers\TripController::class, 'get_trip'])->middleware("checklogin");
 Route::get('/edit_trip_people/{id}', [App\Http\Controllers\TripController::class, 'edit_trip_people'])->middleware("checklogin");

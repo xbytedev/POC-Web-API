@@ -72,7 +72,7 @@
 
                             <li class="nav-item">
 
-                                <a class="nav-link menu-link" href="">
+                                <a class="nav-link menu-link" href="{{url('user_payment_list')}}">
 
                                     <img src="{{asset('front/img/payment.png')}}">
 
@@ -106,7 +106,9 @@
 
                             <span class="text-start ms-xl-2">
 
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{$_SESSION['user']->name}}</span>
+                                @if(isset($_SESSION['user']))
+                                    <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{$_SESSION['user']->name}}</span>
+                                @endif
 
                             </span>
 

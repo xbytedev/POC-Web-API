@@ -231,17 +231,13 @@
 
                                                         </div>
 
-
-
                                                         <div class="col-12">
 
                                                             <label for="address2" class="form-label">Document Number</label>
 
-                                                            <input type="number" value="{{$trip_people->document_number}}" class="form-control" name="document_number" id="address2" placeholder="Document Number" required/>
+                                                            <input type="text" value="{{$trip_people->document_number}}" class="form-control" name="document_number" id="address2" placeholder="Document Number" required/>
 
                                                         </div>
-
-
 
                                                         <div class="col-12">
 
@@ -250,10 +246,6 @@
                                                             <input type="date" name="valid_untill" value="{{$trip_people->valid_untill}}" class="form-control" id="address" required/>
 
                                                         </div>
-
-
-
-
 
                                                         <div class="col-md-6">
 
@@ -272,8 +264,6 @@
                                                             </select>
 
                                                         </div>
-
-
 
                                                         <div class="col-md-6">
 
@@ -324,7 +314,6 @@
                                                         </div>
 
 
-
                                                         <div class="col-4">
 
                                                             <label for="address" class="form-label">City</label>
@@ -369,7 +358,7 @@
 
                                                         <label for="address" class="form-label">Visa Number</label>
 
-                                                        <input type="number" value="{{$trip_people->trip_data_visa_information}}" required name="trip_data_visa_information" class="form-control" id="address" placeholder="Visa Number"/>
+                                                        <input type="text" value="{{$trip_people->trip_data_visa_information}}" name="trip_data_visa_information" class="form-control" id="address" placeholder="Visa Number"/>
 
                                                     </div>
 
@@ -377,7 +366,7 @@
 
                                                         <label for="address" class="form-label">Expiration Date</label>
 
-                                                        <input type="date" value="{{$trip_people->experience_date}}" name="experience_date" required class="form-control" id="address" />
+                                                        <input type="date" value="{{$trip_people->experience_date}}" name="experience_date" class="form-control" id="address"/>
 
                                                     </div>
 
@@ -387,7 +376,7 @@
 
                                                             <label for="address" class="form-label">Visa motive</label>
 
-                                                            <select required class="form-control" name="visa_motive" id="">
+                                                            <select class="form-control" name="visa_motive" id="">
 
                                                                 <option value="">Select visa motive</option>
 
@@ -459,7 +448,7 @@
 
                                                         <label for="address" class="form-label">Document number/PNR</label>
 
-                                                        <input type="number" class="form-control" required placeholder="Document number/PNR">
+                                                        <input type="text" name="document_number_pnr" class="form-control" required placeholder="Document number/PNR">
 
                                                     </div>
 
@@ -485,8 +474,6 @@
 
                                                         </div>
 
-
-
                                                         <div class="col-4">
 
                                                             <label for="address" class="form-label">City</label>
@@ -495,13 +482,11 @@
 
                                                         </div>
 
-
-
                                                         <div class="col-4">
 
                                                             <label for="address" class="form-label">Via</label>
 
-                                                            <input type="text" value="{{$trip_people->orginating_form_via}}" required name="originating_from_via" class="form-control" id="address" placeholder="Via"/>
+                                                            <input type="text" value="{{$trip_people->orginating_form_via}}" name="originating_from_via" class="form-control" id="address" placeholder="Via"/>
 
                                                         </div>
 
@@ -530,21 +515,14 @@
                                                     </div>
 
                                                     <div class="row">
-
-                                                        <div class="col-md-6">  
-
+                                                        <div class="col-md-6">
                                                             <label for="address" class="form-label">Arrival Date</label>
-
                                                             <input type="date" value="{{$trip_people->arrival_crossing_point_arrival_date}}" name="arrival_date" class="form-control" id="address"/>
-
                                                         </div>
 
-                                                        <div class="col-md-6">  
-
+                                                        <div class="col-md-6">
                                                             <label for="address" class="form-label">Departure Date</label>
-
                                                             <input type="date" value="{{$trip_people->departure_crossing_point_departure_date}}" name="dep_date" class="form-control" id="address"/>
-
                                                         </div>
 
                                                     </div>

@@ -82,8 +82,7 @@ class TripController extends Controller
                 $add_trip_people->document_number = $request->document_number;
                 $add_trip_people->valid_untill = date('Y-m-d', strtotime($request->valid_untill));
                 $add_trip_people->document_country = $request->document_country;
-
-
+                $add_trip_people->airline = $request->document_number_pnr;
                 $add_trip_people->residence_address = $request->residence_address;
                 $add_trip_people->residence_country = $request->residence_country;
                 $add_trip_people->residence_city = $request->residence_city;
@@ -151,6 +150,7 @@ class TripController extends Controller
                 $update_trip_people->document_number = $request->document_number;
                 $update_trip_people->valid_untill = date('Y-m-d', strtotime($request->valid_untill));
                 $update_trip_people->document_country = $request->document_country;
+                $update_trip_people->airline = $request->document_number_pnr;
 
                 $update_trip_people->residence_address = $request->residence_address;
                 $update_trip_people->residence_country = $request->residence_country;
@@ -246,16 +246,29 @@ class TripController extends Controller
 
     public function add_trip_wise_people($id){
         $trip = Trip::where('id',$id)->first();
+        $user_list = TripPeople::where('trip_id',$id)->get();
         $motivation_of_trip = MotivationOfTrip::all();
         $document_type = DocumentType::all();
         $country = Country::all();
         $mean_of_transport = MeanOfTransport::all();
         $arrival_crossing_point = ArrivalCrossingPoint::all();
-        return view('add_trip_wise_people',compact('document_type','country','motivation_of_trip','mean_of_transport','arrival_crossing_point','trip'));
+        return view('add_trip_wise_people',compact('document_type','country','motivation_of_trip','mean_of_transport','arrival_crossing_point','trip','user_list'));
     }
 
     public function baecode()
     {
         return view('baecode');
+    }
+
+    public function get_trip_wise_people_datas(Request $request)
+    {
+        $user_id = $request->user_id;
+        if(!empty($user_id)){
+            $user_list = TripPeople::where('id',$user_id)->first();
+            $response = array('status'=>true,'data'=>$user_list);
+        }else{
+            $response = array('status'=>false,'data'=>[]);
+        }
+        return response()->json($response);
     }
 }

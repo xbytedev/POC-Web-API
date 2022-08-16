@@ -620,7 +620,7 @@ class ApiController extends Controller
     public function payment(Request $request){
         $check_user_id = Trip::where('id',$request->trip_id)->where('created_by',$request->user_id)->first();
         $get_created_by_id = Trip::where('id',$request->trip_id)->first();
-        $check_card_paymant = Payment::where('trip_id',$request->trip_id)->where('enduser_id',$request->user_id)->first();
+        $check_card_paymant = Payment::where('trip_id',$request->trip_id)->where('enduser_id',$get_created_by_id->created_by)->first();
         if(empty($check_card_paymant)){
             $card_paymant_status = 0;
         }else{
@@ -923,13 +923,29 @@ class ApiController extends Controller
             $payment_list_array = array();
             foreach($payment_list as $payment_list_data){
                 $trip_payment['amount'] = $payment_list_data->amount;
-                $trip_payment['enduser'] = $payment_list_data->end_user->name;
-                $trip_payment['partner'] = $payment_list_data->partner->name;
+                if(!empty($payment_list_data->end_user->name)){
+                    $trip_payment['enduser'] = $payment_list_data->end_user->name;
+                }else{
+                    $trip_payment['enduser'] = '';
+                }
+                if(!empty($payment_list_data->partner->name)){
+                    $trip_payment['partner'] = $payment_list_data->partner->name;
+                }else{
+                    $trip_payment['partner'] = '';
+                }
                 $trip_payment['business_type'] = $payment_list_data->business_type;
-                $trip_payment['trip'] = $payment_list_data->trip->trip_name;
+                if(!empty($payment_list_data->trip->trip_name)){
+                    $trip_payment['trip'] = $payment_list_data->trip->trip_name;
+                }else{
+                    $trip_payment['trip'] = '';
+                }
                 $trip_payment['status'] = $payment_list_data->status;
                 $trip_payment['date'] = $payment_list_data->created_at;
-                $trip_payment['trip_no'] = $payment_list_data->trip->trip_number;
+                if(!empty($payment_list_data->trip->trip_number)){
+                    $trip_payment['trip_no'] = $payment_list_data->trip->trip_number;
+                }else{
+                    $trip_payment['trip_no'] = '';
+                }
                 $trip_payment['card_paymant'] = $payment_list_data->card_paymant;
                 array_push($payment_list_array,$trip_payment);
             }
@@ -951,13 +967,26 @@ class ApiController extends Controller
             $payment_list_array = array();
             foreach($payment_list as $payment_list_data){
                 $trip_payment['amount'] = $payment_list_data->amount;
-                $trip_payment['enduser'] = $payment_list_data->end_user->name;
-                $trip_payment['partner'] = $payment_list_data->partner->name;
+
+                if(!empty($payment_list_data->end_user->name)){
+                    $trip_payment['enduser'] = $payment_list_data->end_user->name;
+                }else{
+                    $trip_payment['enduser'] = '';
+                }
+                if(!empty($payment_list_data->partner->name)){
+                    $trip_payment['partner'] = $payment_list_data->partner->name;
+                }else{
+                    $trip_payment['partner'] = '';
+                }
                 $trip_payment['business_type'] = $payment_list_data->business_type;
                 $trip_payment['trip'] = $payment_list_data->trip->trip_name;
                 $trip_payment['status'] = $payment_list_data->status;
                 $trip_payment['date'] = $payment_list_data->created_at;
-                $trip_payment['trip_no'] = $payment_list_data->trip->trip_number;
+                if(!empty($payment_list_data->trip->trip_number)){
+                    $trip_payment['trip_no'] = $payment_list_data->trip->trip_number;
+                }else{
+                    $trip_payment['trip_no'] = '';
+                }
                 $trip_payment['card_paymant'] = $payment_list_data->card_paymant;
                 array_push($payment_list_array,$trip_payment);
             }
