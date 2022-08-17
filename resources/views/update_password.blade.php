@@ -65,7 +65,7 @@
                                                 </button>
                                                 </div>
                                             </div>
-                                            <input type="text" name="user_id" value="{{request()->segment(count(request()->segments()))}}">
+                                            <input type="hidden" name="user_id" value="{{request()->segment(count(request()->segments()))}}">
                                             <div class="mb-3">
                                                 <label class="form-label" for="password-input">Confirm Password</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
