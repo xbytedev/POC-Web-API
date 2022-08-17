@@ -94,11 +94,10 @@
                         @else
                             <td></td>
                         @endif
+                        
+                        <td>@if(isset($payment_data->end_user->name)) {{$payment_data->end_user->name}} @endif</td>
 
-
-                        <td>{{$payment_data->end_user->name}}</td>
-
-                        <td>{{$payment_data->partner->name}}</td>
+                        <td>@if(isset($payment_data->partner->name)) {{$payment_data->partner->name}} @endif</td>
                         
                         <td>{{$payment_data->partner->id}}</td>
 

@@ -235,9 +235,9 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-6">
-                                                            <label for="address" class="form-label">Mean Of Trip</label>
+                                                            <label for="address" class="form-label">Mean Of Transport</label>
                                                             <select class="form-control mean_of_transport" name="mean_of_transport" id="" required>
-                                                                <option value="">Select Mean Of Trip</option>
+                                                                <option value="">Select Mean Of Transport</option>
                                                                 @foreach($mean_of_transport as $mean_of_transport_data)
                                                                     <option class="mean_of_transport_{{$mean_of_transport_data->id}}" value="{{$mean_of_transport_data->id}}">{{$mean_of_transport_data->name}}</option>
                                                                 @endforeach

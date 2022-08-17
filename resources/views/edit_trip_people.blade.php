@@ -83,9 +83,7 @@
 
                                                 <p class="text-muted">Fill all information below</p>
 
-                                            </div>
-
-                                            -->
+                                            </div>-->
 
                                             <div>
 
@@ -143,8 +141,6 @@
 
                                         <div class="tab-pane fade" id="v-pills-bill-address" role="tabpanel" aria-labelledby="v-pills-bill-address-tab">
 
-
-
                                             <form action="{{url('add_trip_TripPeople')}}" method="post" enctype="multipart/form-data" parsley-validate>
 
                                                 @csrf
@@ -172,8 +168,6 @@
                                                             <input type="text" class="form-control" name="family_name" id="address" placeholder="Family Name" value="{{$trip_people->family_name}}" required/>
 
                                                         </div>
-
-                                                        
 
                                                         <div class="col-12">
 
@@ -426,11 +420,11 @@
 
                                                         <div class="col-6">
 
-                                                            <label for="address" class="form-label">Mean Of Trip</label>
+                                                            <label for="address" class="form-label">Mean Of Transport</label>
 
                                                             <select class="form-control" name="mean_of_transport" id="" required>
 
-                                                                <option value="">Select Mean Of Trip</option>
+                                                                <option value="">Select Mean Of Transport</option>
 
                                                                 @foreach($mean_of_transport as $mean_of_transport_data)
 
@@ -594,18 +588,19 @@
                                                     </div>
 
                                                 </div>
+                                                
+                                                @if($trip->trip_status != 'active')
 
+                                                    <div class="d-flex align-items-start gap-3 mt-4">
 
+                                                        <button type="submit" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-payment-tab">
 
-                                                <div class="d-flex align-items-start gap-3 mt-4">
+                                                            <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Update
 
-                                                    <button type="submit" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-payment-tab">
+                                                        </button>
 
-                                                        <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Update
-
-                                                    </button>
-
-                                                </div>
+                                                    </div>
+                                                @endif
 
                                                 
 
@@ -748,153 +743,103 @@
                                             </div>
 
                                         </div>
-
-                                        <!-- end tab pane -->
-
                                         <div class="tab-pane fade" id="v-pills-finish" role="tabpanel" aria-labelledby="v-pills-finish-tab">
-
                                             <div class="text-center pt-4 pb-2">
-
                                                 <div class="mb-4">
-
                                                     <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width: 120px; height: 120px;"></lord-icon>
-
                                                 </div>
-
                                                 <h5>Your Order is Completed !</h5>
-
                                                 <p class="text-muted">You Will receive an order confirmation email with details of your order.</p>
-
                                             </div>
-
                                         </div>
-
-                                        <!-- end tab pane -->
-
                                     </div>
-
-                                    <!-- end tab content -->
-
                                 </div>
-
                             </div>
-
                         </div>
-
-                        <!-- end row -->
-
                     </div>
-
                 </div>
-
             </div>
-
-            <!-- end -->
-
         </div>
-
-        <!-- end col -->
-
     </div>
-
 </div>
-
 @endsection
-
 @section('scripts') @parent
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js"></script>
-
 <script>
+$(".save_trip").click(function(){
 
-    $(".save_trip").click(function(){
+    var start_date = $(".start_date").val();
 
-        var start_date = $(".start_date").val();
+    var trip_name = $(".trip_name").val();
 
-        var trip_name = $(".trip_name").val();
+    var end_date = $(".end_date").val();
 
-        var end_date = $(".end_date").val();
+    var trip_id = $(".trip_id").val();
 
-        var trip_id = $(".trip_id").val();
+    if(start_date){
 
-        if(start_date){
+        $('.error_message_start_date').html('');
 
-            $('.error_message_start_date').html('');
+    }else{
 
-        }else{
+        $('.error_message_start_date').html('');
 
-            $('.error_message_start_date').html('');
+        $('.error_message_start_date').append('Select Trip Start Date');
 
-            $('.error_message_start_date').append('Select Trip Start Date');
+    }
 
-        }
+    if(trip_name){
 
-        if(trip_name){
+        $('.error_message_trip_name').html('');
 
-            $('.error_message_trip_name').html('');
+    }else{
 
-        }else{
+        $('.error_message_trip_name').html('');
 
-            $('.error_message_trip_name').html('');
+        $('.error_message_trip_name').append('Select Trip Name');
 
-            $('.error_message_trip_name').append('Select Trip Name');
+    }
 
-        }
+    if(end_date){
 
-        if(end_date){
+        $('.error_message_end_date').html('');
 
-            $('.error_message_end_date').html('');
+    }else{
 
-        }else{
+        $('.error_message_end_date').html('');
 
-            $('.error_message_end_date').html('');
+        $('.error_message_end_date').append('Select Trip Name');
 
-            $('.error_message_end_date').append('Select Trip Name');
+    }
 
-        }
+    if(end_date && trip_name && start_date){
 
+        $.ajax({
 
+            url: '{{url("add_trip")}}',
 
-        if(end_date && trip_name && start_date){
+            type: 'POST',
 
-            $.ajax({
+            data: { _token: '{{ csrf_token() }}',trip_name: trip_name,trip_end_date: end_date,trip_start_date:start_date,trip_id:trip_id},
 
-                url: '{{url("add_trip")}}',
+            success: function(response){
 
-                type: 'POST',
+                console.log(response.trip_id);
 
-                data: { _token: '{{ csrf_token() }}',trip_name: trip_name,trip_end_date: end_date,trip_start_date:start_date,trip_id:trip_id},
+                $( ".append_trip_id" ).val(response.trip_id);
 
-                success: function(response){
+                $( ".click_button_People" ).trigger("click");
 
-                    console.log(response.trip_id);
+            },
 
-                    $( ".append_trip_id" ).val(response.trip_id);
+            error: function (){
 
-                    $( ".click_button_People" ).trigger("click");
+            }, 
 
-                },
-
-                error: function (){
-
-
-
-                }, 
-
-            });
-
-        }
-
-
-
-    });
-
+        });
+    }
+});
 </script>
-
-
-
 @endsection

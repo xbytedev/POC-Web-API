@@ -81,8 +81,8 @@
                 @foreach($user_logs as $key=> $user_logs_data)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$user_logs_data->register_user->name}}</td>
-                        <td>{{$user_logs_data->register_user->email}}</td>
+                        <td>@if(isset($user_logs_data->register_user->name)) {{$user_logs_data->register_user->name}} @endif</td>
+                        <td>@if(isset($user_logs_data->register_user->email)) {{$user_logs_data->register_user->email}} @endif</td>
                         <td>{{$user_logs_data->log_date}}</td>
                     </tr>
                 @endforeach

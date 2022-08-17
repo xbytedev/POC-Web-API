@@ -31,7 +31,7 @@
                                             3 Pay Fee
                                         </span>
                                     </button>
-                                    <button class="nav-link cards" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false">
+                                    <button class="nav-link cards" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false" disabled>
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i>
                                             4 Get Card
@@ -48,16 +48,14 @@
                                             <p>We strongly recommend for you to make this payment online to avoid lines and delays as Paymets kiosks and support at the border are limited .</p>
                                             <p>You can also pay at partners such as Hotels(list).</p><br>
                                             <p>eTourist cards are Preliminary untill payment.</p>
-                                            
                                             <!-- <div class="row"> -->
                                                 <div class="col-md-6">
-                                                    <button class="click_cards">PAY LATER AT BORDER ENTRY <br> OR <br> PAY TO PARTNER </button>
+                                                    <button data-id="{{request()->segment(count(request()->segments()))}}" class="click_cards">PAY LATER AT BORDER ENTRY <br> OR <br> PAY TO PARTNER </button>
                                                 </div>
                                             <!-- </div> -->
                                             <div class="col-md-6 mt-3">
                                                 <button class="btn btn-danger click_cards">PROCEED TO PAYMENT</button>
                                             </div>
-
                                         </div>
                                         <!-- end tab pane -->
                                         <div class="tab-pane fade" id="v-pills-finish" role="tabpanel" aria-labelledby="v-pills-finish-tab">
@@ -69,7 +67,10 @@
                                                 <p class="text-muted">You Will receive an order confirmation email with details of your order.</p>
                                             </div> -->
                                         
-                                            <div class="row">
+                                            <div class="text-end">
+                                                <button onclick="printDiv('printableArea')" class="btn btn-primary">Print</button><br><br>
+                                            </div>
+                                            <div class="row" id="printableArea">
                                                 @foreach($trip_pepole as $trip_pepole_data)
                                                     <div class="col-xl-6 col-md-6">
 
@@ -83,7 +84,7 @@
 
                                                                         <div class="flex-grow-1">
 
-                                                                            <b class="">Name</b> 
+                                                                            <b class="">Name</b>
 
                                                                             <p class="text-muted mb-2">{{$trip_pepole_data->name}}</p>
 
@@ -175,12 +176,38 @@
         </div>
     </div>
 </div>
+
 @endsection
 @section('scripts') @parent
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+
+function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+
 $(".click_cards").click(function(){
+    $('#v-pills-finish-tab').prop("disabled", false);
     $( ".cards" ).trigger("click");
+    var trip_id = $(this).data('id');
+    $.ajax({
+        url: '{{url("update_trip_status")}}',
+        type: 'POST',
+        data: { _token: '{{ csrf_token() }}',trip_id:trip_id},
+        success: function(response){
+            console.log(response);
+        },
+        error: function (){
+
+        }, 
+    });
 })
 
 $(".save_trip").click(function(){
@@ -217,11 +244,9 @@ $(".save_trip").click(function(){
                 $( ".click_button_People" ).trigger("click");
             },
             error: function (){
-
-            }, 
+            },
         });
     }
-
 });
 </script>
 @endsection

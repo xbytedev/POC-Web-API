@@ -93,7 +93,7 @@
 
                         <td>{{$trip_data->trip_name}}</td>
 
-                        <td>{{$trip_data->created_by_data->name}}</td>
+                        <td>@if(isset($trip_data->created_by_data->name)) {{$trip_data->created_by_data->name}} @endif</td>
 
                         <td>{{$trip_data->trip_start_date}}</td>
 

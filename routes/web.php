@@ -86,6 +86,7 @@ Route::get('/get_trip/{id}', [App\Http\Controllers\TripController::class, 'get_t
 Route::get('/edit_trip_people/{id}', [App\Http\Controllers\TripController::class, 'edit_trip_people'])->middleware("checklogin");
 Route::get('/add_trip_wise_people/{id}', [App\Http\Controllers\TripController::class, 'add_trip_wise_people'])->middleware("checklogin");
 Route::get('/baecode', [App\Http\Controllers\TripController::class, 'baecode'])->middleware("checklogin");
+Route::post('/update_trip_status', [App\Http\Controllers\TripController::class, 'update_trip_status'])->middleware("checklogin");
 
 
 // HomesController

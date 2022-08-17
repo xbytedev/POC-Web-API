@@ -16,12 +16,14 @@ use File;
 class TripController extends Controller
 {
     public function trip(Request $request){
+        $trip = Trip::where('created_by',$_SESSION['user']->id)->pluck('created_by');
         $motivation_of_trip = MotivationOfTrip::all();
         $document_type = DocumentType::all();
         $country = Country::all();
         $mean_of_transport = MeanOfTransport::all();
         $arrival_crossing_point = ArrivalCrossingPoint::all();
-        return view('add_trip',compact('document_type','country','motivation_of_trip','mean_of_transport','arrival_crossing_point'));
+        $user_list = TripPeople::whereIn('trip_id',$trip)->get();
+        return view('add_trip',compact('document_type','country','motivation_of_trip','mean_of_transport','arrival_crossing_point','user_list'));
     }
 
     public function add_trip(Request $request){
@@ -133,7 +135,7 @@ class TripController extends Controller
                 $add_trip_people->arrival_date = date('Y-m-d', strtotime($request->arrival_date));
                 $add_trip_people->dep_date = date('Y-m-d', strtotime($request->dep_date));
                 if($add_trip_people->save()){
-                    return redirect('paymentpage/'.$request->trip_id);
+                    return redirect('get_trip/'.$request->trip_id);
                     // $response = array('status'=>true,'message'=>'People added successfully on this trip');
                 }else{
                     return redirect()->back();
@@ -176,17 +178,15 @@ class TripController extends Controller
                 $fils_data = $request->document_id_data;
                 if(!empty($fils_data)){
                     if($fils_data){
-                        
-                        $imagePath = public_path('document_image/'.$add_trip_people->document_id_data);
+                        $imagePath = public_path('document_image/'.$update_trip_people->document_id_data);
                         if(File::exists($imagePath)){
                             unlink($imagePath);
                         }
-
                         $image = $fils_data;
                         $name = time().'.'.$image->getClientOriginalExtension();
                         $destinationPath = public_path('/document_image');
                         $image->move($destinationPath, $name);
-                        $add_trip_people->document_id_data = $name;
+                        $update_trip_people->document_id_data = $name;
                     }
                 }
                 $update_trip_people->motivation_of_trip = $request->motivation_of_trip;
@@ -246,7 +246,8 @@ class TripController extends Controller
 
     public function add_trip_wise_people($id){
         $trip = Trip::where('id',$id)->first();
-        $user_list = TripPeople::where('trip_id',$id)->get();
+        $trip_data = Trip::where('created_by',$_SESSION['user']->id)->pluck('created_by');
+        $user_list = TripPeople::whereIn('trip_id',$trip_data)->get();
         $motivation_of_trip = MotivationOfTrip::all();
         $document_type = DocumentType::all();
         $country = Country::all();
@@ -268,6 +269,22 @@ class TripController extends Controller
             $response = array('status'=>true,'data'=>$user_list);
         }else{
             $response = array('status'=>false,'data'=>[]);
+        }
+        return response()->json($response);
+    }
+
+    public function update_trip_status(Request $request){
+        $trip_id = $request->trip_id;
+        if(!empty($trip_id)){
+            $update_trip_status = Trip::where('id',$trip_id)->first();
+            $update_trip_status->trip_status = 'active';
+            if($update_trip_status->save()){
+                $response = array('status'=>true,'message'=>'Status updated successfully');
+            }else{
+                $response = array('status'=>false,'message'=>'Something went wrong');
+            }
+        }else{
+            $response = array('status'=>false,'message'=>'Trip id not found');
         }
         return response()->json($response);
     }
