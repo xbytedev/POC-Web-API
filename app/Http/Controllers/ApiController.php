@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -19,9 +18,10 @@ use App\Models\DepartureCrossingPoint;
 use App\Models\UserLogs;
 use App\Models\PartnerScannerLogs;
 use File;
+use Mail;
 
 class ApiController extends Controller
-{    
+{
     public function register_user(Request $request){
         $check_email = RegisterUser::where('email',$request->email)->first();
         if(empty($check_email)){
@@ -68,7 +68,7 @@ class ApiController extends Controller
                
                 if(!empty($check_password)){
                     $add = new UserLogs;
-                    $add->user_id = $check_password->id;                    
+                    $add->user_id = $check_password->id;
                     $add->save();
 
                     $response = array('status'=>true,'message'=>'User verify successfully','id'=>$check_password->id);
@@ -607,12 +607,20 @@ class ApiController extends Controller
         if(!empty($email) && !empty($password)){
             $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
             if(!empty($check_email_password)){
-                $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role);
+                $details = rand(1000,9999);
+                $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                $update_user->otp = $details;
+                if($update_user->save()){
+                    Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
+                    $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+                }else{
+                    $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'','role'=>'');
+                }
             }else{
-                $response = array('status'=>false,'message'=>'User email and password not match');
+                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>'','role'=>'');
             }
         }else{
-            $response = array('status'=>false,'message'=>'Input data missing');
+            $response = array('status'=>false,'message'=>'Input data missing','user_id'=>'','role'=>'');
         }
         return response()->json($response);
     }
@@ -1117,20 +1125,42 @@ class ApiController extends Controller
     }
 
     public function border_scanner_partner_login(Request $request){
-        $email_id = $request->email;
+        // $email_id = $request->email;
+        // $password = $request->password;
+        // if(!empty($email_id)){
+        //     $update_pass = BorderScannerPartner::where('email',$email_id)->where('password',$password)->first();
+        //     if(!empty($update_pass)){
+        //         $add = new PartnerScannerLogs;
+        //         $add->partner_scanner_id = $update_pass->id;                    
+        //         $add->save();
+        //         $response = array('status'=>true,'message'=>'Email verify successfully','user_id'=>$update_pass->id,'role'=>$update_pass->role);
+        //     }else{
+        //         $response = array('status'=>false,'message'=>'Wrong email','user_id'=>0,'role'=>'');
+        //     }
+        // }else{
+        //     $response = array('status'=>false,'message'=>'Input data missing','user_id'=>0,'role'=>'');
+        // }
+        // return response()->json($response);
+
+        $email = $request->email;
         $password = $request->password;
-        if(!empty($email_id)){
-            $update_pass = BorderScannerPartner::where('email',$email_id)->where('password',$password)->first();
-            if(!empty($update_pass)){
-                $add = new PartnerScannerLogs;
-                $add->partner_scanner_id = $update_pass->id;                    
-                $add->save();
-                $response = array('status'=>true,'message'=>'Email verify successfully','user_id'=>$update_pass->id,'role'=>$update_pass->role);
+        if(!empty($email) && !empty($password)){
+            $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+            if(!empty($check_email_password)){
+                $details = rand(1000,9999);
+                $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                $update_user->otp = $details;
+                if($update_user->save()){
+                    Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
+                    $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+                }else{
+                    $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'','role'=>'');
+                }
             }else{
-                $response = array('status'=>false,'message'=>'Wrong email','user_id'=>0,'role'=>'');
+                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>'','role'=>'');
             }
         }else{
-            $response = array('status'=>false,'message'=>'Input data missing','user_id'=>0,'role'=>'');
+            $response = array('status'=>false,'message'=>'Input data missing','user_id'=>'','role'=>'');
         }
         return response()->json($response);
     }
@@ -1150,4 +1180,82 @@ class ApiController extends Controller
         }
         return response()->json($response);
     }
+
+    public function check_email_and_sendOTP(Request $request){
+        $email = $request->email;
+        if(!empty($email)){
+            $check_user = RegisterUser::where('email',$email)->first();
+            if(!empty($check_user)){
+                $details = rand(1000,9999);
+                $update_user = RegisterUser::where('email',$check_user->email)->first();
+                $update_user->otp = $details;
+                if($update_user->save()){
+                    Mail::to($check_user->email)->send(new \App\Mail\SendOTP($details));
+                    $response = array('status'=>true,'message'=>'OTP sent successfully','user_id'=>$update_user->id);
+                }else{
+                    $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'');
+                }
+            }else{
+                $response = array('status'=>false,'message'=>'Username Not Found','user_id'=>'');
+            }
+        }else{
+            $response = array('status'=>false,'message'=>'Enter User Name','user_id'=>'');
+        }
+        return response()->json($response);
+    }
+ 
+    public function check_otp(Request $request){
+        $user_id = $request->user_id;
+        $otp = $request->otp;
+        if(!empty($otp)){
+            $update_user = RegisterUser::where('id',$user_id)->where('otp',$otp)->first();
+            if(!empty($update_user)){
+                $response = array('status'=>true,'message'=>'OTP verify successfully','user_id'=>$user_id);
+            }else{
+                $response = array('status'=>false,'message'=>'Your OTP wrong','user_id'=>'');
+            }
+        }else{
+            $response = array('status'=>false,'message'=>'Please Enter OTP','user_id'=>'');
+        }
+         return response()->json($response);
+    }
+
+    public function border_scanner_partner_check_otp(Request $request){
+        $user_id = $request->user_id;
+        $otp = $request->otp;
+        if(!empty($otp) && !empty($user_id)){
+            $update_user = BorderScannerPartner::where('id',$user_id)->where('otp',$otp)->first();
+            if(!empty($update_user)){
+                $response = array('status'=>true,'message'=>'OTP verify successfully','user_id'=>$user_id);
+            }else{
+                $response = array('status'=>false,'message'=>'Your OTP wrong','user_id'=>'');
+            }
+        }else{
+            $response = array('status'=>false,'message'=>'Please Enter OTP','user_id'=>'');
+        }
+        return response()->json($response);
+    }
+    
+    // public function border_scanner_partner_reset_password(Request $request){
+    //     $email = $request->email;
+    //     if(!empty($email)){
+    //         $check_email_password = BorderScannerPartner::where('email',$email)->first();
+    //         if(!empty($check_email_password)){
+    //             $details = rand(1000,9999);
+    //             $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+    //             $update_user->otp = $details;
+    //             if($update_user->save()){
+    //                 Mail::to($email)->send(new \App\Mail\SendOTP($details));
+    //                 $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+    //             }else{
+    //                 $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'','role'=>'');
+    //             }
+    //         }else{
+    //             $response = array('status'=>false,'message'=>'User email not match','user_id'=>'','role'=>'');
+    //         }
+    //     }else{
+    //         $response = array('status'=>false,'message'=>'Input data missing','user_id'=>'','role'=>'');
+    //     }
+    //     return response()->json($response);
+    // }
 }

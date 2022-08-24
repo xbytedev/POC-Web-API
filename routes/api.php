@@ -45,6 +45,9 @@ Route::post('/get_trip_wise_peoples_all', [App\Http\Controllers\ApiController::c
 Route::post('/check_email_for_password', [App\Http\Controllers\ApiController::class, 'check_email_for_password']);
 Route::post('/update_enduser_password', [App\Http\Controllers\ApiController::class, 'update_enduser_password']);
 Route::post('/border_scanner_partner_login', [App\Http\Controllers\ApiController::class, 'border_scanner_partner_login']);
-Route::post('/user_logs', [App\Http\Controllers\ApiController::class, 'user_logs']);
+Route::post('/user_logs', [App\Http\Controllers\ApiCoantroller::class, 'user_logs']);
 Route::post('/add_trip_tripPeople_as_draft', [App\Http\Controllers\ApiController::class, 'add_trip_tripPeople_as_draft']);
 Route::post('/get_draft_trip_wise_peoples', [App\Http\Controllers\ApiController::class, 'get_draft_trip_wise_peoples']);
+Route::post('/check_email_and_sendOTP', [App\Http\Controllers\ApiController::class, 'check_email_and_sendOTP']);
+Route::post('/check_otp', [App\Http\Controllers\ApiController::class, 'check_otp']);
+Route::post('/border_scanner_partner_check_otp', [App\Http\Controllers\ApiController::class, 'border_scanner_partner_check_otp']);
