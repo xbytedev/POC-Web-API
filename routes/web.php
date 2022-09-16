@@ -31,34 +31,34 @@ Route::post('/update_pass',[App\Http\Controllers\SendMailController::class, 'upd
 
 
 // UserController
-Route::get('/user_list', [App\Http\Controllers\admin\UserController::class, 'user_list']);
-Route::get('/add_user', [App\Http\Controllers\admin\UserController::class, 'index']);
-Route::post('/insert_user', [App\Http\Controllers\admin\UserController::class, 'add_user']);
-Route::get('/edit_user/{id}', [App\Http\Controllers\admin\UserController::class, 'edit_user']);
-Route::post('/update_user/{id}', [App\Http\Controllers\admin\UserController::class, 'update_user']);
+Route::get('/user_list', [App\Http\Controllers\admin\UserController::class, 'user_list'])->middleware("auth");
+Route::get('/add_user', [App\Http\Controllers\admin\UserController::class, 'index'])->middleware("auth");
+Route::post('/insert_user', [App\Http\Controllers\admin\UserController::class, 'add_user'])->middleware("auth");
+Route::get('/edit_user/{id}', [App\Http\Controllers\admin\UserController::class, 'edit_user'])->middleware("auth");
+Route::post('/update_user/{id}', [App\Http\Controllers\admin\UserController::class, 'update_user'])->middleware("auth");
 
 // BorderScanner_PartnerController
-Route::get('/border_scanner_partner', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'border_scanner_partner']);
-Route::get('/add_border_scanner_partner', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'index']);
-Route::post('/insert_border_scanner_partner', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'add_user_border_scanner_partner']);
-Route::get('/edit_scanner_partner/{id}', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'edit_scanner_partner']);
-Route::post('/update_scanner_partner/{id}', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'update_scanner_partner']);
+Route::get('/border_scanner_partner', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'border_scanner_partner'])->middleware("auth");
+Route::get('/add_border_scanner_partner', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'index'])->middleware("auth");
+Route::post('/insert_border_scanner_partner', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'add_user_border_scanner_partner'])->middleware("auth");
+Route::get('/edit_scanner_partner/{id}', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'edit_scanner_partner'])->middleware("auth");
+Route::post('/update_scanner_partner/{id}', [App\Http\Controllers\admin\BorderScanner_PartnerController::class, 'update_scanner_partner'])->middleware("auth");
 
 // QrCodeController
 Route::get('/qrcode/{id}', [App\Http\Controllers\QrCodeController::class, 'index']);
 
 // TripController
-Route::get('/trip', [App\Http\Controllers\admin\TripController::class, 'index']);
-Route::get('/view_trip_peopel/{id}', [App\Http\Controllers\admin\TripController::class, 'view_trip_peopel']);
-Route::get('/view_people_individual/{id}', [App\Http\Controllers\admin\TripController::class, 'view_people_individual']);
+Route::get('/trip', [App\Http\Controllers\admin\TripController::class, 'index'])->middleware("auth");
+Route::get('/view_trip_peopel/{id}', [App\Http\Controllers\admin\TripController::class, 'view_trip_peopel'])->middleware("auth");
+Route::get('/view_people_individual/{id}', [App\Http\Controllers\admin\TripController::class, 'view_people_individual'])->middleware("auth");
 
 // PaymentController
-Route::get('/payment_list', [App\Http\Controllers\admin\PaymentController::class, 'payment_list']);
-Route::get('/user_payment_list', [App\Http\Controllers\admin\PaymentController::class, 'get_payment_list_frontside']);
+Route::get('/payment_list', [App\Http\Controllers\admin\PaymentController::class, 'payment_list'])->middleware("auth");
+Route::get('/user_payment_list', [App\Http\Controllers\admin\PaymentController::class, 'get_payment_list_frontside'])->middleware("auth");
 
 // LogsController
-Route::get('/user_logs', [App\Http\Controllers\admin\LogsController::class, 'user_logs']);
-Route::get('/border_patner_logs', [App\Http\Controllers\admin\LogsController::class, 'border_patner_logs']);
+Route::get('/user_logs', [App\Http\Controllers\admin\LogsController::class, 'user_logs'])->middleware("auth");
+Route::get('/border_patner_logs', [App\Http\Controllers\admin\LogsController::class, 'border_patner_logs'])->middleware("auth");
 
 
 // front side route start 
@@ -88,6 +88,12 @@ Route::get('/add_trip_wise_people/{id}', [App\Http\Controllers\TripController::c
 Route::get('/baecode', [App\Http\Controllers\TripController::class, 'baecode'])->middleware("checklogin");
 Route::post('/update_trip_status', [App\Http\Controllers\TripController::class, 'update_trip_status'])->middleware("checklogin");
 
-
 // HomesController
 Route::get('/homes', [App\Http\Controllers\HomesController::class, 'homes'])->middleware("checklogin");
+
+// TripForm
+Route::get('/trip_form/{type}/{trip_id}/{user_id}', [App\Http\Controllers\TripForm::class, 'trip_form']);
+Route::post('/insert_user_feedback', [App\Http\Controllers\TripForm::class, 'insert_user_feedback']);
+
+Route::get('/view_feedback_data', [App\Http\Controllers\TripForm::class, 'admin_view_feedback_data'])->middleware("auth");
+Route::get('/view_feedback_details_data/{id}', [App\Http\Controllers\TripForm::class, 'admin_view_feedback_details_data'])->middleware("auth");

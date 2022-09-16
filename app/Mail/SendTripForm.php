@@ -7,20 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendOTP extends Mailable
+class SendTripForm extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $details,$trip_id,$user_type;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($details,$trip_id,$user_type)
     {
         $this->details = $details;
+        $this->trip_id = $trip_id;
+        $this->user_type = $user_type;
     }
 
     /**
@@ -30,7 +32,7 @@ class SendOTP extends Mailable
      */
     public function build()
     {
-        return $this->subject('Reset Password OTP')
-                    ->view('email.send_otp');
+        return $this->subject('Form')
+                    ->view('email.send_trip_form');
     }
 }

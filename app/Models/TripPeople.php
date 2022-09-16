@@ -34,6 +34,10 @@ class TripPeople extends Model
     public function motivation_of_trips(){
         return $this->hasOne(MotivationOfTrip::class, 'id', 'motivation_of_trip');
     }
+
+    public function visa_motives(){
+        return $this->hasOne(MotivationOfTrip::class, 'id', 'visa_motive');
+    }
     
     public function end_user(){
         return $this->hasOne(RegisterUser::class, 'id', 'user_id');

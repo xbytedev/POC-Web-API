@@ -25,10 +25,19 @@
                                 <a href="{{url('edit_trip_people/'.$trip_people_data->id)}}">
 
                                     <div class="card-body text-black">
-
-                                        <h4 class="card-title mb-0 flex-grow-1">{{$trip_people_data->id}}</h4>
-
-                                        <h5 class="trip-title theme-color">{{$trip_people_data->name}}</h5>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h4 class="card-title mb-0 flex-grow-1">{{$trip_people_data->id}}</h4>
+                                                <h5 class="trip-title theme-color">{{$trip_people_data->name}}</h5>
+                                            </div>
+                                            <div class="col-md-6 text-end">
+                                                @if($trip->trip_end_date > date("Y-m-d"))
+                                                    <span class="btn btn-sm disable btn-outline-success">Valid</span>
+                                                @else
+                                                    <span class="btn btn-sm disable btn-outline-danger">Expired</span>
+                                                @endif
+                                            </div>
+                                        </div>
 
                                         <div class="d-flex align-items-center my-3">
 
@@ -58,7 +67,7 @@
 
                                                 <b>ID Type</b> 
 
-                                                <p class="mb-0" >Test</p>
+                                                <p class="mb-0" >{{$trip_people_data->document_types->name}}</p>
 
                                             </div>
 
@@ -92,8 +101,6 @@
 
                                             </div>
 
-                                        
-
                                         </div>
 
                                     </div>
@@ -115,5 +122,4 @@
     </div>
 
 </div>
-
 @endsection

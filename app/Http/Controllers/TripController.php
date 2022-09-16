@@ -16,7 +16,7 @@ use File;
 class TripController extends Controller
 {
     public function trip(Request $request){
-        $trip = Trip::where('created_by',$_SESSION['user']->id)->pluck('created_by');
+        $trip = Trip::where('created_by',$_SESSION['user']->id)->pluck('id');
         $motivation_of_trip = MotivationOfTrip::all();
         $document_type = DocumentType::all();
         $country = Country::all();
@@ -375,7 +375,7 @@ class TripController extends Controller
     }
 
     public function get_trip($id){
-        $trip = Trip::where('id',$id)->get();
+        $trip = Trip::where('id',$id)->first();
         $trip_people = TripPeople::with('document_types')->where('trip_id',$id)->get();
         return view('view_people',compact('trip','trip_people'));
     }
@@ -394,7 +394,7 @@ class TripController extends Controller
 
     public function add_trip_wise_people($id){
         $trip = Trip::where('id',$id)->first();
-        $trip_data = Trip::where('created_by',$_SESSION['user']->id)->pluck('created_by');
+        $trip_data = Trip::where('created_by',$_SESSION['user']->id)->pluck('id');
         $user_list = TripPeople::whereIn('trip_id',$trip_data)->get();
         $motivation_of_trip = MotivationOfTrip::all();
         $document_type = DocumentType::all();

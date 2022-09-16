@@ -28,9 +28,10 @@
 
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
 
-    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
+    
     <strong>{{ Session::get('error') }}</strong>
+    
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 
     </button>
 

@@ -55,7 +55,7 @@
             <div class="col-md-4 mt-2">
                 <div class="form-group">
                     <label for=""><b> Valid Untill</b></label>
-                    <input type="text" class="form-control" value="{{$trip_people->valid_untill}}" readonly>
+                    <input type="text" class="form-control" @if(isset($trip_people->valid_untill)) value="{{$trip_people->valid_untill}}" @endif readonly>
                 </div>
             </div>
 
@@ -111,14 +111,14 @@
             <div class="col-md-4 mt-2">
                 <div class="form-group">
                     <label for=""><b> Experience Date</b></label>
-                    <input type="text" class="form-control" value="{{$trip_people->experience_date}}" readonly>
+                    <input type="text" class="form-control" @if(!empty($trip_people->experience_date)) value="{{$trip_people->experience_date}}" @endif readonly>
                 </div>
             </div>
 
             <div class="col-md-4 mt-2">
                 <div class="form-group">
                     <label for=""><b> Visa Motive</b></label>
-                    <input type="text" class="form-control" value="{{$trip_people->visa_motive}}" readonly>
+                    <input type="text" class="form-control" @if(isset($trip_people->visa_motives->name)) value="{{$trip_people->visa_motives->name}}" @endif readonly>
                 </div>
             </div>
 
@@ -167,28 +167,28 @@
             <div class="col-md-4 mt-2">
                 <div class="form-group">
                     <label for=""><b> Arrival Crossing Point Border Crossing Point</b></label>
-                    <input type="text" class="form-control" value="{{$trip_people->arrival_crossing_point_border_crossing_point}}" readonly>
+                    <input type="text" class="form-control" @if(isset($trip_people->arrival_crossing->name)) value="{{$trip_people->arrival_crossing->name}}" @endif readonly>
                 </div>
             </div>
 
             <div class="col-md-4 mt-2">
                 <div class="form-group">
                     <label for=""><b> Arrival Crossing Point Arrival Date</b></label>
-                    <input type="text" class="form-control" value="{{$trip_people->arrival_crossing_point_arrival_date}}" readonly>
+                    <input type="text" class="form-control" @if(!empty($trip_people->arrival_crossing_point_arrival_date)) value="{{$trip_people->arrival_crossing_point_arrival_date}}" @endif readonly>
                 </div>
             </div>
 
             <div class="col-md-4 mt-2">
                 <div class="form-group">
                     <label for=""><b> Departure Crossing Point Border Crossing Point</b></label>
-                    <input type="text" class="form-control" value="{{$trip_people->departure_crossing_point_border_crossing_point}}" readonly>
+                    <input type="text" class="form-control" @if(isset($trip_people->departure_crossing->name)) value="{{$trip_people->departure_crossing->name}}" @endif readonly>
                 </div>
             </div>
-         
+            
             <div class="col-md-4 mt-2">
                 <div class="form-group">
                     <label for=""><b> Departure Crossing Point Departure Date</b></label>
-                    <input type="text" class="form-control" value="{{$trip_people->departure_crossing_point_departure_date}}" readonly>
+                    <input type="text" class="form-control" @if(!empty($trip_people->departure_crossing_point_departure_date)) value="{{$trip_people->departure_crossing_point_departure_date}}" @endif readonly>
                 </div>
             </div>
         </div>
@@ -199,12 +199,14 @@
                     <textarea name="" class="form-control" id="" rows="5">{{$trip_people->residence_address}}</textarea>
                 </div>
             </div>
-            <div class="col-md-4 mt-2">
-                <div class="form-group">
-                    <label for=""><b> Document</b></label><br>
-                    <img style="height: 140px;width: 60%;" src="{{asset('visa_document/'.$trip_people->visa_document)}}" alt="">
+            @if(!empty($trip_people->visa_document))
+                <div class="col-md-4 mt-2">
+                    <div class="form-group">
+                        <label for=""><b> Document</b></label><br>
+                        <img style="height: 140px;width: 60%;" src="{{asset('visa_document/'.$trip_people->visa_document)}}" alt="">
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>

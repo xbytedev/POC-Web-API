@@ -74,6 +74,7 @@
                     <th><b>Partner Id</b></th>
                     <th><b>Business Type</b></th>
                     <th><b>Amount Received</b></th>
+                    <th><b>Payment</b></th>
                     <th><b>Mode Of Payment</b></th>
                 </tr>
 
@@ -100,7 +101,7 @@
                         <td>@if(isset($payment_data->partner->name)) {{$payment_data->partner->name}} @endif</td>
                         
                         <td>{{$payment_data->partner->id}}</td>
-
+                        
                         @if(!empty($payment_data->partner->business_type))
                             <td>{{$payment_data->partner->business_type}}</td>
                         @else
@@ -108,6 +109,13 @@
                         @endif
 
                         <td>{{$payment_data->amount}}</td>
+
+                        @if($payment_data->card_paymant == 0)
+                            <td>Card Paymant</td>
+                        @else
+                            <td>Regular Payment</td>
+                        @endif
+                        
 
                         <td>Cash</td>
 
@@ -143,9 +151,7 @@
             dom: 'Bfrtip',
 
             buttons: [
-
                 'excel'
-
             ]
 
         });
@@ -199,17 +205,10 @@
                         )
 
                         location.reload();
-
                     }
-
                 });
-
             }
-
         })
-
     });
-
 </script>
-
 @endsection

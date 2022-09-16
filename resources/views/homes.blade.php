@@ -73,7 +73,7 @@
                         @endforeach
                     @else
                         <div class="col-md-12 text-center mt-5">
-                            <h2 style="color:red;">No any trip available <br> Please create your trip first.</h2>
+                            <h2 style="color:red;">You have no TRIPS yet! <br>Add a new Trip</h2>
                         </div>
                     @endif
                 </div>

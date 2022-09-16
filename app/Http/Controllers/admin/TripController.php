@@ -26,7 +26,7 @@ class TripController extends Controller
     }
 
     public function view_people_individual($id){
-        $trip_people = TripPeople::with('document_types','document_countrys','motivation_of_trips','mean_of_transports','orginating_form_countrys')->where('id',$id)->first();
+        $trip_people = TripPeople::with('document_types','document_countrys','motivation_of_trips','visa_motives','mean_of_transports','orginating_form_countrys','arrival_crossing','departure_crossing')->where('id',$id)->first();
         return view('admin.view_user_in_trip',compact('trip_people'));
     }
 }

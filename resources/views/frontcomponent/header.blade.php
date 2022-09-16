@@ -14,13 +14,13 @@
 
                         <span class="logo-sm">
 
-                            <img src="{{asset('front/img/logo-sm.png')}}" alt="" />
+                            <img src="{{asset('front/img/logo-sm.png')}}" alt=""/>
 
                         </span>
 
                         <span class="logo-lg">
 
-                            <img src="{{asset('front/img/logo-sm.png')}}" alt="" />
+                            <img src="{{asset('front/img/logo-sm.png')}}" alt=""/>
 
                         </span>
 
@@ -92,8 +92,6 @@
 
             </div>
 
-
-
             <div class="d-flex align-items-center">
 
                 <div class="dropdown ms-sm-3 header-item topbar-user">
@@ -101,13 +99,16 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         <span class="d-flex align-items-center">
-
-                            <img class="rounded-circle header-profile-user" src="{{asset('front/images/users/avatar-3.jpg')}}" alt="Header Avatar" />
+                            @if(isset($_SESSION['user']->image) && !empty($_SESSION['user']->image))
+                                <img class="rounded-circle header-profile-user" src="{{asset('profile_image/'.$_SESSION['user']->image)}}" alt="Header Avatar"/>
+                            @endif
 
                             <span class="text-start ms-xl-2">
 
                                 @if(isset($_SESSION['user']))
+
                                     <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{$_SESSION['user']->name}}</span>
+
                                 @endif
 
                             </span>
