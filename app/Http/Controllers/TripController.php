@@ -22,7 +22,9 @@ class TripController extends Controller
         $country = Country::all();
         $mean_of_transport = MeanOfTransport::all();
         $arrival_crossing_point = ArrivalCrossingPoint::all();
-        $user_list = TripPeople::whereIn('trip_id',$trip)->get();
+        $user_list_data = TripPeople::whereIn('trip_id',$trip)->get();
+        $user_list = $user_list_data->unique('contacts_email');
+        $user_list->all();
         return view('add_trip',compact('document_type','country','motivation_of_trip','mean_of_transport','arrival_crossing_point','user_list'));
     }
 
@@ -69,7 +71,6 @@ class TripController extends Controller
     }
 
      public function add_trip_TripPeople(Request $request){
-
         if(isset($_POST['add_person'])){
             if(!empty($request->trip_id)){
                 $check_user = RegisterUser::where('email',$request->contacts_email)->first();
@@ -124,7 +125,7 @@ class TripController extends Controller
 
                     $add_trip_people->motivation_of_trip = $request->motivation_of_trip;
                     $add_trip_people->mean_of_transport = $request->mean_of_transport;
-                    $add_trip_people->airline = $request->airline;                
+                    $add_trip_people->airline = $request->document_number_pnr;                
                     $add_trip_people->orginating_form_country = $request->originating_from_country;
                     $add_trip_people->orginating_form_city = $request->originating_from_city;
                     $add_trip_people->orginating_form_via = $request->originating_from_via;
@@ -193,7 +194,7 @@ class TripController extends Controller
                     }
                     $update_trip_people->motivation_of_trip = $request->motivation_of_trip;
                     $update_trip_people->mean_of_transport = $request->mean_of_transport;
-                    $update_trip_people->airline = $request->airline;
+                    $update_trip_people->airline = $request->document_number_pnr;
                     $update_trip_people->orginating_form_country = $request->originating_from_country;
                     $update_trip_people->orginating_form_city = $request->originating_from_city;
                     $update_trip_people->orginating_form_via = $request->originating_from_via;
@@ -271,7 +272,7 @@ class TripController extends Controller
 
                     $add_trip_people->motivation_of_trip = $request->motivation_of_trip;
                     $add_trip_people->mean_of_transport = $request->mean_of_transport;
-                    $add_trip_people->airline = $request->airline;                
+                    $add_trip_people->airline = $request->document_number_pnr;                
                     $add_trip_people->orginating_form_country = $request->originating_from_country;
                     $add_trip_people->orginating_form_city = $request->originating_from_city;
                     $add_trip_people->orginating_form_via = $request->originating_from_via;
@@ -340,7 +341,7 @@ class TripController extends Controller
                     }
                     $update_trip_people->motivation_of_trip = $request->motivation_of_trip;
                     $update_trip_people->mean_of_transport = $request->mean_of_transport;
-                    $update_trip_people->airline = $request->airline;
+                    $update_trip_people->airline = $request->document_number_pnr;
                     $update_trip_people->orginating_form_country = $request->originating_from_country;
                     $update_trip_people->orginating_form_city = $request->originating_from_city;
                     $update_trip_people->orginating_form_via = $request->originating_from_via;
@@ -395,7 +396,9 @@ class TripController extends Controller
     public function add_trip_wise_people($id){
         $trip = Trip::where('id',$id)->first();
         $trip_data = Trip::where('created_by',$_SESSION['user']->id)->pluck('id');
-        $user_list = TripPeople::whereIn('trip_id',$trip_data)->get();
+        $user_list_data = TripPeople::whereIn('trip_id',$trip_data)->get();
+        $user_list = $user_list_data->unique('contacts_email');
+        $user_list->all();
         $motivation_of_trip = MotivationOfTrip::all();
         $document_type = DocumentType::all();
         $country = Country::all();

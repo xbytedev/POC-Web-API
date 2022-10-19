@@ -67,12 +67,17 @@ class ApiController extends Controller
                 $check_password = RegisterUser::where('email',$request->email)->where('password',$request->password)->first();
                
                 if(!empty($check_password)){
-                    $add = new UserLogs;
-                    $add->user_id = $check_password->id;
-                    $add->save();
+                    if($check_password->status == 1){
+                        $add = new UserLogs;
+                        $add->user_id = $check_password->id;
+                        $add->save();
 
-                    $response = array('status'=>true,'message'=>'User verify successfully','id'=>$check_password->id);
-                    return response()->json($response);
+                        $response = array('status'=>true,'message'=>'User verify successfully','id'=>$check_password->id);
+                        return response()->json($response);
+                    }else{
+                        $response = array('status'=>false,'message'=>'User status is inactive','id'=>0);
+                        return response()->json($response);
+                    }
                 }else{
                     $response = array('status'=>false,'message'=>'Invalid password','id'=>0);
                     return response()->json($response);
@@ -602,27 +607,57 @@ class ApiController extends Controller
     }
 
     public function login_border_scanner_partner(Request $request){
-        $email = $request->email;
+       $email = $request->email;
         $password = $request->password;
         if(!empty($email) && !empty($password)){
             $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+            
             if(!empty($check_email_password)){
-                $details = rand(1000,9999);
-                $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
-                $update_user->otp = $details;
-                if($update_user->save()){
-                    Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
-                    $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+                if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
+                    $details = rand(1000,9999);
+                    $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                    $update_user->otp = $details;
+                    if($update_user->save()){
+                        Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
+                        $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+                    }else{
+                        $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>0,'role'=>'');
+                    }
                 }else{
-                    $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'','role'=>'');
+                    $response = array('status'=>false,'message'=>'User status inactive','user_id'=>0,'role'=>'');
                 }
             }else{
-                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>'','role'=>'');
+                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>0,'role'=>'');                
             }
         }else{
-            $response = array('status'=>false,'message'=>'Input data missing','user_id'=>'','role'=>'');
+            $response = array('status'=>false,'message'=>'Input data missing','user_id'=>0,'role'=>'');
         }
         return response()->json($response);
+        // $email = $request->email;
+        // $password = $request->password;
+        // if(!empty($email) && !empty($password)){
+        //     $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+        //     if($check_email_password->status == 1){
+        //         if(!empty($check_email_password)){
+        //             $details = rand(1000,9999);
+        //             $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+        //             $update_user->otp = $details;
+        //             if($update_user->save()){
+        //                 Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
+        //                 $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+        //             }else{
+        //                 $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'','role'=>'');
+        //             }
+        //         }else{
+        //             $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>'','role'=>'');
+        //         }
+        //     }else{
+        //         $response = array('status'=>false,'message'=>'User status inactive','user_id'=>'','role'=>'');
+        //     }
+        // }else{
+        //     $response = array('status'=>false,'message'=>'Input data missing','user_id'=>'','role'=>'');
+        // }
+        // return response()->json($response);
     }
 
     public function payment(Request $request){
@@ -1146,18 +1181,23 @@ class ApiController extends Controller
         $password = $request->password;
         if(!empty($email) && !empty($password)){
             $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+            
             if(!empty($check_email_password)){
-                $details = rand(1000,9999);
-                $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
-                $update_user->otp = $details;
-                if($update_user->save()){
-                    Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
-                    $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+                if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
+                    $details = rand(1000,9999);
+                    $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                    $update_user->otp = $details;
+                    if($update_user->save()){
+                        Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
+                        $response = array('status'=>true,'message'=>'User email and password match successfully','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+                    }else{
+                        $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'','role'=>'');
+                    }
                 }else{
-                    $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>'','role'=>'');
+                    $response = array('status'=>false,'message'=>'User status inactive','user_id'=>'','role'=>'');
                 }
             }else{
-                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>'','role'=>'');
+                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>'','role'=>'');                
             }
         }else{
             $response = array('status'=>false,'message'=>'Input data missing','user_id'=>'','role'=>'');
@@ -1226,6 +1266,9 @@ class ApiController extends Controller
         if(!empty($otp) && !empty($user_id)){
             $update_user = BorderScannerPartner::where('id',$user_id)->where('otp',$otp)->first();
             if(!empty($update_user)){
+                $add = new PartnerScannerLogs;
+                $add->partner_scanner_id = $user_id;                    
+                $add->save();
                 $response = array('status'=>true,'message'=>'OTP verify successfully','user_id'=>$user_id);
             }else{
                 $response = array('status'=>false,'message'=>'Your OTP wrong','user_id'=>'');
@@ -1257,5 +1300,33 @@ class ApiController extends Controller
     //         $response = array('status'=>false,'message'=>'Input data missing','user_id'=>'','role'=>'');
     //     }
     //     return response()->json($response);
+
+    // $partner_id = $request->partner_id;
+    // $email = $request->user_email;
+    // $partner_name = BorderScannerPartner::where('id',$partner_id)->first();
+    // $details['user_name'] = $request->user_name;
+    // $details['partner_name'] = $partner_name->name;
+    // $details['amount'] = $request->amount;        
+    // Mail::to($email)->send(new \App\Mail\SendPaymentReceipt($details));
+    // $response = array('status'=>true ,'Suceess');
+    // return response()->json($response);
     // }
+
+    public function send_payment_receipt_mail(Request $request){
+        $partner_id = $request->partner_id;
+        $user_id = $request->user_id;
+        $trip_id = $request->trip_id;
+        $partner_name = BorderScannerPartner::where('id',$partner_id)->first();
+        $trip_user_data = TripPeople::where('id',$user_id)->where('trip_id',$trip_id)->first();
+        if(!empty($trip_user_data) && !empty($partner_name)){
+            $details['user_name'] = $trip_user_data->name;            
+            $details['partner_name'] = $partner_name->name;
+            $details['amount'] = $request->amount;        
+            Mail::to($trip_user_data->contacts_email)->send(new \App\Mail\SendPaymentReceipt($details));
+            $response = array('status'=>true ,'message' => 'Suceess');
+        }else{
+            $response = array('status'=>false ,'message' => 'Something went wrong');
+        }
+        return response()->json($response);
+    }
 }

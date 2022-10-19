@@ -51,3 +51,4 @@ Route::post('/get_draft_trip_wise_peoples', [App\Http\Controllers\ApiController:
 Route::post('/check_email_and_sendOTP', [App\Http\Controllers\ApiController::class, 'check_email_and_sendOTP']);
 Route::post('/check_otp', [App\Http\Controllers\ApiController::class, 'check_otp']);
 Route::post('/border_scanner_partner_check_otp', [App\Http\Controllers\ApiController::class, 'border_scanner_partner_check_otp']);
+Route::post('/send_payment_receipt_mail', [App\Http\Controllers\ApiController::class, 'send_payment_receipt_mail']);

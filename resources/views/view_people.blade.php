@@ -93,13 +93,6 @@
 
                                             </div>
 
-                                            <div class="flex-grow-1">
-
-                                                <b>Issuing Country</b> 
-
-                                                <p class="mb-0">Tets</p>
-
-                                            </div>
 
                                         </div>
 

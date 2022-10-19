@@ -83,12 +83,11 @@
                                                 </div> -->
 
                                                 <div class="text-end">
-                                                    <button onclick="printDiv('printableArea')"
-                                                        class="btn btn-primary">Print</button><br><br>
+                                                    <button onclick="printDiv('printableArea')" class="btn btn-primary">Print</button><br><br>
                                                 </div>
                                                 <div class="row" id="printableArea">
                                                     @foreach ($trip_pepole as $trip_pepole_data)
-                                                        <div class="col-xl-6 col-md-6">
+                                                        <div class="col-xl-6 col-md-6" style="height: 266px;">
 
                                                             <div class="card card-animate">
 

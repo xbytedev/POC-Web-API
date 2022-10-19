@@ -396,14 +396,13 @@
                                                             <div class="col-md-6">
                                                                 <label for="address" class="form-label">Arrival
                                                                     Date</label>
-                                                                <input type="date" name="arrival_date"
+                                                                <input type="date" min="{{$trip->trip_start_date}}" max="{{$trip->trip_end_date}}" name="arrival_date"
                                                                     class="form-control arrival_date" id="address" />
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <label for="address" class="form-label">Departure
                                                                     Date</label>
-                                                                <input type="date" name="dep_date"
-                                                                    class="form-control dep_date" id="address" />
+                                                                <input type="date" name="dep_date" min="{{$trip->trip_start_date}}" max="{{$trip->trip_end_date}}" class="form-control dep_date" id="address" />
                                                             </div>
                                                         </div>
                                                         <br>
@@ -428,15 +427,10 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <label for="address" class="form-label">Arrival
-                                                                    Date</label>
-                                                                <input type="date" required
-                                                                    name="arrival_crossing_point_arrival_date"
-                                                                    class="form-control arrival_crossing_point_arrival_date"
-                                                                    id="address" />
+                                                                <label for="address" class="form-label">Arrival Date</label>
+                                                                <input type="date" min="{{$trip->trip_start_date}}" max="{{$trip->trip_end_date}}" required name="arrival_crossing_point_arrival_date" class="form-control arrival_crossing_point_arrival_date" id="address"/>
                                                             </div>
                                                         </div>
-
                                                         <br>
                                                         <h4>Departure Crossing Point</h4>
                                                         <div class="row">
@@ -461,7 +455,7 @@
                                                             <div class="col-md-6">
                                                                 <label for="address" class="form-label">Departure
                                                                     Date</label>
-                                                                <input type="date"
+                                                                <input type="date" min="{{$trip->trip_start_date}}" max="{{$trip->trip_end_date}}"
                                                                     name="departure_crossing_point_departure_date"
                                                                     class="form-control departure_crossing_point_departure_date"
                                                                     id="address" required />

@@ -199,11 +199,21 @@
                     <textarea name="" class="form-control" id="" rows="5">{{$trip_people->residence_address}}</textarea>
                 </div>
             </div>
-            @if(!empty($trip_people->visa_document))
+            @if(!empty($trip_people->document_id_data))
                 <div class="col-md-4 mt-2">
                     <div class="form-group">
                         <label for=""><b> Document</b></label><br>
-                        <img style="height: 140px;width: 60%;" src="{{asset('visa_document/'.$trip_people->visa_document)}}" alt="">
+                        <a target="_blank" href="{{asset('document_image/'.$trip_people->document_id_data)}}" class="btn btn-primary btn-sm">View</a>
+                        <img style="height: 140px;width: 60%;" src="{{asset('document_image/'.$trip_people->document_id_data)}}" alt="">
+                    </div>
+                </div>
+            @endif
+            @if(!empty($trip_people->document_image))
+                <div class="col-md-4 mt-2">
+                    <div class="form-group">
+                        <label for=""><b> Visa Document</b></label><br>
+                          <a target="_blank" href="{{asset('visa_document/'.$trip_people->document_image)}}" class="btn btn-primary btn-sm">View</a>
+                        <img style="height: 140px;width: 60%;" src="{{asset('visa_document/'.$trip_people->document_image)}}" alt="">
                     </div>
                 </div>
             @endif

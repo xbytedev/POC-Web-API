@@ -18,15 +18,19 @@ class LoginController extends Controller
             if(!empty($check_email)){
 
                 $check_password = RegisterUser::where('email',$request->email)->where('password',$request->password)->first();
-               
                 if(!empty($check_password)){
-                    $add = new UserLogs;
-                    $add->user_id = $check_password->id;                    
-                    $add->save();
-                    session_start();
-                    $_SESSION['user'] = $check_password;
-                    session()->flash('success','User verify successfully');
-                    return redirect('homes');
+                    if($check_password->status == 1){
+                        $add = new UserLogs;
+                        $add->user_id = $check_password->id;                    
+                        $add->save();
+                        session_start();
+                        $_SESSION['user'] = $check_password;
+                        session()->flash('success','User verify successfully');
+                        return redirect('homes');
+                    }else{
+                        session()->flash('error','User status is inactive');
+                        return redirect()->back();
+                    }
                 }else{
                     session()->flash('error','Invalid password');
                     return redirect()->back();

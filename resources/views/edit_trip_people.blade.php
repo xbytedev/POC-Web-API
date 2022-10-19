@@ -530,9 +530,7 @@
                                                             <label for="address" class="form-label">Document
                                                                 number/PNR</label>
 
-                                                            <input type="text" name="document_number_pnr"
-                                                                class="form-control" required
-                                                                placeholder="Document number/PNR">
+                                                            <input type="text" name="document_number_pnr" value="{{ $trip_people->airline }}" class="form-control" required placeholder="Document number/PNR">
 
                                                         </div>
 
