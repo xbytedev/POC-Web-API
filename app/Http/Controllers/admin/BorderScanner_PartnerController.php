@@ -178,5 +178,5 @@ class BorderScanner_PartnerController extends Controller
             session()->flash('error','Something went wrong');
             return redirect()->back();
         }
-    }
+    }   
 }

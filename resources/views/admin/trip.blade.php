@@ -27,17 +27,12 @@
 @if(Session::has('error'))
 
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>{{ Session::get('error') }}</strong></button>
-
 </div>
-
 @endif
 
 <div class="card">
-
     <div class="card-body">
-
         <form action="" class="mb-3" method="get">
             <div class="row">
                 <div class="col-md-3">
@@ -69,6 +64,8 @@
 
                     <th><b>Trip Name</b></th>
 
+                    <th><b>Trip Number</b></th>
+
                     <th><b>Created By</b></th>
 
                     <th><b>Start Date</b></th>
@@ -92,6 +89,8 @@
                         <td>{{$key+1}}</td>
 
                         <td>{{$trip_data->trip_name}}</td>
+
+                        <td>{{$trip_data->trip_number}}</td>
 
                         <td>@if(isset($trip_data->created_by_data->name)) {{$trip_data->created_by_data->name}} @endif</td>
 

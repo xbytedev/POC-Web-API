@@ -49,6 +49,8 @@
                     
                     <th><b>Trip</b></th>
 
+                    <th><b>Trip Number</b></th>
+
                     <th><b>Trip start date</b></th>
                     
                     <th><b>Trip end date</b></th>
@@ -67,6 +69,7 @@
                     <tr>
                         <td>{{$key+1}}</td>
                         <td>@if(isset($feedback_data->trips->trip_name)) {{$feedback_data->trips->trip_name}} @endif</td>
+                        <td>@if(isset($feedback_data->trips->trip_number)) {{$feedback_data->trips->trip_number}} @endif</td>
                         <td>@if(isset($feedback_data->trips->trip_start_date)) {{$feedback_data->trips->trip_start_date}} @endif</td>
                         <td>@if(isset($feedback_data->trips->trip_end_date)) {{$feedback_data->trips->trip_end_date}} @endif</td>
                         <td>

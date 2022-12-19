@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ use App\Models\ArrivalCrossingPoint;
 use App\Models\DepartureCrossingPoint;
 use App\Models\UserLogs;
 use App\Models\PartnerScannerLogs;
+use App\Models\ScanLogs;
 use File;
 use Mail;
 
@@ -664,6 +666,7 @@ class ApiController extends Controller
         $check_user_id = Trip::where('id',$request->trip_id)->where('created_by',$request->user_id)->first();
         $get_created_by_id = Trip::where('id',$request->trip_id)->first();
         $check_card_paymant = Payment::where('trip_id',$request->trip_id)->where('enduser_id',$get_created_by_id->created_by)->first();
+
         if(empty($check_card_paymant)){
             $card_paymant_status = 0;
         }else{
@@ -682,7 +685,14 @@ class ApiController extends Controller
         $payment->all_user_id_in_trip = $request->all_user_id_in_trip;
         $payment->status = $request->status;
         $payment->card_paymant = $card_paymant_status;
+        
         if($payment->save()){
+            $update_scan_log = ScanLogs::where('trip_id',$request->trip_id)->where('user_id',$request->user_id)->where('p_b_id',$request->partner_id)->orderBy('id','DESC')->first();
+            if(!empty($update_scan_log)){
+                $update_scan_log->payment = 1;
+                $update_scan_log->amt = $request->amount;
+                $update_scan_log->save();
+            }
             $response = array('status'=>true,'message'=>'Payment added successfully');
         }else{
             $response = array('status'=>false,'message'=>'Something went wrong');
@@ -711,6 +721,16 @@ class ApiController extends Controller
 
     public function check_payment(Request $request){
         $trip_id = $request->trip_id;
+        $user_id = $request->user_id;
+        $p_b_id = $request->p_b_id;
+        
+        if(!empty($trip_id) && !empty($user_id) && !empty($p_b_id)){
+            $add_scan_logs = new ScanLogs;
+            $add_scan_logs->trip_id = $trip_id;
+            $add_scan_logs->user_id = $user_id;
+            $add_scan_logs->p_b_id = $p_b_id;
+            $add_scan_logs->save();
+        }
         $trip_people = TripPeople::where('trip_id',$trip_id)->where('user_id','!=','')->pluck('user_id');
         $payment = Payment::where('trip_id',$trip_id)->where('status','paid')->first();
         if(!empty($payment)){
@@ -1059,7 +1079,11 @@ class ApiController extends Controller
                 $trip_peo['family_name'] = $trip_people_datas->family_name;
                 $trip_peo['gender'] = $trip_people_datas->gender;
                 $trip_peo['dob'] = $trip_people_datas->dob;
-                $trip_peo['document_type'] = $trip_people_datas->document_types->name;
+                if(isset($trip_people_datas->document_types->name)){
+                    $trip_peo['document_type'] = $trip_people_datas->document_types->name;
+                }else{
+                    $trip_peo['document_type'] = '';
+                }
                 $trip_peo['document_number'] = $trip_people_datas->document_number;
                 $trip_peo['valid_untill'] = $trip_people_datas->valid_untill;
                 if(!empty($trip_people_datas->document_countrys->name)){

@@ -27,6 +27,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <b class="">No. {{$payment_data->trip->trip_number}}</b><br>
                                         <b class="">{{$payment_data->trip->trip_name}} @if($payment_data->card_paymant == 0) (Card Payment) @endif</b>
                                     </div>
 

@@ -54,11 +54,12 @@ Route::get('/view_people_individual/{id}', [App\Http\Controllers\admin\TripContr
 
 // PaymentController
 Route::get('/payment_list', [App\Http\Controllers\admin\PaymentController::class, 'payment_list'])->middleware("auth");
-Route::get('/user_payment_list', [App\Http\Controllers\admin\PaymentController::class, 'get_payment_list_frontside'])->middleware("auth");
+Route::get('/user_payment_list', [App\Http\Controllers\admin\PaymentController::class, 'get_payment_list_frontside'])->middleware("checklogin");
 
 // LogsController
 Route::get('/user_logs', [App\Http\Controllers\admin\LogsController::class, 'user_logs'])->middleware("auth");
 Route::get('/border_patner_logs', [App\Http\Controllers\admin\LogsController::class, 'border_patner_logs'])->middleware("auth");
+Route::get('/scan_logs_list', [App\Http\Controllers\admin\LogsController::class, 'scan_logs'])->middleware("auth");
 
 
 // front side route start 

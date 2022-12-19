@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Users')
+@section('title','Payment')
 
 @section('content')
 
@@ -16,9 +16,9 @@
 
 <div class="alert alert-primary">
 
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 
-  <strong>{{Session::get('success')}}</strong>
+    <strong>{{Session::get('success')}}</strong>
 
 </div>
 
@@ -62,14 +62,12 @@
         </form>
 
         <table id="example" class="table table-striped text-left border" style="width:100%">
-
             <thead class="border">
-
                 <tr>
                     <th><b>Sr.No</b></th>
                     <th><b>Date</b></th>
                     <th><b>Trip Name</b></th>
-                    <th><b>User Name</b></th>
+                    <th><b>Trip Number</b></th>
                     <th><b>Partner Name</b></th>
                     <th><b>Partner Id</b></th>
                     <th><b>Business Type</b></th>
@@ -77,26 +75,20 @@
                     <th><b>Payment</b></th>
                     <th><b>Mode Of Payment</b></th>
                 </tr>
-
             </thead>
 
             <tbody class="border">
-
                 @foreach($payment as $key=> $payment_data)
-
                     <tr>
-
                         <td>{{$key+1}}</td>
-
                         <td>{{$payment_data->created_at}}</td>
-
                         @if(isset($payment_data->trip->trip_name))
                             <td>{{$payment_data->trip->trip_name}}</td>
                         @else
                             <td></td>
                         @endif
-                        
-                        <td>@if(isset($payment_data->end_user->name)) {{$payment_data->end_user->name}} @endif</td>
+
+                        <td>@if(isset($payment_data->trip->trip_number)) {{$payment_data->trip->trip_number}} @endif</td>
 
                         <td>@if(isset($payment_data->partner->name)) {{$payment_data->partner->name}} @endif</td>
                         
@@ -116,20 +108,12 @@
                             <td>Regular Payment</td>
                         @endif
                         
-
                         <td>Cash</td>
-
-
                     </tr>
-
                 @endforeach
-
             </tbody>
-
         </table>
-
     </div>
-
 </div>
 
 @endsection

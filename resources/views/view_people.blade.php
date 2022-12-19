@@ -9,10 +9,11 @@
         <div class="col">
 
             <div class="h-100">
-
-                <div class="col-auto">
-                    <a href="{{url('add_trip_wise_people/'.request('id'))}}" class="btn theme-btn text-white"> <i class="ri-add-circle-line align-middle me-1"></i> Add People</a>
-                </div>
+                @if($trip->trip_status != 'active')
+                    <div class="col-auto">
+                        <a href="{{url('add_trip_wise_people/'.request('id'))}}" class="btn theme-btn text-white"> <i class="ri-add-circle-line align-middle me-1"></i> Add People</a>
+                    </div>
+                @endif
 
                 <div class="row">
 
@@ -41,23 +42,23 @@
 
                                         <div class="d-flex align-items-center my-3">
 
-                                                <div class="flex-grow-1">
+                                            <div class="flex-grow-1">
 
-                                                    <b>Family Name</b> 
+                                                <b>Family Name</b> 
 
-                                                    <p class="mb-0" >{{$trip_people_data->family_name}}</p>
+                                                <p class="mb-0" >{{$trip_people_data->family_name}}</p>
 
-                                                </div>
+                                            </div>
 
-                                            
+                                        
 
-                                                <div class="flex-grow-1">
+                                            <div class="flex-grow-1">
 
-                                                    <b>Birth Date</b> 
+                                                <b>Birth Date</b> 
 
-                                                    <p class="mb-0">{{$trip_people_data->dob}}</p>
+                                                <p class="mb-0">{{$trip_people_data->dob}}</p>
 
-                                                </div>
+                                            </div>
 
                                         </div>
 
@@ -67,7 +68,7 @@
 
                                                 <b>ID Type</b> 
 
-                                                <p class="mb-0" >{{$trip_people_data->document_types->name}}</p>
+                                                <p class="mb-0" >@if(isset($trip_people_data->document_types->name)) {{$trip_people_data->document_types->name}} @endif</p>
 
                                             </div>
 
