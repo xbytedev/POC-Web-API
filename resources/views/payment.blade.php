@@ -37,7 +37,7 @@
                                         <button class="nav-link cards" id="v-pills-finish-tab" data-bs-toggle="pill"
                                             data-bs-target="#v-pills-finish" type="button" role="tab"
                                             aria-controls="v-pills-finish" aria-selected="false"
-                                            @if ($trip->status == 'active') disabled @endif>
+                                            @if ($trip->trip_status != 'active') disabled @endif>
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 4 Get Card
@@ -48,7 +48,7 @@
                                 <div class="col-lg-9 mx-auto">
                                     <div class="px-lg-4">
                                         <div class="tab-content">
-                                            <!-- end tab pane -->
+                                            <!-- end tab pane -->   
                                             <div class="tab-pane active" id="v-pills-payment" role="tabpanel"
                                                 aria-labelledby="v-pills-payment-tab">
                                                 <h5>Now you can proceed to payment of the eTourist card for you/your party!

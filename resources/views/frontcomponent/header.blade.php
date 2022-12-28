@@ -26,8 +26,6 @@
 
                     </a>
 
-
-
                     <a href="{{url('homes')}}" class="logo logo-light">
 
                         <span class="logo-sm">
@@ -47,8 +45,6 @@
                 </div>
 
             </div>
-
-
 
             <div class="app-menu navbar-menu">
 
