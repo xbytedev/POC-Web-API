@@ -53,3 +53,5 @@ Route::post('/check_otp', [App\Http\Controllers\ApiController::class, 'check_otp
 Route::post('/border_scanner_partner_check_otp', [App\Http\Controllers\ApiController::class, 'border_scanner_partner_check_otp']);
 Route::post('/send_payment_receipt_mail', [App\Http\Controllers\ApiController::class, 'send_payment_receipt_mail']);
 Route::post('/scan_logs', [App\Http\Controllers\ApiController::class, 'scan_logs']);
+Route::post('/create_group', [App\Http\Controllers\ApiController::class, 'create_group']);
+Route::post('/group_list', [App\Http\Controllers\ApiController::class, 'group_list']);

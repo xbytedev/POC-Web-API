@@ -19,6 +19,7 @@ use App\Models\DepartureCrossingPoint;
 use App\Models\UserLogs;
 use App\Models\PartnerScannerLogs;
 use App\Models\ScanLogs;
+use App\Models\Group;
 use File;
 use Mail;
 
@@ -1393,6 +1394,42 @@ class ApiController extends Controller
             $response = array('status'=>true ,'message' => 'Suceess');
         }else{
             $response = array('status'=>false ,'message' => 'Something went wrong');
+        }
+        return response()->json($response);
+    }
+
+    public function create_group(Request $request){
+        $name = $request->name;
+        $partner_id = $request->partner_id;
+
+        if(!empty($partner_id) && !empty($name)){
+            $add = new Group;
+            $add->name = $name;
+            $add->partner_id = $partner_id;
+            if($add->save()){
+                $response = array('status'=>true ,'message' => 'Group created successfully');
+            }else{
+                $response = array('status'=>false ,'message' => 'Something went wrong');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'some required field missing');
+        }
+        return response()->json($response);
+    }
+
+
+    public function group_list(Request $request){
+        $partner_id = $request->partner_id;
+        
+        if(!empty($partner_id)){
+            $datas = Group::where(['status'=>0,'partner_id'=>$partner_id])->get();
+            if($datas){
+                $response = array('status'=>true ,'data' => $datas);
+            }else{
+                $response = array('status'=>false ,'data' => []);
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'some required field missing');
         }
         return response()->json($response);
     }
