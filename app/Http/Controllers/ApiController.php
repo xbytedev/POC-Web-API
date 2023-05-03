@@ -1110,7 +1110,7 @@ class ApiController extends Controller
                 }else{
                     $trip_peo['residence_country'] = '';
                 }
-                
+
                 $trip_peo['residence_city'] = $trip_people_datas->residence_city;
                 $trip_peo['residence_post_code'] = $trip_people_datas->residence_post_code;
                 $trip_peo['contacts_email'] = $trip_people_datas->contacts_email;
@@ -1324,7 +1324,7 @@ class ApiController extends Controller
         }else{
             $response = array('status'=>false,'message'=>'Please Enter OTP','user_id'=>'');
         }
-         return response()->json($response);
+        return response()->json($response);
     }
 
     public function border_scanner_partner_check_otp(Request $request){
