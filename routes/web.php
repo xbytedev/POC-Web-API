@@ -19,7 +19,11 @@ Route::get('/', function () {
 Auth::routes();
 
 // HomeController
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashbord', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    return  view('admin.home');
+});
+
 
 // SendMailController
 Route::get('/forgot_password', [App\Http\Controllers\SendMailController::class, 'forgot_password']);
@@ -60,6 +64,11 @@ Route::get('/user_payment_list', [App\Http\Controllers\admin\PaymentController::
 Route::get('/user_logs', [App\Http\Controllers\admin\LogsController::class, 'user_logs'])->middleware("auth");
 Route::get('/border_patner_logs', [App\Http\Controllers\admin\LogsController::class, 'border_patner_logs'])->middleware("auth");
 Route::get('/scan_logs_list', [App\Http\Controllers\admin\LogsController::class, 'scan_logs'])->middleware("auth");
+
+// AgentController
+Route::get('/agent', [App\Http\Controllers\admin\AgentController::class, 'index'])->middleware("auth");
+Route::get('/add_agent', [App\Http\Controllers\admin\AgentController::class, 'add_agent'])->middleware("auth");
+
 
 
 // front side route start 
