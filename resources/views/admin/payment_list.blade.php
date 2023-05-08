@@ -85,19 +85,23 @@
                         @if(isset($payment_data->trip->trip_name))
                             <td>{{$payment_data->trip->trip_name}}</td>
                         @else
-                            <td></td>
+                            <td>-</td>
                         @endif
 
                         <td>@if(isset($payment_data->trip->trip_number)) {{$payment_data->trip->trip_number}} @endif</td>
 
                         <td>@if(isset($payment_data->partner->name)) {{$payment_data->partner->name}} @endif</td>
                         
-                        <td>{{$payment_data->partner->id}}</td>
+                        @if(isset($payment_data->partner->id))
+                            <td>{{$payment_data->partner->id}}</td>
+                        @else
+                            <td>-</td>
+                        @endif
                         
                         @if(!empty($payment_data->partner->business_type))
                             <td>{{$payment_data->partner->business_type}}</td>
                         @else
-                            <td></td>
+                            <td>-</td>
                         @endif
 
                         <td>{{$payment_data->amount}}</td>

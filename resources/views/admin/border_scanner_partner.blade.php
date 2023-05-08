@@ -70,7 +70,6 @@
     </div>
 
     <div class="card-body">
-
         <table id="example" class="table table-striped text-left border" style="width:100%">
 
             <thead class="border">

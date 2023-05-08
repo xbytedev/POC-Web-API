@@ -198,7 +198,6 @@
 
                     </div>
                 @endcan
-
                 @can('partner screen')
                     <div class="menu-item">
                         <a class="menu-link @if(Request::segment(1) == 'agent') active @endif" href="{{url('agent')}}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">

@@ -11,7 +11,7 @@ class PartnerScannerLogs extends Model
     protected $table = 'partner_scanner_logs';
 
     public function partnerscanner_data(){
-        return $this->hasOne(BorderScannerPartner::class, 'id', 'partner_scanner_id');
+        return $this->hasOne(User::class, 'id', 'partner_scanner_id');
     }
 
 }

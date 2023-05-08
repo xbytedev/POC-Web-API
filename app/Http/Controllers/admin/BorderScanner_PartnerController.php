@@ -6,19 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\RegisterUser;
 use App\Models\Country;
-use App\Models\BorderScannerPartner;
+use App\Models\User;
 use File;
+use Hash;
 
 
 class BorderScanner_PartnerController extends Controller
 {
+
     public function border_scanner_partner(){
         if(!empty($_REQUEST['to_date']) && !empty($_REQUEST['from_date'])){
             $from_date = $_REQUEST['from_date'];
             $to_date = $_REQUEST['to_date'];
-            $scanner_partner = BorderScannerPartner::whereBetween('created_at', [$from_date, $to_date])->get();
+            $scanner_partner = User::where('role', '!=' , 'admin')->where('role', '!=' , 'agent')->whereBetween('created_at', [$from_date, $to_date])->get();
         }else{
-            $scanner_partner = BorderScannerPartner::all();
+            $scanner_partner = User::where('role', '!=' , 'admin')->where('role', '!=' , 'agent')->get();
         }
         return view('admin.border_scanner_partner',compact('scanner_partner'));
     }
@@ -30,14 +32,15 @@ class BorderScanner_PartnerController extends Controller
 
     public function add_user_border_scanner_partner(Request $request){
         $this->validate($request,[
-            'email' => 'unique:border_scanner_partner,email',
+            'email' => 'unique:users,email',
         ]);
 
-        $add = new BorderScannerPartner;
+        $add = new User;
         $add->name = $request->name;
         $add->email = $request->email;
         $add->number = $request->number;
-        $add->password = $request->password;
+        $add->view_password = $request->password;
+        $add->password = Hash::make($request->password);
         $add->location = $request->location;
         $add->role = $request->role;
         $add->document_name = $request->document_name;
@@ -57,6 +60,7 @@ class BorderScanner_PartnerController extends Controller
             $image->move($destinationPath, $name);
             $add->image = $name;
         }
+        
         if($request->role != 'border_scanner'){
             $add->business_name = $request->business_name;
             $add->business_type = $request->business_type;
@@ -69,7 +73,7 @@ class BorderScanner_PartnerController extends Controller
                 $add->business_logo = $name;
             }
         }
-        
+
         $add->country = $request->country;
         $add->state = $request->state;
         $add->city = $request->city;
@@ -80,8 +84,10 @@ class BorderScanner_PartnerController extends Controller
         }else{
             $add->status = 0;
         }
-
         if($add->save()){
+            if($request->role == 'partner'){
+                $add->assignRole('partner');
+            }
             session()->flash('success','User created successfully');
             return redirect('border_scanner_partner');
         }else{
@@ -91,7 +97,7 @@ class BorderScanner_PartnerController extends Controller
     }
 
     public function edit_scanner_partner($id){
-        $edit_scanner_partner = BorderScannerPartner::where('id',$id)->first();
+        $edit_scanner_partner = User::where('id',$id)->first();
         $country = Country::all();
         return view('admin.edit_border_scanner_partner',compact('edit_scanner_partner','country'));
     }
@@ -99,10 +105,10 @@ class BorderScanner_PartnerController extends Controller
     public function update_scanner_partner(Request $request,$id){
         
         $this->validate($request,[
-            'email' => 'unique:border_scanner_partner,email,'.$id,
+            'email' => 'unique:users,email,'.$id,
         ]);
 
-        $add = BorderScannerPartner::where('id',$id)->first();
+        $add = User::where('id',$id)->first();
         $add->name = $request->name;
         $add->email = $request->email;
         $add->number = $request->number;
@@ -111,14 +117,13 @@ class BorderScanner_PartnerController extends Controller
         $add->document_name = $request->document_name;
 
         if($request->hasFile('document_image')){
-
             if(!empty($add->image)){
                 $imagePath = public_path('document_image/'.$add->document_image);
                 if(File::exists($imagePath)){
                     unlink($imagePath);
                 }
             }
-            
+
             $image = $request->file('document_image');
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/document_image');
@@ -178,5 +183,5 @@ class BorderScanner_PartnerController extends Controller
             session()->flash('error','Something went wrong');
             return redirect()->back();
         }
-    }   
+    }
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\RegisterUser;
 
-use App\Models\BorderScannerPartner;
+use App\Models\User;
 
 use App\Models\Payment;
 
@@ -30,11 +30,11 @@ class HomeController extends Controller
     public function index()
     {
         $user_count = RegisterUser::all()->count();
-        $scanner = BorderScannerPartner::where('role','border_scanner')->count();
-        $accommodation = BorderScannerPartner::where('business_type','accommodation')->where('role','partner')->count();
-        $hospitality = BorderScannerPartner::where('business_type','hospitality')->where('role','partner')->count();
-        $attraction = BorderScannerPartner::where('business_type','attraction')->where('role','partner')->count();
-        $partner = BorderScannerPartner::where('role','partner')->count();
+        $scanner = User::where('role','border_scanner')->count();
+        $accommodation = User::where('business_type','accommodation')->where('role','partner')->count();
+        $hospitality = User::where('business_type','hospitality')->where('role','partner')->count();
+        $attraction = User::where('business_type','attraction')->where('role','partner')->count();
+        $partner = User::where('role','partner')->count();
         $payment = Payment::all()->sum('amount');
         return view('admin.dashbord',compact('user_count','partner','scanner','payment','accommodation','attraction','hospitality'));
     }

@@ -20,7 +20,7 @@ class ScanLogs extends Model
     }
 
     public function border_scanner_partner(){
-        return $this->hasOne(BorderScannerPartner::class, 'id', 'p_b_id');
+        return $this->hasOne(User::class, 'id', 'p_b_id');
     }
 
 }

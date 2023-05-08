@@ -50,6 +50,7 @@
 
     <div class="card-body">
 
+        
         <table id="example" class="table table-striped text-left border" style="width:100%">
 
             <thead class="border">
@@ -61,6 +62,8 @@
                     <th><b>Username</b></th>
 
                     <th><b>Name</b></th>
+
+                    <th><b>Created By</b></th>
 
                     <th><b>Date</b></th>
 
@@ -74,6 +77,17 @@
 
             <tbody class="border">
 
+                @foreach($agent as $key=> $agent_data)
+                    <tr>
+                        <td>{{$key+1}}</td>
+                        <td>{{$agent_data->email}}</td>
+                        <td>{{$agent_data->name}}</td>
+                        <td>{{$agent_data->created_by_name->name}}</td>
+                        <td>{{date('d-m-Y', strtotime($agent_data->created_at))}}</td>
+                        <td>@if($agent_data->status == 1) <p style="color:green">Active</p> @else <p style="color:red">Deactive<p> @endif</td>
+                        <th><b> <a href="{{url('edit_agent/'.$agent_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></b></th>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

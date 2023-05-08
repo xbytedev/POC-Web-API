@@ -68,7 +68,9 @@ Route::get('/scan_logs_list', [App\Http\Controllers\admin\LogsController::class,
 // AgentController
 Route::get('/agent', [App\Http\Controllers\admin\AgentController::class, 'index'])->middleware("auth");
 Route::get('/add_agent', [App\Http\Controllers\admin\AgentController::class, 'add_agent'])->middleware("auth");
-
+Route::get('/edit_agent/{id}', [App\Http\Controllers\admin\AgentController::class, 'edit_agent'])->middleware("auth");
+Route::post('/update_agent/{id}', [App\Http\Controllers\admin\AgentController::class, 'update_agent'])->middleware("auth");
+Route::post('/insert_agent', [App\Http\Controllers\admin\AgentController::class, 'insert_agent'])->middleware("auth");
 
 
 // front side route start 

@@ -63,7 +63,7 @@
 
     <div class="card-body">
 
-    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('insert_border_scanner_partner')}}">
+    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('insert_agent')}}">
 
         @csrf
 
@@ -151,17 +151,6 @@
             
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Role</label>
-                    <select class="form-control p-2 role" required name="role" id="">
-                        <option value="">Select Role</option>
-                        <option value="border_scanner">Border Scanner</option>
-                        <option value="partner">Partner</option>
-                    </select>
-                </div><br>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
                     <label for="exampleInputEmail1">Document name</label>
                     <input type="text" class="form-control" required name="document_name" placeholder="Document name">
                 </div>
@@ -173,20 +162,33 @@
                     <input type="file" name="document_image" required class="form-control p-2" id="exampleInputEmail1">
                 </div><br>
             </div>
-
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Country</label>
+                    <select class="form-control p-2" name="country" id="">
+                        <option value="">Select Country</option>
+                        @foreach($country as $country_data) 
+                            <option value="{{$country_data->name}}">{{$country_data->name}}</option>
+                        @endforeach
+                    </select>
+                </div><br>
+            </div>
         </div>
 
-        <div class="row appen_csc">
-            
-        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">State</label>
+                    <input type="text" name="state" required class="form-control" id="exampleInputEmail1" placeholder="State">
+                </div><br>
+            </div>
 
-        <div class="row append_data">
-
-
-        </div>
-
-        <div class="row appen_csc_for_patner">
-            
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">City</label>
+                    <input type="text" name="city" required class="form-control" id="exampleInputEmail1" placeholder="City">
+                </div><br>
+            </div>
         </div>
 
         <div class="form-group form-check">
@@ -197,7 +199,9 @@
 
         </div><br>
 
-        <button type="submit" class="btn btn-primary">Submit</button> <a href="{{url('agent')}}" class="btn btn-danger">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button> 
+        
+        <a href="{{url('agent')}}" class="btn btn-danger">Cancel</a>
 
         </form>
 

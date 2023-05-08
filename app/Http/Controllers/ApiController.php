@@ -10,9 +10,8 @@ use App\Models\Country;
 use App\Models\DocumentType;
 use App\Models\MotivationOfTrip;
 use App\Models\MeanOfTransport;
-use App\Models\BorderScannerPartner;
-use App\Models\Payment;
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\TripPeopleDocument;
 use App\Models\ArrivalCrossingPoint;
 use App\Models\DepartureCrossingPoint;
@@ -617,18 +616,18 @@ class ApiController extends Controller
        $email = $request->email;
         $password = $request->password;
         if(!empty($email) && !empty($password)){
-            $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+            $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
             if(!empty($check_email_password)){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
-                        $user_details = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                        $user_details = User::where('email',$check_email_password->email)->first();
                         $response = array('status'=>true,'message'=>'OTP has been sent to the registered email id','role'=>$check_email_password->role,'user_id'=>$user_details->id);
                     }elseif($email == 'testidpartner@gmail.com'){
-                        $user_details = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                        $user_details = User::where('email',$check_email_password->email)->first();
                         $response = array('status'=>true,'message'=>'OTP has been sent to the registered email id','role'=>$check_email_password->role,'user_id'=>$user_details->id);
                     }else{
                         $details = rand(1000,9999);
-                        $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                        $update_user = User::where('email',$check_email_password->email)->first();
                         $update_user->otp = $details;
                         if($update_user->save()){
                             Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
@@ -650,11 +649,11 @@ class ApiController extends Controller
         // $email = $request->email;
         // $password = $request->password;
         // if(!empty($email) && !empty($password)){
-        //     $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+        //     $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
         //     if($check_email_password->status == 1){
         //         if(!empty($check_email_password)){
         //             $details = rand(1000,9999);
-        //             $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+        //             $update_user = User::where('email',$check_email_password->email)->first();
         //             $update_user->otp = $details;
         //             if($update_user->save()){
         //                 Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
@@ -1205,18 +1204,18 @@ class ApiController extends Controller
         $password = $request->password;
 
         if(!empty($email) && !empty($password)){
-            $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+            $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
             if(!empty($check_email_password)){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
-                        $user_details = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                        $user_details = User::where('email',$check_email_password->email)->first();
                         $response = array('status'=>true,'message'=>'OTP has been sent to the registered email id','role'=>$check_email_password->role,'user_id'=>$user_details->id);
                     }elseif($email == 'testidpartner@gmail.com'){
-                        $user_details = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                        $user_details = User::where('email',$check_email_password->email)->first();
                         $response = array('status'=>true,'message'=>'OTP has been sent to the registered email id','role'=>$check_email_password->role,'user_id'=>$user_details->id);
                     }else{
                         $details = rand(1000,9999);
-                        $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+                        $update_user = User::where('email',$check_email_password->email)->first();
                         $update_user->otp = $details;
                         if($update_user->save()){
                             Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
@@ -1239,19 +1238,19 @@ class ApiController extends Controller
         // $email = $request->email;
         // $password = $request->password;
         // if(!empty($email) && !empty($password)){
-        //     $check_email_password = BorderScannerPartner::where('email',$email)->where('password',$password)->first();
+        //     $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
         //     print_r($check_email_password);
         //     if(!empty($check_email_password)){
         //         if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
         //             if($email == 'testid@gmail.com'){
-        //                 $user_details = BorderScannerPartner::where('email',$check_email_password->email)->first();
+        //                 $user_details = User::where('email',$check_email_password->email)->first();
         //                 $response = array('status'=>true,'message'=>'OTP has been sent to the registered email id','role'=>$check_email_password->role,'user_id'=>$user_details->id);
         //             }elseif($email == 'testidpartner@gmail.com'){
-        //                 $user_details = BorderScannerPartner::where('email',$check_email_password->email)->first();
+        //                 $user_details = User::where('email',$check_email_password->email)->first();
         //                 $response = array('status'=>true,'message'=>'OTP has been sent to the registered email id','role'=>$check_email_password->role,'user_id'=>$user_details->id);
         //             }else{
         //                 $details = rand(1000,9999);
-        //                 $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+        //                 $update_user = User::where('email',$check_email_password->email)->first();
         //                 $update_user->otp = $details;
         //                 if($update_user->save()){
         //                     Mail::to($email)->send(new \App\Mail\PartnerScannerOTP($details));
@@ -1331,7 +1330,7 @@ class ApiController extends Controller
         $user_id = $request->user_id;
         $otp = $request->otp;
         if(!empty($otp) && !empty($user_id)){
-            $update_user = BorderScannerPartner::where('id',$user_id)->where('otp',$otp)->first();
+            $update_user = User::where('id',$user_id)->where('otp',$otp)->first();
             if(!empty($update_user)){
                 $add = new PartnerScannerLogs;
                 $add->partner_scanner_id = $user_id;
@@ -1349,10 +1348,10 @@ class ApiController extends Controller
     // public function border_scanner_partner_reset_password(Request $request){
     //     $email = $request->email;
     //     if(!empty($email)){
-    //         $check_email_password = BorderScannerPartner::where('email',$email)->first();
+    //         $check_email_password = User::where('email',$email)->first();
     //         if(!empty($check_email_password)){
     //             $details = rand(1000,9999);
-    //             $update_user = BorderScannerPartner::where('email',$check_email_password->email)->first();
+    //             $update_user = User::where('email',$check_email_password->email)->first();
     //             $update_user->otp = $details;
     //             if($update_user->save()){
     //                 Mail::to($email)->send(new \App\Mail\SendOTP($details));
@@ -1370,7 +1369,7 @@ class ApiController extends Controller
 
     // $partner_id = $request->partner_id;
     // $email = $request->user_email;
-    // $partner_name = BorderScannerPartner::where('id',$partner_id)->first();
+    // $partner_name = User::where('id',$partner_id)->first();
     // $details['user_name'] = $request->user_name;
     // $details['partner_name'] = $partner_name->name;
     // $details['amount'] = $request->amount;        
@@ -1383,7 +1382,7 @@ class ApiController extends Controller
         $partner_id = $request->partner_id;
         $user_id = $request->user_id;
         $trip_id = $request->trip_id;
-        $partner_name = BorderScannerPartner::where('id',$partner_id)->first();
+        $partner_name = User::where('id',$partner_id)->first();
         $trip_user_data = TripPeople::where('id',$user_id)->where('trip_id',$trip_id)->first();
         if(!empty($trip_user_data) && !empty($partner_name)){
             $details['user_name'] = $trip_user_data->name;            

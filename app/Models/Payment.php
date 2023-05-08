@@ -15,11 +15,11 @@ class Payment extends Model
     }
 
     public function partner(){
-        return $this->hasOne(BorderScannerPartner::class,'id','partner_id');
+        return $this->hasOne(User::class,'id','partner_id');
     }
 
     public function trip(){
         return $this->hasOne(Trip::class,'id','trip_id');
-    }   
+    }
 
 }
