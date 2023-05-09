@@ -690,6 +690,7 @@ class ApiController extends Controller
         }else{
             $payment->enduser_id = $get_created_by_id->created_by;
         }
+        
         $payment->partner_id = $request->partner_id;
         $payment->business_type = $request->business_type;
         $payment->trip_id = $request->trip_id;
@@ -1414,7 +1415,6 @@ class ApiController extends Controller
         }
         return response()->json($response);
     }
-
 
     public function group_list(Request $request){
         $partner_id = $request->partner_id;

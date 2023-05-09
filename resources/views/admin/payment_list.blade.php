@@ -97,7 +97,7 @@
                         @else
                             <td>-</td>
                         @endif
-                        
+
                         @if(!empty($payment_data->partner->business_type))
                             <td>{{$payment_data->partner->business_type}}</td>
                         @else
