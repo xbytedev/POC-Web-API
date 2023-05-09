@@ -23,6 +23,10 @@ Route::get('/home', function () {
 });
 // HomeController
 Route::group(['middleware' => ['role:admin']], function () {
+
+    Route::get('/add_arrival_crossing', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'index']);
+    Route::get('/manage_arrival', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'manage_arrival']);
+
     Route::get('/dashbord', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // SendMailController
     Route::get('/forgot_password', [App\Http\Controllers\SendMailController::class, 'forgot_password']);
