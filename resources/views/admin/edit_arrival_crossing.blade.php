@@ -63,7 +63,7 @@
 
         <div class="card-body">
 
-        <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('insert_agent')}}">
+        <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('arrival_crossing_update/'.$crossing_point->id)}}">
 
             @csrf
 
@@ -75,7 +75,7 @@
 
                         <label for="exampleInputEmail1">Name</label>
 
-                        <input type="text" name="name" required class="form-control" id="exampleInputEmail1" placeholder="Name">
+                        <input type="text" name="name" value="{{$crossing_point->name}}" required class="form-control" id="exampleInputEmail1" placeholder="Name">
 
                     </div><br>
 

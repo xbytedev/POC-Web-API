@@ -19,7 +19,7 @@ class ArrivalCrossingPointController extends Controller
         return view('admin.arrival_crossing',compact('crossing_point'));
     }
 
-    public function arrival_crossing_insert()
+    public function arrival_crossing_insert(Request $request)
     {
         $insert_point = new ArrivalCrossingPoint;
         $insert_point->name = $request->name;
@@ -32,4 +32,25 @@ class ArrivalCrossingPointController extends Controller
         }
         
     }
+
+    public function arrival_crossing_update(Request $request,$id)
+    {
+        $insert_point = ArrivalCrossingPoint::where('id',$id)->first();
+        $insert_point->name = $request->name;
+        if($insert_point->save()){
+            session()->flash('success','Updated successfully');
+            return redirect('manage_arrival');
+        }else{
+            session()->flash('error','Something went wrong');
+            return redirect()->back();
+        }
+    }
+
+    public function edit_manage_arrival($id)
+    {
+        $id = base64_decode($id);
+        $crossing_point = ArrivalCrossingPoint::where('id',$id)->first();
+        return view('admin.edit_arrival_crossing',compact('crossing_point'));
+    }
+
 }

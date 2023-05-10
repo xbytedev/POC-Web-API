@@ -71,7 +71,7 @@
                     <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$crossing_point_data->name}}</td>
-                        <td><a href="{{url('edit_agent/'.$crossing_point_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
+                        <td><a href="{{url('edit_manage_arrival/'.base64_encode($crossing_point_data->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
                     </tr>
                 @endforeach
             </tbody>
@@ -92,7 +92,7 @@
 
         $('#example').DataTable({
 
-            "order": [[ 5, "asc" ]],
+            "order": [[ 1, "asc" ]],
 
             dom: 'Bfrtip',
 

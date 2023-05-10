@@ -26,6 +26,10 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     Route::get('/add_arrival_crossing', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'index']);
     Route::get('/manage_arrival', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'manage_arrival']);
+    Route::post('/arrival_crossing_insert', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'arrival_crossing_insert']);
+    Route::get('/edit_manage_arrival/{id}', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'edit_manage_arrival']);
+    Route::post('/arrival_crossing_update/{id}', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'arrival_crossing_update']);
+    
 
     Route::get('/dashbord', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // SendMailController

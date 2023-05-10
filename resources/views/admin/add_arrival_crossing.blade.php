@@ -63,7 +63,7 @@
 
     <div class="card-body">
 
-    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('insert_agent')}}">
+    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('arrival_crossing_insert')}}">
 
         @csrf
 
