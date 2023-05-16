@@ -673,6 +673,33 @@ class ApiController extends Controller
         // return response()->json($response);
     }
 
+    public function resend_login_otp(Request $request){
+       $user_id = $request->user_id;
+        if(!empty($user_id)){
+            $check_email_password = User::where('id',$user_id)->first();
+            if(!empty($check_email_password)){
+                if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
+                    $details = rand(1000,9999);
+                    $update_user = User::where('id',$user_id)->first();
+                    $update_user->otp = $details;
+                    if($update_user->save()){
+                        Mail::to($update_user->email)->send(new \App\Mail\PartnerScannerOTP($details));
+                        $response = array('status'=>true,'message'=>'OTP has been sent to the registered email id','role'=>$check_email_password->role,'user_id'=>$update_user->id);
+                    }else{
+                        $response = array('status'=>false,'message'=>'Something went wrong','user_id'=>0,'role'=>'');
+                    }
+                }else{
+                    $response = array('status'=>false,'message'=>'User status inactive','user_id'=>0,'role'=>'');
+                }
+            }else{
+                $response = array('status'=>false,'message'=>'User not match','user_id'=>0,'role'=>'');
+            }
+        }else{
+            $response = array('status'=>false,'message'=>'User data missing','user_id'=>0,'role'=>'');
+        }
+        return response()->json($response);
+    }
+
     public function payment(Request $request){
         $check_user_id = Trip::where('id',$request->trip_id)->where('created_by',$request->user_id)->first();
         $get_created_by_id = Trip::where('id',$request->trip_id)->first();

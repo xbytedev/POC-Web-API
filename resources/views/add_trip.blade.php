@@ -30,7 +30,15 @@
                                                 2 People
                                             </span>
                                         </button>
-                                        <a class="nav-link" type="button">
+                                        <button class="nav-link cards" id="v-pills-finish-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-finish" type="button" role="tab"
+                                            aria-controls="v-pills-finish" aria-selected="false">
+                                            <span class="step-title me-2">
+                                                <i class="ri-close-circle-fill step-icon me-2"></i>
+                                                3 Get Card
+                                            </span>
+                                        </button>
+                                        <!-- <a class="nav-link" type="button">
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 3 Pay Fee
@@ -41,7 +49,7 @@
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 4 Get Card
                                             </span>
-                                        </a>
+                                        </a> -->
                                     </div>
                                 </div>
                                 <div class="col-lg-7 mx-auto">
@@ -190,8 +198,7 @@
                                                                     name="document_country" id="country" required>
                                                                     <option>Select Country</option>
                                                                     @foreach ($country as $country_data)
-                                                                        <option
-                                                                            class="document_country_{{ $country_data->id }}"
+                                                                        <option class="document_country_{{ $country_data->id }}"
                                                                             value="{{ $country_data->id }}">
                                                                             {{ $country_data->name }}</option>
                                                                     @endforeach

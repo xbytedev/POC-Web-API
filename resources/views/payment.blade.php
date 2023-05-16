@@ -86,7 +86,7 @@
                                                     <button onclick="printDiv('printableArea')" class="btn btn-primary">Print</button><br><br>
                                                 </div>
                                                 <div class="row" id="printableArea">
-                                                    @foreach ($trip_pepole as $trip_pepole_data)
+                                                    @foreach($trip_pepole as $trip_pepole_data)
                                                         <div class="col-xl-6 col-md-6" style="height: 266px;">
 
                                                             <div class="card card-animate">
@@ -164,7 +164,6 @@
                                                                                 $data['address'] = $trip_pepole_data->residence_address;
                                                                                 $data['start_date'] = $trip->trip_start_date;
                                                                                 $data['end_date'] = $trip->trip_end_date;
-                                                                                
                                                                             @endphp
                                                                             <!-- {
                                                                                 "trip_id": 1,

@@ -72,8 +72,6 @@
 
                                             </div>
 
-                                        
-
                                             <div class="flex-grow-1">
 
                                                 <b>Document</b> 
@@ -93,7 +91,6 @@
                                                 <p class="mb-0">{{$trip_people_data->experience_date}}</p>
 
                                             </div>
-
 
                                         </div>
 
