@@ -30,14 +30,12 @@
                                                 2 People
                                             </span>
                                         </button>
-                                        <button class="nav-link cards" id="v-pills-finish-tab" data-bs-toggle="pill"
-                                            data-bs-target="#v-pills-finish" type="button" role="tab"
-                                            aria-controls="v-pills-finish" aria-selected="false">
+                                         <a class="nav-link" type="button">
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 3 Get Card
                                             </span>
-                                        </button>
+                                        </a>
                                         <!-- <a class="nav-link" type="button">
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
@@ -55,8 +53,7 @@
                                 <div class="col-lg-7 mx-auto">
                                     <div class="px-lg-4">
                                         <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="v-pills-bill-info" role="tabpanel"
-                                                aria-labelledby="v-pills-bill-info-tab">
+                                            <div class="tab-pane fade show active" id="v-pills-bill-info" role="tabpanel" aria-labelledby="v-pills-bill-info-tab">
                                                 <div>
                                                     <div class="row g-3">
                                                         <div class="col-sm-12">
@@ -192,7 +189,7 @@
                                                                     required />
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <label for="country" class="form-label">Country</label>
                                                                 <select class="form-select country"
                                                                     name="document_country" id="country" required>
@@ -204,12 +201,12 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <!-- <div class="col-md-6">
                                                                 <label for="state" class="form-label">Upload
                                                                     Document</label>
                                                                 <input type="file" name="document_id_data"
                                                                     class="form-control document_id_data" required>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
 
                                                         <!-- <hr class="my-4 text-muted" /> -->
@@ -270,7 +267,7 @@
                                                         </div>
                                                         <br>
                                                         <h4>Trip Data</h4>
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
                                                             <label for="address" class="form-label">Visa Number</label>
                                                             <input type="text" name="trip_data_visa_information"
                                                                 class="form-control trip_data_visa_information"
@@ -281,8 +278,8 @@
                                                                 Date</label>
                                                             <input type="date" name="experience_date"
                                                                 class="form-control experience_date" id="address" />
-                                                        </div>
-                                                        <div class="row">
+                                                        </div> -->
+                                                        <!-- <div class="row">
                                                             <div class="col-6">
                                                                 <label for="address" class="form-label">Visa
                                                                     motive</label>
@@ -304,7 +301,7 @@
                                                                     class="form-control visa_document">
                                                             </div>
                                                         </div>
-                                                        <br>
+                                                        <br> -->
                                                         <h4>Motivation Of Trip</h4>
                                                         <div class="row">
                                                             <div class="col-6">
@@ -337,15 +334,15 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
                                                             <label for="address" class="form-label">Document
                                                                 number/PNR</label>
                                                             <input type="text" class="form-control document_number_pnr"
                                                                 name="document_number_pnr" required
                                                                 placeholder="Document number/PNR">
-                                                        </div>
+                                                        </div> -->
                                                         <br>
-                                                        <h4>Originating From</h4>
+                                                        <!-- <h4>Originating From</h4>
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <label for="country" class="form-label">Country</label>
@@ -377,9 +374,9 @@
                                                                     id="address" placeholder="Via" />
                                                             </div>
                                                         </div>
-                                                        <br>
+                                                        <br> -->
                                                         <h4>Hotel Details</h4>
-                                                        <div class="row">
+                                                        <!-- <div class="row">
                                                             <div class="col-md-6">
                                                                 <label for="address" class="form-label">Hotel
                                                                     Name</label>
@@ -408,11 +405,11 @@
                                                                 <input type="date" name="dep_date"
                                                                     class="form-control dep_date" id="dep_date" />
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <br>
                                                         <h4>Arrival Crossing Point</h4>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <label for="country" class="form-label">Arrival Crossing
                                                                     Point</label>
                                                                 <select
@@ -429,20 +426,20 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <!-- <div class="col-md-6">
                                                                 <label for="address" class="form-label">Arrival
                                                                     Date</label>
                                                                 <input type="date" required
                                                                     name="arrival_crossing_point_arrival_date"
                                                                     class="form-control arrival_crossing_point_arrival_date"
                                                                     id="arrival_crossing_point_arrival_date" />
-                                                            </div>
+                                                            </div> -->
                                                         </div>
 
                                                         <br>
                                                         <h4>Departure Crossing Point</h4>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <label for="country" class="form-label">Border Crossing
                                                                     Point</label>
                                                                 <select
@@ -460,7 +457,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <!-- <div class="col-md-6">
                                                                 <label for="address" class="form-label">Departure
                                                                     Date</label>
                                                                 <input type="date"
@@ -468,7 +465,7 @@
                                                                     class="form-control departure_crossing_point_departure_date"
                                                                     id="departure_crossing_point_departure_date"
                                                                     required />
-                                                            </div>
+                                                            </div> -->
 
                                                             <!-- <div class="d-flex align-items-start gap-3 mt-4">
                                                                 <button type="submit"

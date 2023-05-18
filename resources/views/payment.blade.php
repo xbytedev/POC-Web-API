@@ -14,33 +14,22 @@
                                 <div class="col-lg-3">
                                     <div class="nav flex-column custom-nav nav-pills" role="tablist"
                                         aria-orientation="vertical">
-                                        <a href="{{ url('trips') }}" class="nav-link">
+                                        <a href="{{ url('edit_trip_people/'.request('id')) }}" class="nav-link">
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 Trip
                                             </span>
                                         </a>
-                                        <a href="{{ url('trips') }}" class="nav-link">
+                                        <a href="{{ url('edit_trip_people/'.request('id')) }}" class="nav-link">
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 2 People
                                             </span>
                                         </a>
-                                        <button class="nav-link active" id="v-pills-payment-tab" data-bs-toggle="pill"
-                                            data-bs-target="#v-pills-payment" type="button" role="tab"
-                                            aria-controls="v-pills-payment" aria-selected="false">
+                                        <button class="nav-link active" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false" @if ($trip->trip_status != 'active') disabled @endif>
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
-                                                3 Pay Fee
-                                            </span>
-                                        </button>
-                                        <button class="nav-link cards" id="v-pills-finish-tab" data-bs-toggle="pill"
-                                            data-bs-target="#v-pills-finish" type="button" role="tab"
-                                            aria-controls="v-pills-finish" aria-selected="false"
-                                            @if ($trip->trip_status != 'active') disabled @endif>
-                                            <span class="step-title me-2">
-                                                <i class="ri-close-circle-fill step-icon me-2"></i>
-                                                4 Get Card
+                                                3 Get Card
                                             </span>
                                         </button>
                                     </div>
@@ -48,40 +37,9 @@
                                 <div class="col-lg-9 mx-auto">
                                     <div class="px-lg-4">
                                         <div class="tab-content">
-                                            <!-- end tab pane -->   
-                                            <div class="tab-pane active" id="v-pills-payment" role="tabpanel"
-                                                aria-labelledby="v-pills-payment-tab">
-                                                <h5>Now you can proceed to payment of the eTourist card for you/your party!
-                                                </h5>
-                                                <p>We strongly recommend for you to make this payment online to avoid lines
-                                                    and delays as Paymets kiosks and support at the border are limited .</p>
-                                                <p>You can also pay at partners such as Hotels(list).</p><br>
-                                                <p>eTourist cards are Preliminary untill payment.</p>
-                                                <!-- <div class="row"> -->
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <button data-id="{{ request()->segment(count(request()->segments())) }}"
-                                                            class="click_cards">PAY LATER AT BORDER ENTRY <br> OR <br> PAY TO
-                                                            PARTNER </button>
-                                                    </div>
-                                                    <!-- </div> -->
-                                                    <div class="col-md-6">
-                                                        <button data-id="{{ request()->segment(count(request()->segments())) }}"
-                                                            class="btn btn-danger click_cards">PROCEED TO PAYMENT <br> <img style="height: 25px;" src="{{asset('card.jpg')}}" alt=""></button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <!-- end tab pane -->
-                                            <div class="tab-pane fade" id="v-pills-finish" role="tabpanel"
+                                            <div class="tab-pane active" id="v-pills-finish" role="tabpanel"
                                                 aria-labelledby="v-pills-finish-tab">
-                                                <!-- <div class="text-center pt-4 pb-2">
-                                                    <div class="mb-4">
-                                                        <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop" colors="primary:#0ab39c,secondary:#405189" style="width: 120px; height: 120px;"></lord-icon>
-                                                    </div>
-                                                    <h5>Your Order is Completed !</h5>
-                                                    <p class="text-muted">You Will receive an order confirmation email with details of your order.</p>
-                                                </div> -->
-
                                                 <div class="text-end">
                                                     <button onclick="printDiv('printableArea')" class="btn btn-primary">Print</button><br><br>
                                                 </div>

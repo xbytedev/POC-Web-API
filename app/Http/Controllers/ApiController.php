@@ -225,7 +225,6 @@ class ApiController extends Controller
         if(!empty($request->trip_id)){
             $check_user = RegisterUser::where('email',$request->contacts_email)->first();
             $check_trip_people = TripPeople::where('trip_id',$request->trip_id)->where('contacts_email',$request->contacts_email)->first();
-            
             if(empty($check_trip_people)){
                 $add_trip_people = new TripPeople;
                 $add_trip_people->trip_id = $request->trip_id;

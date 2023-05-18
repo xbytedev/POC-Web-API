@@ -187,30 +187,23 @@
                                                                     required />
                                                             </div>
 
-
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <label for="country" class="form-label">Country</label>
                                                                 <select class="form-select country"
                                                                     name="document_country" id="country" required>
                                                                     <option>Select Country</option>
-                                                                    @foreach ($country as $country_data)
-                                                                        <option
-                                                                            class="document_country_{{ $country_data->id }}"
-                                                                            value="{{ $country_data->id }}">
-                                                                            {{ $country_data->name }}</option>
+                                                                    @foreach($country as $country_data)
+                                                                        <option class="document_country_{{ $country_data->id }}" value="{{ $country_data->id }}">{{ $country_data->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
 
-                                                            <div class="col-md-6">
-                                                                <label for="state" class="form-label">Upload
-                                                                    Document</label>
-                                                                <input type="file" name="document_id_data"
-                                                                    class="form-control document_id_data" required>
-                                                            </div>
+                                                            <!-- <div class="col-md-6">
+                                                                <label for="state" class="form-label">Upload Document</label> <input type="file" name="document_id_data" class="form-control document_id_data" required>
+                                                            </div> -->
                                                         </div>
 
-                                                        <!-- <hr class="my-4 text-muted" /> -->
+                                                        <!-- <hr class="my-4 text-muted"/> -->
 
                                                         <br>
                                                         <h4>Residence</h4>
@@ -267,8 +260,8 @@
                                                                 placeholder="Phone" />
                                                         </div>
                                                         <br>
-                                                        <h4>Trip Data</h4>
-                                                        <div class="col-12">
+                                                        <!-- <h4>Trip Data</h4> -->
+                                                        <!-- <div class="col-12">
                                                             <label for="address" class="form-label">Visa Number</label>
                                                             <input type="text" name="trip_data_visa_information"
                                                                 class="form-control trip_data_visa_information"
@@ -288,8 +281,7 @@
                                                                     name="visa_motive" id="">
                                                                     <option value="">Select visa motive</option>
                                                                     @foreach ($motivation_of_trip as $motivation_of_trip_data)
-                                                                        <option
-                                                                            class="visa_motive_{{ $motivation_of_trip_data->id }}"
+                                                                        <option class="visa_motive_{{ $motivation_of_trip_data->id }}"
                                                                             value="{{ $motivation_of_trip_data->id }}">
                                                                             {{ $motivation_of_trip_data->name }}</option>
                                                                     @endforeach
@@ -302,7 +294,7 @@
                                                                     class="form-control visa_document">
                                                             </div>
                                                         </div>
-                                                        <br>
+                                                        <br> -->
                                                         <h4>Motivation Of Trip</h4>
                                                         <div class="row">
                                                             <div class="col-6">
@@ -335,16 +327,16 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
                                                             <label for="address" class="form-label">Document
                                                                 number/PNR</label>
                                                             <input type="text" class="form-control document_number_pnr"
                                                                 name="document_number_pnr" required
                                                                 placeholder="Document number/PNR">
-                                                        </div>
+                                                        </div> -->
                                                         <br>
-                                                        <h4>Originating From</h4>
-                                                        <div class="row">
+                                                        <!-- <h4>Originating From</h4> -->
+                                                        <!-- <div class="row">
                                                             <div class="col-md-4">
                                                                 <label for="country" class="form-label">Country</label>
                                                                 <select class="form-select originating_from_country"
@@ -391,7 +383,7 @@
                                                                     name="room_no" id="address"
                                                                     placeholder="Room No." />
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <label for="address" class="form-label">Arrival
@@ -408,14 +400,9 @@
                                                         <br>
                                                         <h4>Arrival Crossing Point</h4>
                                                         <div class="row">
-                                                            <div class="col-md-6">
-                                                                <label for="country" class="form-label">Arrival Crossing
-                                                                    Point</label>
-                                                                <select
-                                                                    class="form-select arrival_crossing_point_border_crossing_point"
-                                                                    required
-                                                                    name="arrival_crossing_point_border_crossing_point"
-                                                                    id="country">
+                                                            <div class="col-md-12">
+                                                                <label for="country" class="form-label">Arrival Crossing Point</label>
+                                                                <select class="form-select arrival_crossing_point_border_crossing_point" required name="arrival_crossing_point_border_crossing_point" id="country">
                                                                     <option>Select Arrival Crossing Point</option>
                                                                     @foreach ($arrival_crossing_point as $arrival_crossing_point_data)
                                                                         <option
@@ -426,15 +413,15 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <!-- <div class="col-md-6">
                                                                 <label for="address" class="form-label">Arrival Date</label>
                                                                 <input type="date" min="{{$trip->trip_start_date}}" max="{{$trip->trip_end_date}}" required name="arrival_crossing_point_arrival_date" class="form-control arrival_crossing_point_arrival_date" id="address"/>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                         <br>
                                                         <h4>Departure Crossing Point</h4>
                                                         <div class="row">
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
                                                                 <label for="country" class="form-label">Border Crossing
                                                                     Point</label>
                                                                 <select
@@ -452,14 +439,14 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <!-- <div class="col-md-6">
                                                                 <label for="address" class="form-label">Departure
                                                                     Date</label>
                                                                 <input type="date" min="{{$trip->trip_start_date}}" max="{{$trip->trip_end_date}}"
                                                                     name="departure_crossing_point_departure_date"
                                                                     class="form-control departure_crossing_point_departure_date"
                                                                     id="address" required />
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                     <div class="row">

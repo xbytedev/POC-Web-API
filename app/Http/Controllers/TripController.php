@@ -75,6 +75,9 @@ class TripController extends Controller
             if(!empty($request->trip_id)){
                 $check_user = RegisterUser::where('email',$request->contacts_email)->first();
                 $check_trip_people = TripPeople::where('trip_id',$request->trip_id)->where('contacts_email',$request->contacts_email)->first();
+
+                print_r($check_trip_people);
+                exit;
                 
                 if(empty($check_trip_people)){
                     $add_trip_people = new TripPeople;
@@ -94,9 +97,7 @@ class TripController extends Controller
                     $add_trip_people->residence_post_code = $request->residence_post_code;
                     $add_trip_people->contacts_email = $request->contacts_email;
                     $add_trip_people->contacts_phone = $request->contacts_phone;
-                    
                     $add_trip_people->status = $request->status;
-
                     $add_trip_people->is_draft = 1;
                     $add_trip_people->trip_data_visa_information = $request->trip_data_visa_information;
                     $add_trip_people->experience_date = date('Y-m-d', strtotime($request->experience_date));
@@ -111,7 +112,7 @@ class TripController extends Controller
                             $add_trip_people->document_image = $name;
                         }
                     }
-
+                    
                     $fils_data = $request->document_id_data;
                     if(!empty($fils_data)){
                         if($fils_data){

@@ -25,8 +25,7 @@
 
                                 <div class="col-lg-3">
 
-                                    <div class="nav flex-column custom-nav nav-pills" role="tablist"
-                                        aria-orientation="vertical">
+                                    <div class="nav flex-column custom-nav nav-pills" role="tablist" aria-orientation="vertical">
 
                                         <button class="nav-link active" id="v-pills-bill-info-tab" data-bs-toggle="pill"
                                             data-bs-target="#v-pills-bill-info" type="button" role="tab"
@@ -60,13 +59,7 @@
                                         <a class="nav-link" href="{{ url('paymentpage/' . $trip->id) }}">
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
-                                                3 Pay Fee
-                                            </span>
-                                        </a>
-                                        <a class="nav-link" href="{{ url('paymentpage/' . $trip->id) }}">
-                                            <span class="step-title me-2">
-                                                <i class="ri-close-circle-fill step-icon me-2"></i>
-                                                4 Get Card
+                                                3 Get Card
                                             </span>
                                         </a>
                                     </div>
@@ -84,11 +77,11 @@
 
                                                 <!--  <div>
 
-                                                                                                            <h5>Billing Info</h5>
+                                                    <h5>Billing Info</h5>
 
-                                                                                                            <p class="text-muted">Fill all information below</p>
+                                                    <p class="text-muted">Fill all information below</p>
 
-                                                                                                        </div>-->
+                                                </div>-->
 
                                                 <div>
 
@@ -158,7 +151,7 @@
                                                     @csrf
                                                     <div>
                                                         <input type="hidden" class="append_trip_id"
-                                                            value="{{ $trip_people->trip_id }}" name="trip_id">
+                                                            value="{{$trip_people->trip_id}}" name="trip_id">
 
                                                         <div class="row g-3">
 
@@ -166,18 +159,12 @@
 
                                                                 <label for="address" class="form-label">Name</label>
 
-                                                                <input type="text" class="form-control" name="name"
-                                                                    id="address" placeholder="Name"
-                                                                    value="{{ $trip_people->name }}" required />
-
-
-
+                                                                <input type="text" class="form-control" name="name" id="address" placeholder="Name" value="{{$trip_people->name}}" required/>
                                                             </div>
 
                                                             <div class="col-12">
 
-                                                                <label for="address" class="form-label">Family
-                                                                    Name</label>
+                                                                <label for="address" class="form-label">Family Name</label>
 
                                                                 <input type="text" class="form-control"
                                                                     name="family_name" id="address"
@@ -281,7 +268,7 @@
 
                                                             </div>
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
 
                                                                 <label for="country" class="form-label">Country</label>
 
@@ -300,7 +287,7 @@
                                                                 </select>
 
                                                             </div>
-
+<!-- 
                                                             <div class="col-md-6">
 
                                                                 <label for="state" class="form-label">Upload
@@ -311,7 +298,7 @@
                                                                 <a target="_blank"
                                                                     href="{{ asset('document_image/' . $trip_people->document_id_data) }}">View</a>
 
-                                                            </div>
+                                                            </div> -->
 
                                                         </div>
 
@@ -414,7 +401,7 @@
                                                         <br>
                                                         <h4>Trip Data</h4>
 
-                                                        <div class="col-12">
+                                                        <!-- <div class="col-12">
 
                                                             <label for="address" class="form-label">Visa Number</label>
 
@@ -435,9 +422,9 @@
                                                                 name="experience_date" class="form-control"
                                                                 id="address" />
 
-                                                        </div>
+                                                        </div> -->
 
-                                                        <div class="row">
+                                                        <!-- <div class="row">
 
                                                             <div class="col-6">
 
@@ -473,9 +460,9 @@
 
                                                             </div>
 
-                                                        </div>
+                                                        </div> -->
 
-                                                        <br>
+                                                        <!-- <br> -->
                                                         <h4>Motivation Of Trip</h4>
 
                                                         <div class="row">
@@ -490,7 +477,7 @@
 
                                                                     <option value="">Select Motivation</option>
 
-                                                                    @foreach ($motivation_of_trip as $motivation_of_trip_data)
+                                                                    @foreach($motivation_of_trip as $motivation_of_trip_data)
                                                                         <option
                                                                             @if ($motivation_of_trip_data->id == $trip_people->motivation_of_trip) selected @endif
                                                                             value="{{ $motivation_of_trip_data->id }}">
@@ -503,8 +490,7 @@
 
                                                             <div class="col-6">
 
-                                                                <label for="address" class="form-label">Mean Of
-                                                                    Transport</label>
+                                                                <label for="address" class="form-label">Mean Of Transport</label>
 
                                                                 <select class="form-control" name="mean_of_transport"
                                                                     id="" required>
@@ -524,15 +510,15 @@
                                                             </div>
 
                                                         </div>
-
-                                                        <div class="col-12">
+                                                        
+                                                        <!-- <div class="col-12">
 
                                                             <label for="address" class="form-label">Document
                                                                 number/PNR</label>
 
                                                             <input type="text" name="document_number_pnr" value="{{ $trip_people->airline }}" class="form-control" required placeholder="Document number/PNR">
 
-                                                        </div>
+                                                        </div> -->
 
                                                         <br>
                                                         <h4>Originating From</h4>
@@ -563,11 +549,7 @@
 
                                                                 <label for="address" class="form-label">City</label>
 
-                                                                <input type="text"
-                                                                    value="{{ $trip_people->orginating_form_city }}"
-                                                                    class="form-control" required
-                                                                    name="originating_from_city" id="address"
-                                                                    placeholder="City" />
+                                                                <input type="text" value="{{ $trip_people->orginating_form_city }}" class="form-control" required name="originating_from_city" id="address" placeholder="City" />
 
                                                             </div>
 
@@ -575,17 +557,14 @@
 
                                                                 <label for="address" class="form-label">Via</label>
 
-                                                                <input type="text"
-                                                                    value="{{ $trip_people->orginating_form_via }}"
-                                                                    name="originating_from_via" class="form-control"
-                                                                    id="address" placeholder="Via" />
+                                                                <input type="text" value="{{ $trip_people->orginating_form_via }}" name="originating_from_via" class="form-control" id="address" placeholder="Via"/>
 
                                                             </div>
 
                                                         </div>
 
-                                                        <br>
-                                                        <h4>Hotel Details</h4>
+                                                        <!-- <br> -->
+                                                        <!-- <h4>Hotel Details</h4>
 
                                                         <div class="row">
 
@@ -635,14 +614,14 @@
                                                                     id="address" />
                                                             </div>
 
-                                                        </div>
+                                                        </div> -->
 
                                                         <br>
                                                         <h4>Arrival Crossing Point</h4>
 
                                                         <div class="row">
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
 
                                                                 <label for="country" class="form-label">Arrival Crossing
                                                                     Point</label>
@@ -664,7 +643,7 @@
                                                                 </select>
 
                                                             </div>
-
+<!-- 
                                                             <div class="col-md-6">
 
                                                                 <label for="address" class="form-label">Arrival
@@ -676,7 +655,7 @@
                                                                     class="form-control"
                                                                     value="{{ $trip_people->arrival_crossing_point_arrival_date }}"
                                                                     id="address" />
-                                                            </div>
+                                                            </div> -->
                                                         </div>
 
                                                         <br>
@@ -684,7 +663,7 @@
 
                                                         <div class="row">
 
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-12">
 
                                                                 <label for="country" class="form-label">Border Crossing
                                                                     Point</label>
@@ -704,7 +683,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <!-- <div class="col-md-6">
                                                                 <label for="address" class="form-label">Departure
                                                                     Date</label>
                                                                 <input type="date"
@@ -714,7 +693,7 @@
                                                                     min="{{ $trip_people->arrival_crossing_point_arrival_date }}"
                                                                     max="{{ $trip->trip_end_date }}" id="address"
                                                                     required />
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
 
