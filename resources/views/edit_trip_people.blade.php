@@ -48,11 +48,8 @@
                                             <!-- disabled -->
 
                                             <span class="step-title me-2">
-
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
-
                                                 Trip People
-
                                             </span>
 
                                         </button>
@@ -259,8 +256,7 @@
 
                                                             <div class="col-12">
 
-                                                                <label for="address" class="form-label">Valid
-                                                                    Until</label>
+                                                                <label for="address" class="form-label">Valid Until</label>
 
                                                                 <input type="date" name="valid_untill"
                                                                     value="{{ $trip_people->valid_untill }}"
@@ -278,10 +274,7 @@
                                                                     <option>Select Country</option>
 
                                                                     @foreach ($country as $country_data)
-                                                                        <option
-                                                                            @if ($country_data->id == $trip_people->document_country) selected @endif
-                                                                            value="{{ $country_data->id }}">
-                                                                            {{ $country_data->name }}</option>
+                                                                        <option @if($country_data->id == $trip_people->document_country) selected @endif value="{{ $country_data->id }}">{{ $country_data->name }}</option>
                                                                     @endforeach
 
                                                                 </select>
@@ -383,7 +376,7 @@
                                                             <input type="text"
                                                                 value="{{ $trip_people->contacts_email }}"
                                                                 name="contacts_email" class="form-control" id="address"
-                                                                placeholder="Email" readonly />
+                                                                placeholder="Email" readonly/>
 
                                                         </div>
 
@@ -399,7 +392,7 @@
                                                         </div>
 
                                                         <br>
-                                                        <h4>Trip Data</h4>
+                                                        <!-- <h4>Trip Data</h4> -->
 
                                                         <!-- <div class="col-12">
 
@@ -495,8 +488,7 @@
                                                                 <select class="form-control" name="mean_of_transport"
                                                                     id="" required>
 
-                                                                    <option value="">Select Mean Of Transport
-                                                                    </option>
+                                                                    <option value="">Select Mean Of Transport</option>
 
                                                                     @foreach ($mean_of_transport as $mean_of_transport_data)
                                                                         <option
@@ -521,9 +513,9 @@
                                                         </div> -->
 
                                                         <br>
-                                                        <h4>Originating From</h4>
+                                                        <!-- <h4>Originating From</h4> -->
 
-                                                        <div class="row">
+                                                        <!-- <div class="row">
 
                                                             <div class="col-md-4">
 
@@ -540,7 +532,7 @@
                                                                             value="{{ $country_data->id }}">
                                                                             {{ $country_data->name }}</option>
                                                                     @endforeach
-
+                                                                    
                                                                 </select>
 
                                                             </div>
@@ -549,7 +541,7 @@
 
                                                                 <label for="address" class="form-label">City</label>
 
-                                                                <input type="text" value="{{ $trip_people->orginating_form_city }}" class="form-control" required name="originating_from_city" id="address" placeholder="City" />
+                                                                <input type="text" value="{{$trip_people->orginating_form_city}}" class="form-control" required name="orginating_form_city" id="address" placeholder="City" />
 
                                                             </div>
 
@@ -561,7 +553,7 @@
 
                                                             </div>
 
-                                                        </div>
+                                                        </div> -->
 
                                                         <!-- <br> -->
                                                         <!-- <h4>Hotel Details</h4>
@@ -633,29 +625,19 @@
                                                                     <option>Select Arrival Crossing Point</option>
 
                                                                     @foreach ($arrival_crossing_point as $arrival_crossing_point_data)
-                                                                        <option
-                                                                            @if ($arrival_crossing_point_data->id == $trip_people->arrival_crossing_point_border_crossing_point) selected @endif
+                                                                        <option @if ($arrival_crossing_point_data->id == $trip_people->arrival_crossing_point_border_crossing_point) selected @endif
                                                                             value="{{ $arrival_crossing_point_data->id }}">
                                                                             {{ $arrival_crossing_point_data->name }}
                                                                         </option>
                                                                     @endforeach
-
                                                                 </select>
-
                                                             </div>
-<!-- 
-                                                            <div class="col-md-6">
 
-                                                                <label for="address" class="form-label">Arrival
-                                                                    Date</label>
+                                                            <!-- <div class="col-md-6">
 
-                                                                <input type="date" min="{{ $trip->trip_start_date }}"
-                                                                    max="{{ $trip->trip_end_date }}" required
-                                                                    name="arrival_crossing_point_arrival_date"
-                                                                    class="form-control"
-                                                                    value="{{ $trip_people->arrival_crossing_point_arrival_date }}"
-                                                                    id="address" />
-                                                            </div> -->
+                                                                <label for="address" class="form-label">Arrival Date</label>
+                                                                <input type="date" min="{{ $trip->trip_start_date }}" max="{{ $trip->trip_end_date }}" required name="arrival_crossing_point_arrival_date"
+                                                                    class="form-control" value="{{$trip_people->arrival_crossing_point_arrival_date }}" id="address" /></div> -->
                                                         </div>
 
                                                         <br>
@@ -696,14 +678,12 @@
                                                             </div> -->
                                                         </div>
                                                     </div>
-
-                                                    @if ($trip->trip_status != 'active')
+                                                    @if($trip->trip_status != 'active')
                                                         <div class="d-flex align-items-start gap-3 mt-4">
                                                             <button type="submit"
                                                                 class="btn btn-success btn-label right ms-auto nexttab nexttab"
                                                                 data-nexttab="v-pills-payment-tab">
-                                                                <i
-                                                                    class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Update
+                                                                <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Update
                                                             </button>
                                                         </div>
                                                     @endif
@@ -722,8 +702,6 @@
                                                     <p class="text-muted">Fill all information below</p>
 
                                                 </div>
-
-
 
                                                 <div>
 

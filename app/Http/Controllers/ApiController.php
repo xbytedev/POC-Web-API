@@ -225,8 +225,11 @@ class ApiController extends Controller
         if(!empty($request->trip_id)){
             $check_user = RegisterUser::where('email',$request->contacts_email)->first();
             $check_trip_people = TripPeople::where('trip_id',$request->trip_id)->where('contacts_email',$request->contacts_email)->first();
+            
             if(empty($check_trip_people)){
+                $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
                 $add_trip_people = new TripPeople;
+                $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
                 $add_trip_people->trip_id = $request->trip_id;
                 $add_trip_people->user_id = $user_id;
                 $add_trip_people->name = $request->name;
@@ -273,7 +276,7 @@ class ApiController extends Controller
                 $add_trip_people->mean_of_transport = $request->mean_of_transport;
                 $add_trip_people->airline = $request->airline;
                 $add_trip_people->orginating_form_country = $request->originating_from_country;
-                $add_trip_people->orginating_form_city = $request->originating_from_city;
+                $add_trip_people->orginating_form_city = $request->orginating_form_city;
                 $add_trip_people->orginating_form_via = $request->originating_from_via;
                 $add_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                 $add_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));
@@ -337,7 +340,7 @@ class ApiController extends Controller
                 $update_trip_people->mean_of_transport = $request->mean_of_transport;
                 $update_trip_people->airline = $request->airline;
                 $update_trip_people->orginating_form_country = $request->originating_from_country;
-                $update_trip_people->orginating_form_city = $request->originating_from_city;
+                $update_trip_people->orginating_form_city = $request->orginating_form_city;
                 $update_trip_people->orginating_form_via = $request->originating_from_via;
                 $update_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                 $update_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));
@@ -368,8 +371,10 @@ class ApiController extends Controller
             $check_trip_people = TripPeople::where('trip_id',$request->trip_id)->where('contacts_email',$request->contacts_email)->first();
             
             if(empty($is_draft)){
+                $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
                 $add_trip_people = new TripPeople;
                 $add_trip_people->trip_id = $request->trip_id;
+                $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
                 $add_trip_people->user_id = $user_id;
                 $add_trip_people->name = $request->name;
                 $add_trip_people->family_name = $request->family_name;
@@ -404,7 +409,7 @@ class ApiController extends Controller
                     $add_trip_people->mean_of_transport = $request->mean_of_transport;
                     $add_trip_people->airline = $request->airline;
                     $add_trip_people->orginating_form_country = $request->originating_from_country;
-                    $add_trip_people->orginating_form_city = $request->originating_from_city;
+                    $add_trip_people->orginating_form_city = $request->orginating_form_city;
                     $add_trip_people->orginating_form_via = $request->originating_from_via;
                     $add_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                     $add_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));
@@ -456,7 +461,7 @@ class ApiController extends Controller
                 $update_trip_people->mean_of_transport = $request->mean_of_transport;
                 $update_trip_people->airline = $request->airline;
                 $update_trip_people->orginating_form_country = $request->originating_from_country;
-                $update_trip_people->orginating_form_city = $request->originating_from_city;
+                $update_trip_people->orginating_form_city = $request->orginating_form_city;
                 $update_trip_people->orginating_form_via = $request->originating_from_via;
                 $update_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                 $update_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));
@@ -541,7 +546,7 @@ class ApiController extends Controller
                 }else{
                     $trip_peo['originating_from_country'] = '';
                 }
-                $trip_peo['originating_from_city'] = $trip_people_datas->orginating_form_city;
+                $trip_peo['orginating_form_city'] = $trip_people_datas->orginating_form_city;
                 $trip_peo['originating_from_via'] = $trip_people_datas->orginating_form_via;
                 if(isset($trip_people_datas->arrival_crossing->name)){
                     $trip_peo['arrival_crossing_point_border_crossing_point'] = $trip_people_datas->arrival_crossing->name;
@@ -616,7 +621,7 @@ class ApiController extends Controller
         $password = $request->password;
         if(!empty($email) && !empty($password)){
             $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password)){
+            if(!empty($check_email_password) && $check_email_password->role == 'partner'){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();
@@ -639,7 +644,7 @@ class ApiController extends Controller
                     $response = array('status'=>false,'message'=>'User status inactive','user_id'=>0,'role'=>'');
                 }
             }else{
-                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>0,'role'=>'');                
+                $response = array('status'=>false,'message'=>'User email and password not match','user_id'=>0,'role'=>'');
             }
         }else{
             $response = array('status'=>false,'message'=>'Input data missing','user_id'=>0,'role'=>'');
@@ -885,7 +890,7 @@ class ApiController extends Controller
                 }else{
                     $trip_peo['originating_from_country'] = '';
                 }
-                $trip_peo['originating_from_city'] = $trip_people_datas->orginating_form_city;
+                $trip_peo['orginating_form_city'] = $trip_people_datas->orginating_form_city;
                 $trip_peo['originating_from_via'] = $trip_people_datas->orginating_form_via;
                 if(isset($trip_people_datas->arrival_crossing->name)){
                     $trip_peo['arrival_crossing_point_border_crossing_point'] = $trip_people_datas->arrival_crossing->name;
@@ -981,7 +986,7 @@ class ApiController extends Controller
             }else{
                 $trip_peo['originating_from_country'] = '';
             }
-            $trip_peo['originating_from_city'] = $trip_people_datas->orginating_form_city;
+            $trip_peo['orginating_form_city'] = $trip_people_datas->orginating_form_city;
             $trip_peo['originating_from_via'] = $trip_people_datas->orginating_form_via;
             if(isset($trip_people_datas->arrival_crossing->name)){
                 $trip_peo['arrival_crossing_point_border_crossing_point'] = $trip_people_datas->arrival_crossing->name;
@@ -1166,7 +1171,7 @@ class ApiController extends Controller
                 }else{
                     $trip_peo['originating_from_country'] = '';
                 }
-                $trip_peo['originating_from_city'] = $trip_people_datas->orginating_form_city;
+                $trip_peo['orginating_form_city'] = $trip_people_datas->orginating_form_city;
                 $trip_peo['originating_from_via'] = $trip_people_datas->orginating_form_via;
                 $trip_peo['arrival_crossing_point_border_crossing_point'] = $trip_people_datas->arrival_crossing_point_border_crossing_point;
                 $trip_peo['arrival_crossing_point_arrival_date'] = $trip_people_datas->arrival_crossing_point_arrival_date;
@@ -1229,10 +1234,10 @@ class ApiController extends Controller
         
         $email = $request->email;
         $password = $request->password;
-
+        
         if(!empty($email) && !empty($password)){
             $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password)){
+            if(!empty($check_email_password) && $check_email_password->role == 'partner'){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();
@@ -1428,11 +1433,14 @@ class ApiController extends Controller
         $partner_id = $request->partner_id;
 
         if(!empty($partner_id) && !empty($name)){
+            $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
             $add = new Group;
+            $add->group_code = rand(111111111,999999999).($last_group_id+1);
             $add->name = $name;
             $add->partner_id = $partner_id;
             if($add->save()){
-                $response = array('status'=>true ,'message' => 'Group created successfully');
+                $datas = Group::where('id', $last_group_id+1)->first();
+                $response = array('status'=>true ,'message' => 'Group created successfully','data'=>$datas);
             }else{
                 $response = array('status'=>false ,'message' => 'Something went wrong');
             }
@@ -1444,10 +1452,10 @@ class ApiController extends Controller
 
     public function group_list(Request $request){
         $partner_id = $request->partner_id;
-        
+
         if(!empty($partner_id)){
             $datas = Group::where(['status'=>0,'partner_id'=>$partner_id])->get();
-            if($datas){
+            if(sizeof($datas) > 0){
                 $response = array('status'=>true ,'data' => $datas);
             }else{
                 $response = array('status'=>false ,'data' => []);

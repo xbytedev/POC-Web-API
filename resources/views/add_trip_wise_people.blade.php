@@ -31,16 +31,16 @@
                                                 2 People
                                             </span>
                                         </button>
-                                        <button class="nav-link" disabled>
+                                        <!-- <button class="nav-link" disabled>
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 3 Pay Fee
                                             </span>
-                                        </button>
+                                        </button> -->
                                         <button class="nav-link" disabled>
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
-                                                4 Get Card
+                                                3 Get Card
                                             </span>
                                         </button>
                                     </div>
@@ -53,9 +53,9 @@
                                             <div class="tab-pane fade" id="v-pills-bill-info" role="tabpanel"
                                                 aria-labelledby="v-pills-bill-info-tab">
                                                 <!--  <div>
-                                                                                                                                                                                                                                                                                                                <h5>Billing Info</h5>
-                                                                                                                                                                                                                                                                                                                <p class="text-muted">Fill all information below</p>
-                                                                                                                                                                                                                                                                                                            </div>-->
+                                                    <h5>Billing Info</h5>
+                                                    <p class="text-muted">Fill all information below</p>
+                                                </div>-->
                                                 <div>
                                                     <div class="row g-3">
                                                         <div class="col-sm-12">
@@ -106,7 +106,7 @@
                                                             <select name=""
                                                                 class="form-control get_trip_people_datas" id="">
                                                                 <option value="">Select person</option>
-                                                                @if (!empty($user_list))
+                                                                @if(!empty($user_list))
                                                                     @foreach ($user_list as $user_list_data)
                                                                         <option value="{{ $user_list_data->id }}">
                                                                             {{ $user_list_data->name }}({{$user_list_data->contacts_email}})</option>
@@ -153,9 +153,7 @@
                                                             <div class="col-12">
                                                                 <label for="address" class="form-label">Birth
                                                                     Date</label>
-                                                                <input type="date" max="<?php echo date('Y-m-d'); ?>"
-                                                                    name="dob" class="form-control dob"
-                                                                    id="address" required />
+                                                                <input type="date" max="<?php echo date('Y-m-d'); ?>" name="dob" class="form-control dob" id="address" required/>
                                                             </div>
 
                                                             <div class="col-12">
@@ -163,25 +161,21 @@
                                                                 <select name="document_type" id="document_type"
                                                                     class="form-control document_type" required>
                                                                     <option value="">Select Document Type</option>
-                                                                    @foreach ($document_type as $document_type_data)
-                                                                        <option id="{{ $document_type_data->id }}"
-                                                                            value="{{ $document_type_data->id }}">
-                                                                            {{ $document_type_data->name }}</option>
+                                                                    @foreach($document_type as $document_type_data)
+                                                                        <option id="{{ $document_type_data->id }}" value="{{ $document_type_data->id }}">{{ $document_type_data->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
 
                                                             <div class="col-12">
-                                                                <label for="address2" class="form-label">Document
-                                                                    Number</label>
+                                                                <label for="address2" class="form-label">Document Number</label>
                                                                 <input type="text" class="form-control document_number"
                                                                     name="document_number" id="address2"
                                                                     placeholder="Document Number" required />
                                                             </div>
 
                                                             <div class="col-12">
-                                                                <label for="address" class="form-label">Valid
-                                                                    Until</label>
+                                                                <label for="address" class="form-label">Valid Until</label>
                                                                 <input type="date" name="valid_untill"
                                                                     class="form-control valid_untill" id="address"
                                                                     required />
@@ -189,22 +183,18 @@
 
                                                             <div class="col-md-12">
                                                                 <label for="country" class="form-label">Country</label>
-                                                                <select class="form-select country"
-                                                                    name="document_country" id="country" required>
+                                                                <select class="form-select country" name="document_country" id="country"  required>
                                                                     <option>Select Country</option>
                                                                     @foreach($country as $country_data)
                                                                         <option class="document_country_{{ $country_data->id }}" value="{{ $country_data->id }}">{{ $country_data->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-
                                                             <!-- <div class="col-md-6">
                                                                 <label for="state" class="form-label">Upload Document</label> <input type="file" name="document_id_data" class="form-control document_id_data" required>
                                                             </div> -->
                                                         </div>
-
                                                         <!-- <hr class="my-4 text-muted"/> -->
-
                                                         <br>
                                                         <h4>Residence</h4>
                                                         <div class="col-12">
@@ -253,11 +243,20 @@
                                                                 class="form-control contacts_email" id="address"
                                                                 placeholder="Email" required />
                                                         </div>
-                                                        <div class="col-12">
-                                                            <label for="address" class="form-label">Phone</label>
-                                                            <input type="number" required name="contacts_phone"
-                                                                class="form-control contacts_phone" id="address"
-                                                                placeholder="Phone" />
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <label for="address" class="form-label">Phone</label>
+                                                                <input type="number" required name="contacts_phone"
+                                                                    class="form-control contacts_phone" id="address"
+                                                                    placeholder="Phone" />
+                                                            </div>
+                                                            
+                                                            <div class="col-12">
+                                                                <label for="address" class="form-label">Phone</label>
+                                                                <input type="number" required name="contacts_phone"
+                                                                    class="form-control contacts_phone" id="address"
+                                                                    placeholder="Phone" />
+                                                            </div>
                                                         </div>
                                                         <br>
                                                         <!-- <h4>Trip Data</h4> -->
@@ -288,8 +287,7 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-6">
-                                                                <label for="address" class="form-label">Upload Visa
-                                                                    Document</label>
+                                                                <label for="address" class="form-label">Upload Visa Document</label>
                                                                 <input type="file" name="visa_document"
                                                                     class="form-control visa_document">
                                                             </div>
@@ -355,8 +353,8 @@
                                                             <div class="col-4">
                                                                 <label for="address" class="form-label">City</label>
                                                                 <input type="text"
-                                                                    class="form-control originating_from_city" required
-                                                                    name="originating_from_city" id="address"
+                                                                    class="form-control orginating_form_city" required
+                                                                    name="orginating_form_city" id="address"
                                                                     placeholder="City" />
                                                             </div>
 
@@ -739,7 +737,7 @@
                     $('.trip_data_visa_information').val(data.trip_data_visa_information);
                     $('.experience_date').val(data.experience_date);
                     $('.motivation_of_trip').val(data.motivation_of_trip);
-                    $('.originating_from_city').val(data.orginating_form_city);
+                    $('.orginating_form_city').val(data.orginating_form_city);
                     $('.originating_from_via').val(data.orginating_form_via);
                     // $('.hotel_name').val(data.hotel_name);
                     // $('.room_no').val(data.room_no);

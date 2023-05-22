@@ -51,8 +51,7 @@
 
                                                                 <div class="card-body">
 
-                                                                    <div
-                                                                        class="d-flex justify-content-between  align-items-center">
+                                                                    <div class="d-flex justify-content-between align-items-center">
 
                                                                         <div class="w-100">
 
@@ -71,8 +70,7 @@
 
                                                                                     <b class="">DOB</b>
 
-                                                                                    <p class="text-muted mb-2">
-                                                                                        {{ $trip_pepole_data->dob }}</p>
+                                                                                    <p class="text-muted mb-2">{{ $trip_pepole_data->dob }}</p>
 
                                                                                 </div>
 
@@ -80,8 +78,7 @@
 
                                                                                     <b class="">Gender</b>
 
-                                                                                    <p class="text-muted mb-2">
-                                                                                        {{ $trip_pepole_data->gender }}</p>
+                                                                                    <p class="text-muted mb-2">{{ $trip_pepole_data->gender }}</p>
 
                                                                                 </div>
 
@@ -103,13 +100,9 @@
 
                                                                                     <b class="">Valid Until</b>
 
-                                                                                    <p class="text-muted mb-0">
-                                                                                        {{ $trip->trip_end_date }}</p>
-
+                                                                                    <p class="text-muted mb-0">{{ $trip->trip_end_date }}</p>
                                                                                 </div>
-
                                                                             </div>
-
                                                                         </div>
 
                                                                         <div>
@@ -133,7 +126,6 @@
                                                                                 "start_date": "2022-08-05",
                                                                                 "end_date": "2022-08-05"
                                                                             } -->
-
                                                                             <div class="barcode-img">
                                                                                 {!! QrCode::size(200)->generate(json_encode($data)) !!}
                                                                             </div>

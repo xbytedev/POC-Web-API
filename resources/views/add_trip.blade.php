@@ -255,18 +255,22 @@
                                                         <h4>Contacts</h4>
                                                         <div class="col-12">
                                                             <label for="address" class="form-label">Email</label>
-                                                            <input type="text" name="contacts_email"
-                                                                class="form-control contacts_email" id="address"
-                                                                placeholder="Email" required />
+                                                            <input type="text" name="contacts_email" class="form-control contacts_email" id="address" placeholder="Email" required/>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="address" class="form-label">Phone</label>
                                                             <input type="number" required name="contacts_phone"
                                                                 class="form-control contacts_phone" id="address"
-                                                                placeholder="Phone" />
+                                                                placeholder="Phone"/>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label for="Profession" class="form-label">Profession</label>
+                                                            <input type="number" required name="contacts_profession"
+                                                                class="form-control contacts_profession" id="Profession"
+                                                                placeholder="Profession"/>
                                                         </div>
                                                         <br>
-                                                        <h4>Trip Data</h4>
+                                                        <!-- <h4>Trip Data</h4> -->
                                                         <!-- <div class="col-12">
                                                             <label for="address" class="form-label">Visa Number</label>
                                                             <input type="text" name="trip_data_visa_information"
@@ -362,8 +366,8 @@
                                                             <div class="col-4">
                                                                 <label for="address" class="form-label">City</label>
                                                                 <input type="text"
-                                                                    class="form-control originating_from_city" required
-                                                                    name="originating_from_city" id="address"
+                                                                    class="form-control orginating_form_city" required
+                                                                    name="orginating_form_city" id="address"
                                                                     placeholder="City" />
                                                             </div>
                                                             
@@ -783,7 +787,7 @@
                     $('.trip_data_visa_information').val(data.trip_data_visa_information);
                     $('.experience_date').val(data.experience_date);
                     $('.motivation_of_trip').val(data.motivation_of_trip);
-                    $('.originating_from_city').val(data.orginating_form_city);
+                    $('.orginating_form_city').val(data.orginating_form_city);
                     $('.originating_from_via').val(data.orginating_form_via);
                     // $('.hotel_name').val(data.hotel_name);
                     // $('.room_no').val(data.room_no);

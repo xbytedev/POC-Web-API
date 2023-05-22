@@ -40,6 +40,9 @@
 		.closebtn:hover {
 		color: black;
 		}
+		.parsley-errors-list{
+			color: red;
+		}
 		</style>
         @show
 	</head>

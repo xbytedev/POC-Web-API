@@ -76,11 +76,12 @@ class TripController extends Controller
                 $check_user = RegisterUser::where('email',$request->contacts_email)->first();
                 $check_trip_people = TripPeople::where('trip_id',$request->trip_id)->where('contacts_email',$request->contacts_email)->first();
 
-                print_r($check_trip_people);
-                exit;
+                $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
                 
                 if(empty($check_trip_people)){
+
                     $add_trip_people = new TripPeople;
+                    $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
                     $add_trip_people->trip_id = $request->trip_id;
                     $add_trip_people->name = $request->name;
                     $add_trip_people->family_name = $request->family_name;
@@ -128,7 +129,7 @@ class TripController extends Controller
                     $add_trip_people->mean_of_transport = $request->mean_of_transport;
                     $add_trip_people->airline = $request->document_number_pnr;                
                     $add_trip_people->orginating_form_country = $request->originating_from_country;
-                    $add_trip_people->orginating_form_city = $request->originating_from_city;
+                    $add_trip_people->orginating_form_city = $request->orginating_form_city;
                     $add_trip_people->orginating_form_via = $request->originating_from_via;
                     $add_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                     $add_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));
@@ -197,7 +198,7 @@ class TripController extends Controller
                     $update_trip_people->mean_of_transport = $request->mean_of_transport;
                     $update_trip_people->airline = $request->document_number_pnr;
                     $update_trip_people->orginating_form_country = $request->originating_from_country;
-                    $update_trip_people->orginating_form_city = $request->originating_from_city;
+                    $update_trip_people->orginating_form_city = $request->orginating_form_city;
                     $update_trip_people->orginating_form_via = $request->originating_from_via;
                     $update_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                     $update_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));
@@ -225,9 +226,11 @@ class TripController extends Controller
             if(!empty($request->trip_id)){
                 $check_user = RegisterUser::where('email',$request->contacts_email)->first();
                 $check_trip_people = TripPeople::where('trip_id',$request->trip_id)->where('contacts_email',$request->contacts_email)->first();
-                
+                $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
                 if(empty($check_trip_people)){
+
                     $add_trip_people = new TripPeople;
+                    $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
                     $add_trip_people->trip_id = $request->trip_id;
                     $add_trip_people->name = $request->name;
                     $add_trip_people->family_name = $request->family_name;
@@ -275,7 +278,7 @@ class TripController extends Controller
                     $add_trip_people->mean_of_transport = $request->mean_of_transport;
                     $add_trip_people->airline = $request->document_number_pnr;                
                     $add_trip_people->orginating_form_country = $request->originating_from_country;
-                    $add_trip_people->orginating_form_city = $request->originating_from_city;
+                    $add_trip_people->orginating_form_city = $request->orginating_form_city;
                     $add_trip_people->orginating_form_via = $request->originating_from_via;
                     $add_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                     $add_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));
@@ -344,7 +347,7 @@ class TripController extends Controller
                     $update_trip_people->mean_of_transport = $request->mean_of_transport;
                     $update_trip_people->airline = $request->document_number_pnr;
                     $update_trip_people->orginating_form_country = $request->originating_from_country;
-                    $update_trip_people->orginating_form_city = $request->originating_from_city;
+                    $update_trip_people->orginating_form_city = $request->orginating_form_city;
                     $update_trip_people->orginating_form_via = $request->originating_from_via;
                     $update_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
                     $update_trip_people->arrival_crossing_point_arrival_date = date('Y-m-d', strtotime($request->arrival_crossing_point_arrival_date));

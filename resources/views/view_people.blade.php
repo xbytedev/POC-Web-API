@@ -1,30 +1,19 @@
 @extends('frontcomponent.master')
-
 @section('content')
-
 <div class="container-fluid">
-
     <div class="row">
-
         <div class="col">
-
             <div class="h-100">
                 @if($trip->trip_status != 'active')
                     <div class="col-auto">
                         <a href="{{url('add_trip_wise_people/'.request('id'))}}" class="btn theme-btn text-white"> <i class="ri-add-circle-line align-middle me-1"></i> Add People</a>
                     </div>
                 @endif
-
                 <div class="row">
-
                     @foreach($trip_people as $trip_people_data)
-
                         <div class="col-xl-3 col-md-6">
-
                             <div class="card card-animate mt-3">
-
                                 <a href="{{url('edit_trip_people/'.$trip_people_data->id)}}">
-
                                     <div class="card-body text-black">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -49,8 +38,6 @@
                                                 <p class="mb-0" >{{$trip_people_data->family_name}}</p>
 
                                             </div>
-
-                                        
 
                                             <div class="flex-grow-1">
 
@@ -88,29 +75,18 @@
 
                                                 <b>Visa</b> 
 
-                                                <p class="mb-0">{{$trip_people_data->experience_date}}</p>
+                                                <p class="mb-0">{{$trip_people_data->valid_untill}}</p>
 
                                             </div>
-
                                         </div>
-
                                     </div>
-
                                 </a>
-
                             </div>
-
                         </div>
-
-                    @endforeach
-                    
+                    @endforeach                    
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 @endsection
