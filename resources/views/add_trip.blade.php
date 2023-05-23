@@ -264,11 +264,11 @@
                                                                 placeholder="Phone"/>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label for="Profession" class="form-label">Profession</label>
-                                                            <input type="number" required name="contacts_profession"
-                                                                class="form-control contacts_profession" id="Profession"
-                                                                placeholder="Profession"/>
-                                                        </div>
+                                                                <label for="address" class="form-label">Profession</label>
+                                                                <input type="text" required name="profession"
+                                                                    class="form-control profession" id="address"
+                                                                    placeholder="Profession" />
+                                                            </div>
                                                         <br>
                                                         <!-- <h4>Trip Data</h4> -->
                                                         <!-- <div class="col-12">

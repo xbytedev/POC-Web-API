@@ -391,6 +391,13 @@
 
                                                         </div>
 
+                                                        <div class="col-12">
+                                                                <label for="address" class="form-label">Profession</label>
+                                                                <input type="text" required value="{{ $trip_people->profession }}" name="profession"
+                                                                    class="form-control profession" id="address"
+                                                                    placeholder="Profession" />
+                                                            </div>
+
                                                         <br>
                                                         <!-- <h4>Trip Data</h4> -->
 

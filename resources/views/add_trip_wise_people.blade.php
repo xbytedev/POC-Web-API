@@ -50,7 +50,7 @@
                                 <div class="col-lg-7 mx-auto">
                                     <div class="px-lg-4">
                                         <div class="tab-content">
-                                            <div class="tab-pane fade" id="v-pills-bill-info" role="tabpanel"
+                                            <div class="tab-pane fade" id="v-pills-bill-info" role="tabpanel" 
                                                 aria-labelledby="v-pills-bill-info-tab">
                                                 <!--  <div>
                                                     <h5>Billing Info</h5>
@@ -82,14 +82,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="d-flex align-items-start gap-3 mt-4">
-                                                    <button type="button"
-                                                        class="btn btn-success btn-label right ms-auto nexttab nexttab save_trip"
-                                                        data-nexttab="v-pills-bill-address-tab">
-                                                        <i
-                                                            class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Save
-                                                    </button>
+                                                    <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab save_trip" data-nexttab="v-pills-bill-address-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Save</button>
                                                 </div>
                                             </div>
                                             <!-- end tab pane -->
@@ -212,8 +206,7 @@
                                                                     required>
                                                                     <option>Select Country</option>
                                                                     @foreach ($country as $country_data)
-                                                                        <option
-                                                                            class="residence_country_{{ $country_data->id }}"
+                                                                        <option class="residence_country_{{ $country_data->id }}"
                                                                             value="{{ $country_data->id }}">
                                                                             {{ $country_data->name }}</option>
                                                                     @endforeach
@@ -224,7 +217,7 @@
                                                                 <label for="address" class="form-label">City</label>
                                                                 <input type="text" name="residence_city"
                                                                     class="form-control residence_city" id="address"
-                                                                    placeholder="City" required />
+                                                                    placeholder="City" required/>
                                                             </div>
 
                                                             <div class="col-4">
@@ -250,12 +243,11 @@
                                                                     class="form-control contacts_phone" id="address"
                                                                     placeholder="Phone" />
                                                             </div>
-                                                            
                                                             <div class="col-12">
-                                                                <label for="address" class="form-label">Phone</label>
-                                                                <input type="number" required name="contacts_phone"
-                                                                    class="form-control contacts_phone" id="address"
-                                                                    placeholder="Phone" />
+                                                                <label for="address" class="form-label">Profession</label>
+                                                                <input type="text" required name="profession"
+                                                                    class="form-control profession" id="address"
+                                                                    placeholder="Profession" />
                                                             </div>
                                                         </div>
                                                         <br>

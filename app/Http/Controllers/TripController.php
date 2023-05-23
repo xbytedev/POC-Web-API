@@ -75,14 +75,12 @@ class TripController extends Controller
             if(!empty($request->trip_id)){
                 $check_user = RegisterUser::where('email',$request->contacts_email)->first();
                 $check_trip_people = TripPeople::where('trip_id',$request->trip_id)->where('contacts_email',$request->contacts_email)->first();
-
                 $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
-                
                 if(empty($check_trip_people)){
-
                     $add_trip_people = new TripPeople;
                     $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
                     $add_trip_people->trip_id = $request->trip_id;
+                    $add_trip_people->profession = $request->profession;
                     $add_trip_people->name = $request->name;
                     $add_trip_people->family_name = $request->family_name;
                     $add_trip_people->gender = $request->gender;
@@ -150,6 +148,7 @@ class TripController extends Controller
                     $update_trip_people = TripPeople::where('contacts_email',$request->contacts_email)->first();
                     $update_trip_people->trip_id = $request->trip_id;
                     $update_trip_people->name = $request->name;
+                    $update_trip_people->profession = $request->profession;
                     $update_trip_people->family_name = $request->family_name;
                     $update_trip_people->gender = $request->gender;
                     $update_trip_people->dob = date('Y-m-d', strtotime(date('Y-m-d', strtotime($request->dob))));
