@@ -66,7 +66,6 @@ Route::group(['middleware' => ['role:admin']], function () {
     // PaymentController
     Route::get('/payment_list', [App\Http\Controllers\admin\PaymentController::class, 'payment_list'])->middleware("auth");
 
-
     // LogsController
     Route::get('/user_logs', [App\Http\Controllers\admin\LogsController::class, 'user_logs'])->middleware("auth");
     Route::get('/border_patner_logs', [App\Http\Controllers\admin\LogsController::class, 'border_patner_logs'])->middleware("auth");
@@ -82,6 +81,15 @@ Route::group(['middleware' => ['role:partner']], function () {
     Route::post('/insert_agent', [App\Http\Controllers\admin\AgentController::class, 'insert_agent'])->middleware("auth");
 });
 
+Route::group(['middleware' => ['role:agent']], function () {
+
+    // GroupController
+    Route::get('/group', [App\Http\Controllers\admin\GroupController::class, 'group'])->middleware("auth");
+    Route::get('/add_group', [App\Http\Controllers\admin\GroupController::class, 'add_group'])->middleware("auth");
+    Route::post('/inser_group', [App\Http\Controllers\admin\GroupController::class, 'inser_group'])->middleware("auth");
+    Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
+    Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
+});
 
 // front side route start 
 

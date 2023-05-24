@@ -1455,11 +1455,7 @@ class ApiController extends Controller
 
         if(!empty($partner_id)){
             $datas = Group::where(['status'=>0,'partner_id'=>$partner_id])->get();
-            if(sizeof($datas) > 0){
-                $response = array('status'=>true ,'data' => $datas);
-            }else{
-                $response = array('status'=>false ,'data' => []);
-            }
+            $response = array('status'=>true ,'data' => $datas);
         }else{
             $response = array('status'=>false ,'message' => 'some required field missing');
         }
