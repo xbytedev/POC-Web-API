@@ -18,6 +18,7 @@ use App\Models\DepartureCrossingPoint;
 use App\Models\UserLogs;
 use App\Models\PartnerScannerLogs;
 use App\Models\ScanLogs;
+use App\Models\GroupPeople;
 use App\Models\Group;
 use File;
 use Mail;
@@ -1452,12 +1453,40 @@ class ApiController extends Controller
 
     public function group_list(Request $request){
         $partner_id = $request->partner_id;
-
+        
         if(!empty($partner_id)){
             $datas = Group::where(['status'=>0,'partner_id'=>$partner_id])->get();
             $response = array('status'=>true ,'data' => $datas);
         }else{
             $response = array('status'=>false ,'message' => 'some required field missing');
+        }
+        return response()->json($response);
+    }
+
+    public function add_group_people(Request $request)
+    {
+        $people_code = $request->people_code;
+        $group_id = $request->group_id;
+        $group_code = $request->group_code;
+        $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+        if(!empty($trip_people)){
+            $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
+            if(!empty($check_group_people_data)){
+                $group_people = new GroupPeople;
+                $group_people->people_id = $trip_people->id;
+                $group_people->people_code = $trip_people->people_id_code;
+                $group_people->group_id = $group_id;
+                $group_people->group_code = $group_code;
+                if($group_people->save()){
+                    $response = array('status'=>true ,'message' => 'People Added Successfully');
+                }else{
+                    $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'People Already Exist');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'People Not Found');
         }
         return response()->json($response);
     }

@@ -89,6 +89,9 @@ Route::group(['middleware' => ['role:agent']], function () {
     Route::post('/inser_group', [App\Http\Controllers\admin\GroupController::class, 'inser_group'])->middleware("auth");
     Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
     Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
+
+    // group people opration
+    Route::post('/add_group_people', [App\Http\Controllers\admin\GroupController::class, 'add_group_people'])->middleware("auth");
 });
 
 // front side route start 

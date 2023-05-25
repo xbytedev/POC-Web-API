@@ -56,3 +56,4 @@ Route::post('/scan_logs', [App\Http\Controllers\ApiController::class, 'scan_logs
 Route::post('/create_group', [App\Http\Controllers\ApiController::class, 'create_group']);
 Route::post('/group_list', [App\Http\Controllers\ApiController::class, 'group_list']);
 Route::post('/resend_login_otp', [App\Http\Controllers\ApiController::class, 'resend_login_otp']);
+Route::post('/add_group_people', [App\Http\Controllers\ApiController::class, 'add_group_people']);

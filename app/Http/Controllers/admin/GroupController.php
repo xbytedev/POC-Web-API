@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Group;
+use App\Models\GroupPeople;
+use App\Models\TripPeople;
 use Auth;
 
 class GroupController extends Controller
@@ -61,7 +63,7 @@ class GroupController extends Controller
         }
     }
 
-     public function delete_update_group(Request $request){
+    public function delete_update_group(Request $request){
         $id = $request->id;
         $add_data = Group::where('id',$id)->first();
         $add_data->is_delete = 1;
@@ -71,5 +73,36 @@ class GroupController extends Controller
             $response = array('status'=>false,'message'=>'Something went wrong');
         }
         return response()->json($response);
+    }
+
+    public function add_group_people(Request $request)
+    {
+        $people_code = $request->people_code;
+        $group_id = $request->group_id;
+        $group_code = $request->group_code;
+        $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+        if(!empty($trip_people)){
+            $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
+            if($check_group_people_data){
+                $group_people = new GroupPeople;
+                $group_people->people_id = $trip_people->id;
+                $group_people->people_code = $trip_people->people_id_code;
+                $group_people->group_id = $group_id;
+                $group_people->group_code = $group_code;
+                if($group_people->save()){
+                    session()->flash('success','Group updated successfully');
+                    return redirect('group');
+                }else{
+                    session()->flash('error','Something went wrong');
+                    return redirect()->back();
+                }
+            }else{
+                session()->flash('error','People already exist');
+                return redirect()->back();
+            }
+        }else{
+            session()->flash('error','People Not Found');
+            return redirect()->back();
+        }
     }
 }

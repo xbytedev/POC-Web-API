@@ -75,7 +75,7 @@
                                 <span style="color:red;">Deactive</span>
                             @endif
                         </td>
-                        <td><a href="{{url('edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a><a data-id="{{$group->id}}" class="btn btn-sm btn-danger delete_group"><i class="fa fa-edit"></i></a></td>
+                        <td><a href="{{url('edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> <a data-id="{{$group->id}}" class="btn btn-sm btn-success"><i class="fa fa-user-plus"></i></a></td>
                     </tr>
                 @endforeach
             </tbody>
