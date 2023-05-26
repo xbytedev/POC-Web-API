@@ -20,6 +20,7 @@ use App\Models\PartnerScannerLogs;
 use App\Models\ScanLogs;
 use App\Models\GroupPeople;
 use App\Models\Group;
+use Hash;
 use File;
 use Mail;
 
@@ -1365,10 +1366,13 @@ class ApiController extends Controller
         if(!empty($otp) && !empty($user_id)){
             $update_user = User::where('id',$user_id)->where('otp',$otp)->first();
             if(!empty($update_user)){
+                $number = Hash::make(rand(11111111,99999999));
+                $update_user_datas = User::where('id',$user_id)->update(['api_token'=>$number]);
+                $update_user_single_data = User::where('id',$user_id)->where('otp',$otp)->first();
                 $add = new PartnerScannerLogs;
                 $add->partner_scanner_id = $user_id;
                 $add->save();
-                $response = array('status'=>true,'message'=>'OTP verify successfully','user_id'=>$user_id,'data'=>$update_user);
+                $response = array('status'=>true,'message'=>'OTP verify successfully','user_id'=>$user_id,'data'=>$update_user_single_data,'token'=>$number);
             }else{
                 $response = array('status'=>false,'message'=>'Your OTP wrong','user_id'=>'');
             }
@@ -1418,9 +1422,9 @@ class ApiController extends Controller
         $partner_name = User::where('id',$partner_id)->first();
         $trip_user_data = TripPeople::where('id',$user_id)->where('trip_id',$trip_id)->first();
         if(!empty($trip_user_data) && !empty($partner_name)){
-            $details['user_name'] = $trip_user_data->name;            
+            $details['user_name'] = $trip_user_data->name;
             $details['partner_name'] = $partner_name->name;
-            $details['amount'] = $request->amount;        
+            $details['amount'] = $request->amount;
             Mail::to($trip_user_data->contacts_email)->send(new \App\Mail\SendPaymentReceipt($details));
             $response = array('status'=>true ,'message' => 'Suceess');
         }else{
@@ -1430,63 +1434,83 @@ class ApiController extends Controller
     }
 
     public function create_group(Request $request){
-        $name = $request->name;
-        $partner_id = $request->partner_id;
 
-        if(!empty($partner_id) && !empty($name)){
-            $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
-            $add = new Group;
-            $add->group_code = rand(111111111,999999999).($last_group_id+1);
-            $add->name = $name;
-            $add->partner_id = $partner_id;
-            if($add->save()){
-                $datas = Group::where('id', $last_group_id+1)->first();
-                $response = array('status'=>true ,'message' => 'Group created successfully','data'=>$datas);
+        $check_token = User::where('api_token',$request->header('token'))->first();
+
+        if(!empty($check_token)){
+            $name = $request->name;
+            $partner_id = $request->partner_id;
+
+            if(!empty($partner_id) && !empty($name)){
+                $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
+                $add = new Group;
+                $add->group_code = rand(111111111,999999999).($last_group_id+1);
+                $add->name = $name;
+                $add->partner_id = $partner_id;
+                if($add->save()){
+                    $datas = Group::where('id', $last_group_id+1)->first();
+                    $response = array('status'=>true ,'message' => 'Group created successfully','data'=>$datas);
+                }else{
+                    $response = array('status'=>false ,'message' => 'Something went wrong');
+                }
             }else{
-                $response = array('status'=>false ,'message' => 'Something went wrong');
+                $response = array('status'=>false ,'message' => 'some required field missing');
             }
         }else{
-            $response = array('status'=>false ,'message' => 'some required field missing');
+            $response = array('status'=>false ,'message' => 'Access Denied');
         }
         return response()->json($response);
     }
 
     public function group_list(Request $request){
-        $partner_id = $request->partner_id;
-        
-        if(!empty($partner_id)){
-            $datas = Group::where(['status'=>0,'partner_id'=>$partner_id])->get();
-            $response = array('status'=>true ,'data' => $datas);
+
+        $check_token = User::where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $partner_id = $request->partner_id;
+            
+            if(!empty($partner_id)){
+                $datas = Group::where(['status'=>0,'partner_id'=>$partner_id])->get();
+                $response = array('status'=>true ,'data' => $datas);
+            }else{
+                $response = array('status'=>false ,'message' => 'some required field missing');
+            }
         }else{
-            $response = array('status'=>false ,'message' => 'some required field missing');
+            $response = array('status'=>false ,'message' => 'Access Denied');
         }
         return response()->json($response);
     }
 
     public function add_group_people(Request $request)
     {
-        $people_code = $request->people_code;
-        $group_id = $request->group_id;
-        $group_code = $request->group_code;
-        $trip_people = TripPeople::where('people_id_code',$people_code)->first();
-        if(!empty($trip_people)){
-            $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
-            if(!empty($check_group_people_data)){
-                $group_people = new GroupPeople;
-                $group_people->people_id = $trip_people->id;
-                $group_people->people_code = $trip_people->people_id_code;
-                $group_people->group_id = $group_id;
-                $group_people->group_code = $group_code;
-                if($group_people->save()){
-                    $response = array('status'=>true ,'message' => 'People Added Successfully');
+        $check_token = User::where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $people_code = $request->people_code;
+            $group_id = $request->group_id;
+            $group_code = $request->group_code;
+            $partner_id = $request->partner_id;
+            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+            if(!empty($trip_people)){
+                $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
+                if(empty($check_group_people_data)){
+                    $group_people = new GroupPeople;
+                    $group_people->people_id = $trip_people->id;
+                    $group_people->people_code = $trip_people->people_id_code;
+                    $group_people->group_id = $group_id;
+                    $group_people->group_code = $group_code;
+                    $group_people->partner_id = $partner_id;
+                    if($group_people->save()){
+                        $response = array('status'=>true ,'message' => 'People Added Successfully');
+                    }else{
+                        $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                    }
                 }else{
-                    $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                    $response = array('status'=>false ,'message' => 'People Already Exist');
                 }
             }else{
-                $response = array('status'=>false ,'message' => 'People Already Exist');
+                $response = array('status'=>false ,'message' => 'People Not Found');
             }
         }else{
-            $response = array('status'=>false ,'message' => 'People Not Found');
+            $response = array('status'=>false ,'message' => 'Access Denied');
         }
         return response()->json($response);
     }
