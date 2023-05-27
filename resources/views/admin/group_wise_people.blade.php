@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Group')
+@section('title','People List In Group')
 
 @section('content')
 
@@ -39,7 +39,7 @@
     <div class="card-body">
 
         <div class="text-end">
-            <a href="{{url('add_group')}}" class="btn btn-primary">Add Group</a>
+            <a href="{{url('add_group_wise_people/'.request('id'))}}" class="btn btn-primary">Add Group</a>
         </div>
 
         <table id="example" class="table table-striped text-left border" style="width:100%">
@@ -63,10 +63,10 @@
             </thead>
 
             <tbody class="border">
-                @foreach($group_data as $key=> $group)
+                @foreach($group_people_data as $key=> $group)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$group->name}}</td>
+                        <td>{{$group->people_id}}</td>
                         <td>{{$group->group_code}}</td>
                         <td>
                             @if($group->status == 1)
@@ -75,9 +75,7 @@
                                 <span style="color:red;">Deactive</span>
                             @endif
                         </td>
-                        <td>
-                            <a href="{{url('edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> <a data-id="{{$group->id}}" class="btn btn-sm btn-success" href="{{url('group_wise_people/'.base64_encode($group->id))}}"><i class="fa fa-user-plus"></i></a>
-                        </td>
+                        <td><a href="{{url('edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
                     </tr>
                 @endforeach
             </tbody>
@@ -158,11 +156,17 @@
                             'success'
 
                         )
+
                         location.reload();
+
                     }
+
                 });
+
             }
+
         })
+
     });
 </script>
 @endsection
