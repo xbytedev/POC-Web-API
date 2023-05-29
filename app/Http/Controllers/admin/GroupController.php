@@ -78,13 +78,9 @@ class GroupController extends Controller
     public function add_group_people(Request $request)
     {
         $people_code = $request->people_code;
-        print_r($people_code);
-        exit;
         $group_id = $request->group_id;
         $group_code = $request->group_code;
         $trip_people = TripPeople::where('people_id_code',$people_code)->first();
-        print_r($trip_people);
-        exit;
         if(!empty($trip_people)){
             $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
             if(empty($check_group_people_data)){
@@ -95,8 +91,8 @@ class GroupController extends Controller
                 $group_people->group_code = $group_code;
                 $group_people->partner_id = Auth::user()->id;
                 if($group_people->save()){
-                    session()->flash('success','Group updated successfully');
-                    return redirect('group');
+                    session()->flash('success','People add in group successfully');
+                    return redirect('group_wise_people/'.base64_encode($group_id));
                 }else{
                     session()->flash('error','Something went wrong');
                     return redirect()->back();
@@ -112,12 +108,58 @@ class GroupController extends Controller
     }
 
     public function group_wise_people($id){
-        $group_people_data = GroupPeople::where('group_id',base64_decode($id))->get();
+        $group_people_data = GroupPeople::with('group_people_details','group_details')->where('partner_id',Auth::user()->id)->where('group_id',base64_decode($id))->get();
         return view('admin.group_wise_people',compact('group_people_data'));
     }
 
     public function add_group_wise_people($id){
-        $group_people_data = GroupPeople::where('group_id',base64_decode($id))->first();
+        $group_people_data = Group::with('group_people_details','group_details')->where('partner_id',Auth::user()->id)->where('id',base64_decode($id))->first();
         return view('admin.add_group_people',compact('group_people_data'));
     }
+
+    public function edit_group_wise_people($id,$group_id){
+        $group_data = Group::with('group_people_details','group_details')->where('partner_id',Auth::user()
+        ->id)->where('id',base64_decode($group_id))->first();
+        $group_people_data = GroupPeople::with('group_people_details','group_details')->where('partner_id',Auth::user()->id)->where('id',base64_decode($id))->first();
+
+        return view('admin.edit_group_people',compact('group_people_data','group_data'));
+    }
+
+    public function update_group_people(Request $request,$id)
+    {
+        $people_code = $request->people_code;
+        $group_id = $request->group_id;
+        $group_code = $request->group_code;
+        $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+        if(!empty($trip_people)){
+            $check_group_people_data = GroupPeople::where('id','!=',$id)->where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
+            if(empty($check_group_people_data)){
+                $group_people = GroupPeople::where('id',$id)->first();
+                $group_people->people_id = $trip_people->id;
+                $group_people->people_code = $trip_people->people_id_code;
+                $group_people->group_id = $group_id;
+                $group_people->group_code = $group_code;
+                $group_people->partner_id = Auth::user()->id;
+                if($request->status == 'on'){
+                    $group_people->status = 1;
+                }else{
+                    $group_people->status = 0;
+                }
+                if($group_people->save()){
+                    session()->flash('success','People updated in group successfully');
+                    return redirect('group_wise_people/'.base64_encode($group_id));
+                }else{
+                    session()->flash('error','Something went wrong');
+                    return redirect()->back();
+                }
+            }else{
+                session()->flash('error','People already exist');
+                return redirect()->back();
+            }
+        }else{
+            session()->flash('error','People Not Found');
+            return redirect()->back();
+        }
+    }
+
 }

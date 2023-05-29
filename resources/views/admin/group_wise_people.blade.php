@@ -50,10 +50,12 @@
 
                     <th><b>SR.</b></th>
 
-                    <th><b>Name</b></th>
+                    <th><b>Group Name</b></th>
 
-                    <th><b>Code</b></th>
+                    <th><b>People Name</b></th>
 
+                    <th><b>People QR Code</b></th>
+                    
                     <th><b>Status</b></th>
 
                     <th><b>Action</b></th>
@@ -66,16 +68,17 @@
                 @foreach($group_people_data as $key=> $group)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$group->people_id}}</td>
-                        <td>{{$group->group_code}}</td>
+                        <td>{{$group->group_details->name}}</td>
+                        <td>{{$group->group_people_details->name}}</td>
+                        <td>{{$group->people_code}}</td>
                         <td>
-                            @if($group->status == 1)
+                            @if($group->status == 0)
                                 <span style="color:green;">Active</span>
                             @else
                                 <span style="color:red;">Deactive</span>
                             @endif
                         </td>
-                        <td><a href="{{url('edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
+                        <td><a href="{{url('edit_group_wise_people/'.base64_encode($group->id).'/'.request('id'))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
                     </tr>
                 @endforeach
             </tbody>

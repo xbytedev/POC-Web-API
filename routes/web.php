@@ -95,6 +95,10 @@ Route::group(['middleware' => ['role:agent']], function () {
 
     Route::get('/group_wise_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'group_wise_people'])->middleware("auth");
 
+    Route::get('/edit_group_wise_people/{id}/{group_id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group_wise_people'])->middleware("auth");
+
+    Route::post('/update_group_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group_people'])->middleware("auth");
+
     Route::get('/add_group_wise_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'add_group_wise_people'])->middleware("auth");
     
 });

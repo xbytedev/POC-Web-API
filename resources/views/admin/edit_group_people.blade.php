@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Add Group People')
+@section('title','Edit Group People')
 
 @section('content')
 
@@ -63,7 +63,7 @@
 
     <div class="card-body">
 
-    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('add_group_people')}}">
+    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('update_group_people/'.$group_people_data->id)}}">
 
         @csrf
 
@@ -75,11 +75,11 @@
 
                     <label for="exampleInputEmail1">Code</label>
 
-                    <input type="text" name="people_code" required class="form-control" id="exampleInputEmail1" placeholder="Code">
+                    <input type="text" name="people_code" value="{{$group_people_data->people_code}}" required class="form-control" id="exampleInputEmail1" placeholder="Code">
                     
-                    <input type="hidden" name="group_id" value="{{$group_people_data->id}}">
+                    <input type="hidden" name="group_id" value="{{$group_data->id}}">
                     
-                    <input type="hidden" name="group_code" value="{{$group_people_data->group_code}}">
+                    <input type="hidden" name="group_code" value="{{$group_data->group_code}}">
 
                 </div><br>
 
