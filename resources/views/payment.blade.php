@@ -26,7 +26,7 @@
                                                 2 People
                                             </span>
                                         </a>
-                                        <button class="nav-link active" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false" @if ($trip->trip_status != 'active') disabled @endif>
+                                        <button class="nav-link active" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false" @if($trip->trip_status != 'active') disabled @endif>
                                             <span class="step-title me-2">
                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                 3 Get Card
@@ -102,6 +102,13 @@
 
                                                                                     <p class="text-muted mb-0">{{ $trip->trip_end_date }}</p>
                                                                                 </div>
+                                                                            </div>
+
+                                                                            <br><div class="flex-grow-1 w-100">
+
+                                                                                <b class="">QR Code</b>
+
+                                                                                <p class="text-muted mb-0">{{ $trip_pepole_data->people_id_code }}</p>
                                                                             </div>
                                                                         </div>
 

@@ -79,6 +79,9 @@ Route::group(['middleware' => ['role:partner']], function () {
     Route::get('/edit_agent/{id}', [App\Http\Controllers\admin\AgentController::class, 'edit_agent'])->middleware("auth");
     Route::post('/update_agent/{id}', [App\Http\Controllers\admin\AgentController::class, 'update_agent'])->middleware("auth");
     Route::post('/insert_agent', [App\Http\Controllers\admin\AgentController::class, 'insert_agent'])->middleware("auth");
+
+    // PlacesController
+    Route::get('/places', [App\Http\Controllers\admin\PlacesController::class, 'index'])->middleware("auth");
 });
 
 Route::group(['middleware' => ['role:agent']], function () {

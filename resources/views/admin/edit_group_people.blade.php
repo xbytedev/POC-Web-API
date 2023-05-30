@@ -89,7 +89,7 @@
 
         <div class="form-group form-check">
 
-            <input type="checkbox" name="status" class="form-check-input" checked id="exampleCheck1">
+            <input type="checkbox" @if($group_people_data->status == 1) checked @endif name="status" class="form-check-input" id="exampleCheck1">
 
             <label class="form-check-label" for="exampleCheck1">Status</label>
 
@@ -97,7 +97,7 @@
 
         <button type="submit" class="btn btn-primary">Submit</button> 
         
-            <a href="{{url('group_wise_people/'.request('id'))}}" class="btn btn-danger">Cancel</a>
+            <a href="{{url('group_wise_people/'.base64_encode($group_data->id))}}" class="btn btn-danger">Cancel</a>
 
         </form>
 
