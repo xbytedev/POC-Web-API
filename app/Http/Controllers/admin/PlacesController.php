@@ -11,4 +11,9 @@ class PlacesController extends Controller
     {
         return view('admin.places');
     }
+
+    public function add_places()
+    {
+        return view('admin.add_places');
+    }
 }

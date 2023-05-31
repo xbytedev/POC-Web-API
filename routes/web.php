@@ -82,6 +82,7 @@ Route::group(['middleware' => ['role:partner']], function () {
 
     // PlacesController
     Route::get('/places', [App\Http\Controllers\admin\PlacesController::class, 'index'])->middleware("auth");
+    Route::get('/add_places', [App\Http\Controllers\admin\PlacesController::class, 'add_places'])->middleware("auth");
 });
 
 Route::group(['middleware' => ['role:agent']], function () {

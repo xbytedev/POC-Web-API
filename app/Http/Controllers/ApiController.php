@@ -619,11 +619,11 @@ class ApiController extends Controller
         /**************************************************************
          * This is for android
         *************************************************************/
-       $email = $request->email;
+        $email = $request->email;
         $password = $request->password;
         if(!empty($email) && !empty($password)){
             $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password) && $check_email_password->role == 'partner'){
+            if(!empty($check_email_password) && $check_email_password->role == 'partner' || $check_email_password->role == 'agent'){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();
@@ -1230,7 +1230,7 @@ class ApiController extends Controller
 
     public function border_scanner_partner_login(Request $request){
         
-        /**************************************************************
+        /*************************************************************
          * This is for IOS
         *************************************************************/
         
@@ -1239,7 +1239,7 @@ class ApiController extends Controller
         
         if(!empty($email) && !empty($password)){
             $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password) && $check_email_password->role == 'partner'){
+            if(!empty($check_email_password) && $check_email_password->role == 'partner' || $check_email_password->role == 'agent'){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();

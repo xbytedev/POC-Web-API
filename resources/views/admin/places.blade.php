@@ -17,7 +17,6 @@
 <div class="alert alert-primary">
 
   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
   <strong>{{Session::get('success')}}</strong>
 
 </div>
