@@ -18,7 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::post('/register_user', [App\Http\Controllers\ApiController::class, 'register_user']);
+Route::post('/edit_group', [App\Http\Controllers\ApiController::class, 'edit_group']);
 Route::post('/check_user_login', [App\Http\Controllers\ApiController::class, 'check_user_login']);
 Route::get('/get_user_data', [App\Http\Controllers\ApiController::class, 'get_user_data']);
 Route::post('/get_individual_user', [App\Http\Controllers\ApiController::class, 'get_individual_user']);

@@ -1514,4 +1514,58 @@ class ApiController extends Controller
         }
         return response()->json($response);
     }
+
+    public function edit_group(Request $request){
+
+        // $check_token = User::where('api_token',$request->header('token'))->first();
+
+        // if(!empty($check_token)){
+            $name = $request->name;
+            // $partner_id = $request->partner_id;
+            $group_id = $request->group_id;
+
+            if(!empty($name)){
+                $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
+                $add = Group::where('id',$group_id)->first();
+                $add->name = $name;
+                if($add->save()){
+                    $datas = Group::where('id', $group_id)->first();
+                    $response = array('status'=>true ,'message' => 'Group updated successfully','data'=>$datas);
+                }else{
+                    $response = array('status'=>false ,'message' => 'Something went wrong');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'some required field missing');
+            }
+        // }else{
+        //     $response = array('status'=>false ,'message' => 'Access Denied');
+        // }
+        return response()->json($response);
+    }
+
+    public function delete_group(Request $request){
+        // $check_token = User::where('api_token',$request->header('token'))->first();
+        // if(!empty($check_token)){
+            $name = $request->name;
+            // $partner_id = $request->partner_id;
+            $group_id = $request->group_id;
+            if(!empty($name)){
+                $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
+                $add = Group::where('id',$group_id)->first();
+                $add->is_delete = 1;
+                if($add->save()){
+                    $datas = Group::where('id', $group_id)->first();
+                    $response = array('status'=>true ,'message' => 'Group updated successfully','data'=>$datas);
+                }else{
+                    $response = array('status'=>false ,'message' => 'Something went wrong');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'some required field missing');
+            }
+        // }else{
+        //     $response = array('status'=>false ,'message' => 'Access Denied');
+        // }
+        return response()->json($response);
+    }
+
 }
