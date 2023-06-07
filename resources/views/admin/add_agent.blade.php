@@ -94,15 +94,14 @@
             </div>
 
             <div class="col-md-4">
-
                 <div class="form-group">
-
-                    <label for="exampleInputEmail1">Contact No.</label>
-
-                    <input type="number" name="number" required class="form-control" id="exampleInputEmail1" placeholder="Contact No.">
-
+                    <label for="exampleInputEmail1">Role</label>
+                    <select class="form-control p-2 role" required name="role" id="">
+                        <option value="">Select Role</option>
+                        <option value="operator">Operator</option>
+                        <option value="agent">Agent</option>
+                    </select>
                 </div><br>
-
             </div>
 
         </div>
@@ -171,11 +170,27 @@
                             <option value="{{$country_data->name}}">{{$country_data->name}}</option>
                         @endforeach
                     </select>
+
                 </div><br>
+
             </div>
+
         </div>
 
         <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1">Contact No.</label>
+
+                    <input type="number" name="number" required class="form-control" id="exampleInputEmail1" placeholder="Contact No.">
+
+                </div><br>
+
+            </div>
+
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="exampleInputEmail1">State</label>
@@ -189,13 +204,14 @@
                     <input type="text" name="city" required class="form-control" id="exampleInputEmail1" placeholder="City">
                 </div><br>
             </div>
+
         </div>
 
         <div class="form-group form-check">
 
             <input type="checkbox" name="status" class="form-check-input" checked id="exampleCheck1">
 
-            <label class="form-check-label" for="exampleCheck1">Status</label>
+            <label class="form-check-label" for="exampleCheck1">Active</label>
 
         </div><br>
 

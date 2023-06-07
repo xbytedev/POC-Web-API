@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Add Customer')
+@section('title','Add User')
 
 @section('content')
 
@@ -56,7 +56,6 @@
     <div class="card-body">
 
     <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('update_user/'.$user->id)}}">
-
         @csrf
 
         <div class="row">
@@ -120,7 +119,7 @@
                     <img style="height: 111px;width: 50%;" src="{{asset('profile_image/'.$user->image)}}" alt=""><br>
                     
                     <label for="exampleInputEmail1">Image</label>
-                    
+
                     <input type="file" name="image" class="form-control" id="exampleInputEmail1">
 
                 </div><br>
@@ -153,7 +152,6 @@
 
         <div class="row">
 
-            
             <div class="col-md-4">
 
                 <div class="form-group">
@@ -172,7 +170,7 @@
 
             <input type="checkbox" name="status" class="form-check-input" @if($user->status == '1') checked @endif id="exampleCheck1">
 
-            <label class="form-check-label" for="exampleCheck1">Status</label>
+            <label class="form-check-label" for="exampleCheck1">Active</label>
 
         </div><br>
 

@@ -1433,14 +1433,15 @@ class ApiController extends Controller
         return response()->json($response);
     }
 
+    /**************************************************************
+     * POC Phase 2 Start
+    *************************************************************/
+
     public function create_group(Request $request){
-
-        $check_token = User::where('api_token',$request->header('token'))->first();
-
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
             $name = $request->name;
             $partner_id = $request->partner_id;
-
             if(!empty($partner_id) && !empty($name)){
                 $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
                 $add = new Group;
@@ -1463,13 +1464,11 @@ class ApiController extends Controller
     }
 
     public function group_list(Request $request){
-
-        $check_token = User::where('api_token',$request->header('token'))->first();
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
             $partner_id = $request->partner_id;
-            
             if(!empty($partner_id)){
-                $datas = Group::where(['status'=>0,'partner_id'=>$partner_id])->get();
+                $datas = Group::where(['is_delete'=>0,'partner_id'=>$partner_id])->get();
                 $response = array('status'=>true ,'data' => $datas);
             }else{
                 $response = array('status'=>false ,'message' => 'some required field missing');
@@ -1482,7 +1481,7 @@ class ApiController extends Controller
 
     public function add_group_people(Request $request)
     {
-        $check_token = User::where('api_token',$request->header('token'))->first();
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
             $people_code = $request->people_code;
             $group_id = $request->group_id;
@@ -1514,12 +1513,48 @@ class ApiController extends Controller
         }
         return response()->json($response);
     }
+    
+    public function edit_group_people(Request $request)
+    {
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $people_code = $request->people_code;
+            $group_id = $request->group_id;
+            $group_code = $request->group_code;
+            $group_people_id = $request->group_people_id;
+            $partner_id = $request->partner_id;
+            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+            if(!empty($trip_people)){
+                $check_group_people_data = GroupPeople::where('id','!=',$group_people_id)->where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
+                if(empty($check_group_people_data)){
+                    $group_people = GroupPeople::where('id',$group_people_id)->first();
+                    $group_people->people_id = $trip_people->id;
+                    $group_people->people_code = $trip_people->people_id_code;
+                    $group_people->group_id = $group_id;
+                    $group_people->group_code = $group_code;
+                    $group_people->partner_id = $partner_id;
+                    if($group_people->save()){
+                        $response = array('status'=>true ,'message' => 'People Added Successfully');
+                    }else{
+                        $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                    }
+                }else{
+                    $response = array('status'=>false ,'message' => 'People Already Exist');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'People Not Found');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
 
     public function edit_group(Request $request){
 
-        // $check_token = User::where('api_token',$request->header('token'))->first();
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
 
-        // if(!empty($check_token)){
+        if(!empty($check_token)){
             $name = $request->name;
             // $partner_id = $request->partner_id;
             $group_id = $request->group_id;
@@ -1537,35 +1572,31 @@ class ApiController extends Controller
             }else{
                 $response = array('status'=>false ,'message' => 'some required field missing');
             }
-        // }else{
-        //     $response = array('status'=>false ,'message' => 'Access Denied');
-        // }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
         return response()->json($response);
     }
 
     public function delete_group(Request $request){
-        // $check_token = User::where('api_token',$request->header('token'))->first();
-        // if(!empty($check_token)){
-            $name = $request->name;
-            // $partner_id = $request->partner_id;
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
             $group_id = $request->group_id;
-            if(!empty($name)){
-                $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
+            if(!empty($group_id)){
                 $add = Group::where('id',$group_id)->first();
                 $add->is_delete = 1;
                 if($add->save()){
                     $datas = Group::where('id', $group_id)->first();
-                    $response = array('status'=>true ,'message' => 'Group updated successfully','data'=>$datas);
+                    $response = array('status'=>true ,'message' => 'Group deleted successfully');
                 }else{
                     $response = array('status'=>false ,'message' => 'Something went wrong');
                 }
             }else{
-                $response = array('status'=>false ,'message' => 'some required field missing');
+                $response = array('status'=>false ,'message' => 'Group id missing');
             }
-        // }else{
-        //     $response = array('status'=>false ,'message' => 'Access Denied');
-        // }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
         return response()->json($response);
     }
-
 }

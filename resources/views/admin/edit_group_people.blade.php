@@ -91,7 +91,7 @@
 
             <input type="checkbox" @if($group_people_data->status == 1) checked @endif name="status" class="form-check-input" id="exampleCheck1">
 
-            <label class="form-check-label" for="exampleCheck1">Status</label>
+            <label class="form-check-label" for="exampleCheck1">Active</label>
 
         </div><br>
 

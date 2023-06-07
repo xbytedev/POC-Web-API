@@ -103,7 +103,7 @@ class BorderScanner_PartnerController extends Controller
     }
 
     public function update_scanner_partner(Request $request,$id){
-        
+
         $this->validate($request,[
             'email' => 'unique:users,email,'.$id,
         ]);
@@ -175,7 +175,6 @@ class BorderScanner_PartnerController extends Controller
         }else{
             $add->status = 0;
         }
-
         if($add->save()){
             session()->flash('success','User updated successfully');
             return redirect('border_scanner_partner');

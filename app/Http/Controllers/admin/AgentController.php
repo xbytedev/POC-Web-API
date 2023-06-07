@@ -73,7 +73,11 @@ class AgentController extends Controller
             $add->status = 0;
         }
         if($add->save()){
-            $add->assignRole('agent');
+            if($request->role == 'agent'){
+                $add->assignRole('agent');
+            }else{
+                $add->assignRole('operator');
+            }
             session()->flash('success','User created successfully');
             return redirect('agent');
         }else{
@@ -156,5 +160,5 @@ class AgentController extends Controller
         $country = Country::all();
         return view('admin.edit_agent',compact('edit_agent','country'));
     }
-
+    
 }
