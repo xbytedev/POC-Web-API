@@ -20,7 +20,7 @@
 
             @foreach($errors->all() as $error)
 
-                <li>{{ $error }}</li>
+                <li>{{ $errors }}</li>
 
             @endforeach
 
@@ -49,11 +49,11 @@
 
         <strong>{{ Session::get('error') }}</strong>
 
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            
+            <span aria-hidden="true">&times;</span>
 
-        <span aria-hidden="true">&times;</span>
-
-    </button>
+        </button>
 
     </div>
 
@@ -64,7 +64,7 @@
     <div class="card-body">
 
     <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('insert_agent')}}">
-
+        
         @csrf
 
         <div class="row">
@@ -94,15 +94,26 @@
             </div>
 
             <div class="col-md-4">
+
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1">Contact No.</label>
+
+                    <input type="number" name="number" required class="form-control" id="exampleInputEmail1" placeholder="Contact No.">
+
+                </div><br>
+
+            </div>
+
+            <!-- <div class="col-md-4">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Role</label>
-                    <select class="form-control p-2 role" required name="role" id="">
-                        <option value="">Select Role</option>
-                        <option value="operator">Operator</option>
-                        <option value="agent">Agent</option>
+                    <select class="form-control p-2 role" required name="role" id=""> -->
+                        <!-- <option value="operator">Operator</option> -->
+                        <!-- <option value="agent">Agent</option>
                     </select>
                 </div><br>
-            </div>
+            </div> -->
 
         </div>
 
@@ -133,7 +144,7 @@
             </div>
 
             <div class="col-md-4">
-
+                
                 <div class="form-group">
 
                     <label for="exampleInputEmail1">Location</label>
@@ -170,26 +181,11 @@
                             <option value="{{$country_data->name}}">{{$country_data->name}}</option>
                         @endforeach
                     </select>
-
                 </div><br>
-
             </div>
-
         </div>
 
         <div class="row">
-
-            <div class="col-md-4">
-
-                <div class="form-group">
-
-                    <label for="exampleInputEmail1">Contact No.</label>
-
-                    <input type="number" name="number" required class="form-control" id="exampleInputEmail1" placeholder="Contact No.">
-
-                </div><br>
-
-            </div>
 
             <div class="col-md-4">
                 <div class="form-group">

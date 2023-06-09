@@ -1550,8 +1550,38 @@ class ApiController extends Controller
         return response()->json($response);
     }
 
-    public function edit_group(Request $request){
+    public function change_status_group_people(Request $request)
+    {
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $people_code = $request->people_code;
+            $group_id = $request->group_id;
+            $group_code = $request->group_code;
+            $group_people_id = $request->group_people_id;
+            $partner_id = $request->partner_id;
+            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+            if(!empty($trip_people)){
+                $group_people = GroupPeople::where('id',$group_people_id)->first();
+                if($group_people->status == 0){
+                    $group_people->status = 1;
+                }else{
+                    $group_people->status = 0;
+                }
+                if($group_people->save()){
+                    $response = array('status'=>true ,'message' => 'Status Updated Successfully');
+                }else{
+                    $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'People Not Found');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
 
+    public function edit_group(Request $request){
         $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
 
         if(!empty($check_token)){

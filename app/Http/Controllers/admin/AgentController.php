@@ -17,13 +17,13 @@ class AgentController extends Controller
         if(!empty($_REQUEST['to_date']) && !empty($_REQUEST['from_date'])){
             $from_date = $_REQUEST['from_date'];
             $to_date = $_REQUEST['to_date'];
-            $agent = User::with('created_by_name')->where('created_by',Auth::user()->id)->where('role','agent')->orWhere('role','operator')->whereBetween('created_at', [$from_date, $to_date])->get();
+            $agent = User::with('created_by_name')->where('created_by',Auth::user()->id)->where('role','agent')->whereBetween('created_at', [$from_date, $to_date])->get();
         }else{
-            $agent = User::with('created_by_name')->where('created_by',Auth::user()->id)->orWhere('role','operator')->where('role','agent')->get();
+            $agent = User::with('created_by_name')->where('created_by',Auth::user()->id)->where('role','agent')->get();
         }
         return view('admin.agent',compact('agent'));
     }
-
+    
     public function add_agent()
     {
         $country = Country::all();
@@ -42,8 +42,9 @@ class AgentController extends Controller
         $add->number = $request->number;
         $add->view_password = $request->password;
         $add->password =  Hash::make($request->password);
-        $add->location = $request->location;
-        $add->role = $request->role;
+        $add->location = $request->location;    
+        $add->role = 'agent';
+        // $add->role = $request->role;
         $add->document_name = $request->document_name;
 
         if($request->hasFile('document_image')){
@@ -73,11 +74,7 @@ class AgentController extends Controller
             $add->status = 0;
         }
         if($add->save()){
-            if($request->role == 'agent'){
-                $add->assignRole('agent');
-            }else{
-                $add->assignRole('operator');
-            }
+            $add->assignRole('agent');
             session()->flash('success','User created successfully');
             return redirect('agent');
         }else{
@@ -158,6 +155,5 @@ class AgentController extends Controller
         $edit_agent = User::with('created_by_name')->where('role','agent')->where('id',$id)->first();
         $country = Country::all();
         return view('admin.edit_agent',compact('edit_agent','country'));
-    }
-    
+    }    
 }

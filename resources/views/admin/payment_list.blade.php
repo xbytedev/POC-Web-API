@@ -76,7 +76,6 @@
                     <th><b>Mode Of Payment</b></th>
                 </tr>
             </thead>
-
             <tbody class="border">
                 @foreach($payment as $key=> $payment_data)
                     <tr>
@@ -87,31 +86,24 @@
                         @else
                             <td>-</td>
                         @endif
-
                         <td>@if(isset($payment_data->trip->trip_number)) {{$payment_data->trip->trip_number}} @endif</td>
-
                         <td>@if(isset($payment_data->partner->name)) {{$payment_data->partner->name}} @endif</td>
-                        
                         @if(isset($payment_data->partner->id))
                             <td>{{$payment_data->partner->id}}</td>
                         @else
                             <td>-</td>
                         @endif
-
                         @if(!empty($payment_data->partner->business_type))
                             <td>{{$payment_data->partner->business_type}}</td>
                         @else
                             <td>-</td>
                         @endif
-
                         <td>{{$payment_data->amount}}</td>
-
                         @if($payment_data->card_paymant == 0)
                             <td>Card Paymant</td>
                         @else
                             <td>Regular Payment</td>
                         @endif
-                        
                         <td>Cash</td>
                     </tr>
                 @endforeach
@@ -119,9 +111,7 @@
         </table>
     </div>
 </div>
-
 @endsection
-
 @section('scripts') @parent
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

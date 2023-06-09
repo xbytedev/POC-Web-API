@@ -12,7 +12,7 @@
 
 @section('content')
 
-@if ($errors->any())
+@if($errors->any())
 
     <div class="alert alert-danger">
 
@@ -221,7 +221,7 @@
             $('.appen_csc').html('');
             $('.appen_csc_for_patner').html('');
             $('.appen_csc').append('<div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Country</label><select class="form-control p-2" name="country" id=""><option value="">Select Country</option>@foreach($country as $country_data) <option value="{{$country_data->name}}">{{$country_data->name}}</option>@endforeach</select></div><br></div><div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">State</label><input type="text" name="state" required class="form-control" id="exampleInputEmail1" placeholder="State"></div><br></div><div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">City</label><input type="text" name="city" required class="form-control" id="exampleInputEmail1" placeholder="City"></div><br></div>');
-
+            
             $('.append_data').append('<div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Address</label><textarea name="address" id="" class="form-control" rows="4"></textarea></div></div>');
         }else if(role_val == 'partner'){
             $('.appen_csc_for_patner').html('');
@@ -230,7 +230,7 @@
 
             $('.appen_csc_for_patner').append('<div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Country</label><select class="form-control p-2" name="country" id=""><option value="">Select Country</option>@foreach($country as $country_data) <option value="{{$country_data->name}}">{{$country_data->name}}</option>@endforeach</select></div><br></div><div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">State</label><input type="text" name="state" required class="form-control" id="exampleInputEmail1" placeholder="State"></div><br></div><div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">City</label><input type="text" name="city" required class="form-control" id="exampleInputEmail1" placeholder="City"></div><br></div><div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Business Address</label><textarea name="address" id="" class="form-control" rows="4"></textarea></div></div>');
 
-            $('.append_data').append('<div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Business Name</label><input type="text" name="business_name" required class="form-control p-2" id="exampleInputEmail1" placeholder="Business Name"></div><br></div><div class="col-md-4"><div class="form-group"><label for="">Business Type</label><select class="form-control p-2" name="business_type" required id=""><option value="">Business Type</option><option value="accommodation">Accommodation</option><option value="hospitality">Hospitality</option><option value="attraction">Attraction</option></select></div><br></div><div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Business Logo</label><input type="file" name="business_logo" required class="form-control p-2" id="exampleInputEmail1"></div><br></div>');
+            $('.append_data').append('<div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Business Name</label><input type="text" name="business_name" required class="form-control p-2" id="exampleInputEmail1" placeholder="Business Name"></div><br></div><div class="col-md-4"><div class="form-group"><label for="">Business Type</label><select class="form-control p-2" name="business_type" required id=""><option value="">Business Type</option><option value="accommodation">Accommodation</option><option value="hospitality">Hospitality</option><option value="attraction">Attraction</option><option value="operator">Operator</option></select></div><br></div><div class="col-md-4"><div class="form-group"><label for="exampleInputEmail1">Business Logo</label><input type="file" name="business_logo" required class="form-control p-2" id="exampleInputEmail1"></div><br></div>');
         }
     });
 </script>
