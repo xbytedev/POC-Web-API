@@ -4,6 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Imports\PlacesImport;
+use Excel;
 
 class PlacesController extends Controller
 {
@@ -16,4 +18,11 @@ class PlacesController extends Controller
     {
         return view('admin.add_places');
     }
+
+    public function importCsv(Request $request)
+    {
+        Excel::import(new PlacesImport, request()->file('file'));
+        return redirect()->back();
+    }
+
 }

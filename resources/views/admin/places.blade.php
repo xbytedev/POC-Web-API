@@ -16,8 +16,9 @@
 
 <div class="alert alert-primary">
 
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-  <strong>{{Session::get('success')}}</strong>
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    
+    <strong>{{Session::get('success')}}</strong>
 
 </div>
 
@@ -29,7 +30,7 @@
 
         <strong>{{ Session::get('error') }}</strong>
         
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
 
         </button>
 
@@ -38,6 +39,21 @@
 @endif
 
 <div class="card">
+    <form action="{{url('importCsv')}}" method="post" enctype='multipart/form-data' class="p-11">
+        @csrf
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="csv_files">Places CSV</label>
+                    <input type="file" name="file" required class="form-control" id="csv_files">
+                </div><br>
+            </div>
+            <div class="col-md-4">
+                <br>
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div><hr>
+    </form>
     <div class="card-header border-0 pt-6">
         <div class="col-md-12">
             <div class="text-end">

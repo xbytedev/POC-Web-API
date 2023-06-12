@@ -29,7 +29,6 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/arrival_crossing_insert', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'arrival_crossing_insert']);
     Route::get('/edit_manage_arrival/{id}', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'edit_manage_arrival']);
     Route::post('/arrival_crossing_update/{id}', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'arrival_crossing_update']);
-    
 
     Route::get('/dashbord', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     // SendMailController
@@ -73,6 +72,13 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 Route::group(['middleware' => ['role:partner']], function () {
+
+    Route::get('/group', [App\Http\Controllers\admin\GroupController::class, 'group'])->middleware("auth");
+    Route::get('/add_group', [App\Http\Controllers\admin\GroupController::class, 'add_group'])->middleware("auth");
+    Route::post('/inser_group', [App\Http\Controllers\admin\GroupController::class, 'inser_group'])->middleware("auth");
+    Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
+    Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
+
     // AgentController
     Route::get('/agent', [App\Http\Controllers\admin\AgentController::class, 'index'])->middleware("auth");
     Route::get('/add_agent', [App\Http\Controllers\admin\AgentController::class, 'add_agent'])->middleware("auth");
@@ -83,25 +89,26 @@ Route::group(['middleware' => ['role:partner']], function () {
     // PlacesController
     Route::get('/places', [App\Http\Controllers\admin\PlacesController::class, 'index'])->middleware("auth");
     Route::get('/add_places', [App\Http\Controllers\admin\PlacesController::class, 'add_places'])->middleware("auth");
+    Route::post('/importCsv', [App\Http\Controllers\admin\PlacesController::class, 'importCsv'])->middleware("auth");
 });
 
-Route::group(['prefix' => 'operator','middleware' => ['role:operator']], function () {
-    // GroupController
-    Route::get('/group', [App\Http\Controllers\admin\GroupController::class, 'group'])->middleware("auth");
-    Route::get('/add_group', [App\Http\Controllers\admin\GroupController::class, 'add_group'])->middleware("auth");
-    Route::post('/inser_group', [App\Http\Controllers\admin\GroupController::class, 'inser_group'])->middleware("auth");
-    Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
-    Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
-});
+// Route::group(['prefix' => 'operator','middleware' => ['role:operator']], function () {
+//     // GroupController
+//     Route::get('/group', [App\Http\Controllers\admin\GroupController::class, 'group'])->middleware("auth");
+//     Route::get('/add_group', [App\Http\Controllers\admin\GroupController::class, 'add_group'])->middleware("auth");
+//     Route::post('/inser_group', [App\Http\Controllers\admin\GroupController::class, 'inser_group'])->middleware("auth");
+//     Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
+//     Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
+// });
 
 Route::group(['middleware' => ['role:agent']], function () {
     
     // GroupController
-    Route::get('/group', [App\Http\Controllers\admin\GroupController::class, 'group'])->middleware("auth");
-    Route::get('/add_group', [App\Http\Controllers\admin\GroupController::class, 'add_group'])->middleware("auth");
-    Route::post('/inser_group', [App\Http\Controllers\admin\GroupController::class, 'inser_group'])->middleware("auth");
-    Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
-    Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
+    // Route::get('/group', [App\Http\Controllers\admin\GroupController::class, 'group'])->middleware("auth");
+    // Route::get('/add_group', [App\Http\Controllers\admin\GroupController::class, 'add_group'])->middleware("auth");
+    // Route::post('/inser_group', [App\Http\Controllers\admin\GroupController::class, 'inser_group'])->middleware("auth");
+    // Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
+    // Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
 
     // group people opration
     Route::post('/add_group_people', [App\Http\Controllers\admin\GroupController::class, 'add_group_people'])->middleware("auth");
