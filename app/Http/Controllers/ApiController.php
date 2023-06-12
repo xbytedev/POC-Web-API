@@ -623,7 +623,7 @@ class ApiController extends Controller
         $password = $request->password;
         if(!empty($email) && !empty($password)){
             $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password) && $check_email_password->role == 'partner' || $check_email_password->role == 'agent'){
+            if(!empty($check_email_password) && $check_email_password->role == 'agent'){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();
@@ -1233,13 +1233,11 @@ class ApiController extends Controller
         /*************************************************************
          * This is for IOS
         *************************************************************/
-        
         $email = $request->email;
         $password = $request->password;
-        
         if(!empty($email) && !empty($password)){
             $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password) && $check_email_password->role == 'partner' || $check_email_password->role == 'agent'){
+            if(!empty($check_email_password) && $check_email_password->role == 'agent'){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();
@@ -1588,7 +1586,6 @@ class ApiController extends Controller
             $name = $request->name;
             // $partner_id = $request->partner_id;
             $group_id = $request->group_id;
-
             if(!empty($name)){
                 $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
                 $add = Group::where('id',$group_id)->first();
