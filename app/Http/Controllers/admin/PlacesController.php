@@ -21,7 +21,7 @@ class PlacesController extends Controller
 
     public function importCsv(Request $request)
     {
-        Excel::import(new PlacesImport, request()->file('file'));
+        Excel::import(new PlacesImport, $request->file);
         return redirect()->back();
     }
 

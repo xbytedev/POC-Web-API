@@ -122,7 +122,7 @@ class AgentController extends Controller
                     unlink($imagePath);
                 }
             }
-
+            
             $image = $request->file('image');
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/profile_image');
@@ -155,5 +155,5 @@ class AgentController extends Controller
         $edit_agent = User::with('created_by_name')->where('role','agent')->where('id',$id)->first();
         $country = Country::all();
         return view('admin.edit_agent',compact('edit_agent','country'));
-    }    
+    }
 }

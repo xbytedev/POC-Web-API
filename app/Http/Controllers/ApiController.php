@@ -1439,13 +1439,14 @@ class ApiController extends Controller
         $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
             $name = $request->name;
-            $partner_id = $request->partner_id;
-            if(!empty($partner_id) && !empty($name)){
-                $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();
+            $agent_id = $request->agent_id;
+            if(!empty($agent_id) && !empty($name)){
+                $last_group_id = Group::orderBy('id','DESC')->pluck('id')->first();
                 $add = new Group;
                 $add->group_code = rand(111111111,999999999).($last_group_id+1);
                 $add->name = $name;
-                $add->partner_id = $partner_id;
+                $add->partner_id = $agent_id;
+                $add->agent_id = $agent_id;
                 if($add->save()){
                     $datas = Group::where('id', $last_group_id+1)->first();
                     $response = array('status'=>true ,'message' => 'Group created successfully','data'=>$datas);
@@ -1464,12 +1465,28 @@ class ApiController extends Controller
     public function group_list(Request $request){
         $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
-            $partner_id = $request->partner_id;
-            if(!empty($partner_id)){
-                $datas = Group::where(['is_delete'=>0,'partner_id'=>$partner_id])->get();
+            $agent_id = $request->agent_id;
+            if(!empty($agent_id)){
+                $datas = Group::where(['is_delete'=>0,'partner_id'=>$agent_id])->get();
                 $response = array('status'=>true ,'data' => $datas);
             }else{
                 $response = array('status'=>false ,'message' => 'some required field missing');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function group_people_list(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $group_id = $request->group_id;
+            if(!empty($group_id)){
+                $datas = GroupPeople::select('group_id', 'group_code', 'people_id','people_code','status','partner_id as agent_id')->where(['group_id'=>$group_id])->get();
+                $response = array('status'=>true ,'data' => $datas);
+            }else{
+                $response = array('status'=>false ,'message' =>'Some Required Field Missing');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');
@@ -1484,7 +1501,7 @@ class ApiController extends Controller
             $people_code = $request->people_code;
             $group_id = $request->group_id;
             $group_code = $request->group_code;
-            $partner_id = $request->partner_id;
+            $agent_id = $request->agent_id;
             $trip_people = TripPeople::where('people_id_code',$people_code)->first();
             if(!empty($trip_people)){
                 $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
@@ -1494,7 +1511,7 @@ class ApiController extends Controller
                     $group_people->people_code = $trip_people->people_id_code;
                     $group_people->group_id = $group_id;
                     $group_people->group_code = $group_code;
-                    $group_people->partner_id = $partner_id;
+                    $group_people->partner_id = $agent_id;
                     if($group_people->save()){
                         $response = array('status'=>true ,'message' => 'People Added Successfully');
                     }else{
@@ -1520,7 +1537,7 @@ class ApiController extends Controller
             $group_id = $request->group_id;
             $group_code = $request->group_code;
             $group_people_id = $request->group_people_id;
-            $partner_id = $request->partner_id;
+            $agent_id = $request->agent_id;
             $trip_people = TripPeople::where('people_id_code',$people_code)->first();
             if(!empty($trip_people)){
                 $check_group_people_data = GroupPeople::where('id','!=',$group_people_id)->where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
@@ -1530,7 +1547,7 @@ class ApiController extends Controller
                     $group_people->people_code = $trip_people->people_id_code;
                     $group_people->group_id = $group_id;
                     $group_people->group_code = $group_code;
-                    $group_people->partner_id = $partner_id;
+                    $group_people->partner_id = $agent_id;
                     if($group_people->save()){
                         $response = array('status'=>true ,'message' => 'People Added Successfully');
                     }else{
@@ -1556,7 +1573,6 @@ class ApiController extends Controller
             $group_id = $request->group_id;
             $group_code = $request->group_code;
             $group_people_id = $request->group_people_id;
-            $partner_id = $request->partner_id;
             $trip_people = TripPeople::where('people_id_code',$people_code)->first();
             if(!empty($trip_people)){
                 $group_people = GroupPeople::where('id',$group_people_id)->first();
@@ -1584,7 +1600,6 @@ class ApiController extends Controller
 
         if(!empty($check_token)){
             $name = $request->name;
-            // $partner_id = $request->partner_id;
             $group_id = $request->group_id;
             if(!empty($name)){
                 $last_group_id = Group::orderBy('id', 'DESC')->pluck('id')->first();

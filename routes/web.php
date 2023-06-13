@@ -90,6 +90,17 @@ Route::group(['middleware' => ['role:partner']], function () {
     Route::get('/places', [App\Http\Controllers\admin\PlacesController::class, 'index'])->middleware("auth");
     Route::get('/add_places', [App\Http\Controllers\admin\PlacesController::class, 'add_places'])->middleware("auth");
     Route::post('/importCsv', [App\Http\Controllers\admin\PlacesController::class, 'importCsv'])->middleware("auth");
+
+    // group people opration
+    Route::post('/add_group_people', [App\Http\Controllers\admin\GroupController::class, 'add_group_people'])->middleware("auth");
+
+    Route::get('/group_wise_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'group_wise_people'])->middleware("auth");
+
+    Route::get('/edit_group_wise_people/{id}/{group_id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group_wise_people'])->middleware("auth");
+
+    Route::post('/update_group_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group_people'])->middleware("auth");
+
+    Route::get('/add_group_wise_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'add_group_wise_people'])->middleware("auth");
 });
 
 // Route::group(['prefix' => 'operator','middleware' => ['role:operator']], function () {
@@ -110,16 +121,6 @@ Route::group(['middleware' => ['role:agent']], function () {
     // Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
     // Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
 
-    // group people opration
-    Route::post('/add_group_people', [App\Http\Controllers\admin\GroupController::class, 'add_group_people'])->middleware("auth");
-
-    Route::get('/group_wise_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'group_wise_people'])->middleware("auth");
-
-    Route::get('/edit_group_wise_people/{id}/{group_id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group_wise_people'])->middleware("auth");
-
-    Route::post('/update_group_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group_people'])->middleware("auth");
-
-    Route::get('/add_group_wise_people/{id}', [App\Http\Controllers\admin\GroupController::class, 'add_group_wise_people'])->middleware("auth");
 });
 
 // front side route start

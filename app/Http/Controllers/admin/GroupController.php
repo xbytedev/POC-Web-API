@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Models\GroupPeople;
 use App\Models\TripPeople;
+use App\Models\User;
 use Auth;
 
 class GroupController extends Controller
@@ -17,7 +18,8 @@ class GroupController extends Controller
     }
 
     public function add_group(){
-        return view('admin.add_group');
+        $agent = User::where('role','agent')->get();
+        return view('admin.add_group',compact('agent'));
     }
 
     public function inser_group(Request $request){
@@ -25,6 +27,7 @@ class GroupController extends Controller
         $add_data = new Group;
         $add_data->name = $request->name;
         $add_data->partner_id = Auth::user()->id;
+        $add_data->agent_id = $request->agent_id;
         $add_data->group_code = rand(111111111,999999999).($last_group_id+1);
          if($request->status == 'on'){
             $add_data->status = 1;
@@ -41,15 +44,18 @@ class GroupController extends Controller
     }
 
     public function edit_group($id){
+        $agent = User::where('role','agent')->get();
         $group_data = Group::where('id', base64_decode($id))->first();
-        return view('admin.edit_group',compact('group_data'));
+        return view('admin.edit_group',compact('group_data','agent'));
     }
 
     public function update_group(Request $request,$id){
         $add_data = Group::where('id',base64_decode($id))->first();
         $add_data->name = $request->name;
         $add_data->partner_id = Auth::user()->id;
-         if($request->status == 'on'){
+        $add_data->agent_id = $request->agent_id;
+
+        if($request->status == 'on'){
             $add_data->status = 1;
         }else{
             $add_data->status = 0;

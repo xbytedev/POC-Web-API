@@ -80,6 +80,29 @@
                 </div><br>
 
             </div>
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1">Agent</label>
+
+                    <select name="agent_id" id="" class="form-control p-2" required>
+                        
+                        <option>Select Agent</option>
+
+                        @foreach($agent as $agent_data)
+
+                            <option value="{{$agent_data->id}}">{{$agent_data->name}} ({{$agent_data->email}})</option>
+
+                        @endforeach
+
+                    </select>
+
+                </div><br>
+
+            </div>
+
         </div>
 
         <div class="form-group form-check">

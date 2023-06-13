@@ -14,6 +14,9 @@ class PlacesImport implements ToModel
     */
     public function model(array $row)
     {
+        print_r($row);
+        exit;
+
         return new Places([
             "CSV_Id" => $row['Id'],
             "Name" => $row['Name'],
