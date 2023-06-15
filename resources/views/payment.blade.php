@@ -134,7 +134,7 @@
                                                                                 "end_date": "2022-08-05"
                                                                             } -->
                                                                             <div class="barcode-img">
-                                                                                {!! QrCode::size(200)->generate(json_encode($data)) !!}
+                                                                                {!! QrCode::size(200)->generate(json_encode((int)$trip_pepole_data->people_id_code)) !!}
                                                                             </div>
                                                                         </div>
                                                                     </div>

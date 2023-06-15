@@ -1467,7 +1467,7 @@ class ApiController extends Controller
         if(!empty($check_token)){
             $agent_id = $request->agent_id;
             if(!empty($agent_id)){
-                $datas = Group::where(['is_delete'=>0,'partner_id'=>$agent_id])->get();
+                $datas = Group::where(['is_delete'=>0,'agent_id'=>$agent_id])->get();
                 $response = array('status'=>true ,'data' => $datas);
             }else{
                 $response = array('status'=>false ,'message' => 'some required field missing');

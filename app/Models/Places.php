@@ -10,4 +10,5 @@ class Places extends Model
     use HasFactory;
 
     protected $table = 'places';
+    
 }
