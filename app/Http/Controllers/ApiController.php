@@ -231,7 +231,7 @@ class ApiController extends Controller
             if(empty($check_trip_people)){
                 $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
                 $add_trip_people = new TripPeople;
-                $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
+                $add_trip_people->people_id_code = rand(1,9).time().rand(1,9);
                 $add_trip_people->trip_id = $request->trip_id;
                 $add_trip_people->user_id = $user_id;
                 $add_trip_people->name = $request->name;
@@ -376,7 +376,7 @@ class ApiController extends Controller
                 $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
                 $add_trip_people = new TripPeople;
                 $add_trip_people->trip_id = $request->trip_id;
-                $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
+                $add_trip_people->people_id_code = rand(1,9).time().rand(1,9);
                 $add_trip_people->user_id = $user_id;
                 $add_trip_people->name = $request->name;
                 $add_trip_people->family_name = $request->family_name;
@@ -1443,7 +1443,7 @@ class ApiController extends Controller
             if(!empty($agent_id) && !empty($name)){
                 $last_group_id = Group::orderBy('id','DESC')->pluck('id')->first();
                 $add = new Group;
-                $add->group_code = rand(111111111,999999999).($last_group_id+1);
+                $add->group_code = rand(1,9).time().rand(1,9);
                 $add->name = $name;
                 $add->partner_id = $agent_id;
                 $add->agent_id = $agent_id;
@@ -1483,8 +1483,22 @@ class ApiController extends Controller
         if(!empty($check_token)){
             $group_id = $request->group_id;
             if(!empty($group_id)){
-                $datas = GroupPeople::select('group_id', 'group_code', 'people_id','people_code','status','partner_id as agent_id')->where(['group_id'=>$group_id])->get();
-                $response = array('status'=>true ,'data' => $datas);
+                $datas = GroupPeople::with('group_people_details')->where(['group_id'=>$group_id,'partner_id'=>$request->header('id')])->get();
+                $datas_array = array();
+
+                foreach($datas as $group_people_data){
+                    $new_data['id'] = $group_people_data->id;
+                    $new_data['group_id'] = $group_people_data->group_id;
+                    $new_data['group_code'] = $group_people_data->group_code;
+                    $new_data['partner_id'] = $group_people_data->partner_id;
+                    $new_data['people_code'] = $group_people_data->people_code;
+                    $new_data['status'] = $group_people_data->status;
+                    $new_data['partner_id'] = $group_people_data->partner_id;
+                    $new_data['people_name'] = $group_people_data->group_people_details->name;
+                    array_push($datas_array,$new_data);
+                }
+
+                $response = array('status'=>true ,'data' => $datas_array);
             }else{
                 $response = array('status'=>false ,'message' =>'Some Required Field Missing');
             }
@@ -1574,7 +1588,7 @@ class ApiController extends Controller
             $group_code = $request->group_code;
             $group_people_id = $request->group_people_id;
             $trip_people = TripPeople::where('people_id_code',$people_code)->first();
-            if(!empty($trip_people)){
+            if(!empty($group_people_id)){
                 $group_people = GroupPeople::where('id',$group_people_id)->first();
                 if($group_people->status == 0){
                     $group_people->status = 1;
@@ -1587,7 +1601,7 @@ class ApiController extends Controller
                     $response = array('status'=>false ,'message' => 'Something Went Wrong');
                 }
             }else{
-                $response = array('status'=>false ,'message' => 'People Not Found');
+                $response = array('status'=>false ,'message' => 'ID Not Found');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');
@@ -1635,6 +1649,26 @@ class ApiController extends Controller
                 }
             }else{
                 $response = array('status'=>false ,'message' => 'Group id missing');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function delete_group_people(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $group_people_id = $request->group_people_id;
+            if(!empty($group_people_id)){
+                $group_people = GroupPeople::where('id',$group_people_id)->first();
+                if($group_people->delete()){
+                    $response = array('status'=>true ,'message' => 'Group people deleted successfully');
+                }else{
+                    $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'ID Not Found');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');

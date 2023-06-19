@@ -78,7 +78,7 @@ class TripController extends Controller
                 $last_people_id = TripPeople::orderBy('id', 'DESC')->pluck('id')->first();
                 if(empty($check_trip_people)){
                     $add_trip_people = new TripPeople;
-                    $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
+                    $add_trip_people->people_id_code = rand(1,9).time().rand(1,9);
                     $add_trip_people->trip_id = $request->trip_id;
                     $add_trip_people->profession = $request->profession;
                     $add_trip_people->name = $request->name;
@@ -229,7 +229,7 @@ class TripController extends Controller
                 if(empty($check_trip_people)){
 
                     $add_trip_people = new TripPeople;
-                    $add_trip_people->people_id_code = rand(111111111,999999999).($last_people_id+1);
+                    $add_trip_people->people_id_code = rand(1,9).time().rand(1,9);
                     $add_trip_people->trip_id = $request->trip_id;
                     $add_trip_people->name = $request->name;
                     $add_trip_people->family_name = $request->family_name;

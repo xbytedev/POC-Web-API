@@ -28,7 +28,7 @@ class GroupController extends Controller
         $add_data->name = $request->name;
         $add_data->partner_id = Auth::user()->id;
         $add_data->agent_id = $request->agent_id;
-        $add_data->group_code = rand(111111111,999999999).($last_group_id+1);
+        $add_data->group_code = rand(1,9).time().rand(1,9);
          if($request->status == 'on'){
             $add_data->status = 1;
         }else{
