@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/make_as_default_status', [App\Http\Controllers\ApiController::class, 'make_as_default_status']);
 Route::post('/delete_group_people', [App\Http\Controllers\ApiController::class, 'delete_group_people']);
 Route::post('/group_people_list', [App\Http\Controllers\ApiController::class, 'group_people_list']);
 Route::post('/delete_group', [App\Http\Controllers\ApiController::class, 'delete_group']);

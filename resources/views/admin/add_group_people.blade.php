@@ -64,7 +64,7 @@
     <div class="card-body">
 
     <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('add_group_people')}}">
-
+        
         @csrf
 
         <div class="row">

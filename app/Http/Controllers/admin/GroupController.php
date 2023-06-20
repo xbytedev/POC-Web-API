@@ -18,7 +18,7 @@ class GroupController extends Controller
     }
 
     public function add_group(){
-        $agent = User::where('role','agent')->get();
+        $agent = User::where(['role'=>'agent','created_by'=>Auth::user()->id])->get();
         return view('admin.add_group',compact('agent'));
     }
 
@@ -44,7 +44,7 @@ class GroupController extends Controller
     }
 
     public function edit_group($id){
-        $agent = User::where('role','agent')->get();
+        $agent = User::where(['role'=>'agent','created_by'=>Auth::user()->id])->get();
         $group_data = Group::where('id', base64_decode($id))->first();
         return view('admin.edit_group',compact('group_data','agent'));
     }

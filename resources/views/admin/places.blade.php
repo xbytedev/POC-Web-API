@@ -39,67 +39,69 @@
 @endif
 
 <div class="card">
-    <form action="{{url('importCsv')}}" method="post" enctype='multipart/form-data' class="p-11">
-        @csrf
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="csv_files">Places CSV</label>
-                    <input type="file" name="file" required class="form-control" id="csv_files">
-                </div><br>
-            </div>
-            <div class="col-md-4">
-                <br>
-                <button class="btn btn-primary">Submit</button>
-            </div>
-        </div><hr>
-    </form>
-    <div class="card-header border-0 pt-6">
-        <div class="col-md-12">
-            <div class="text-end">
-                <a href="{{url('add_places')}}" class="btn btn-sm btn-primary">Add Places</a>
+    <div class="card-body">
+        <form action="{{url('importCsv')}}" method="post" enctype='multipart/form-data' class="p-11">
+            @csrf
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="csv_files">Places CSV</label>
+                        <input type="file" name="file" required class="form-control" id="csv_files">
+                    </div><br>
+                </div>
+                <div class="col-md-4">
+                    <br>
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div><hr>
+        </form>
+        <div class="card-header border-0 pt-6">
+            <div class="col-md-12">
+                <div class="text-end">
+                    <a href="{{url('add_places')}}" class="btn btn-sm btn-primary">Add Places</a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="card-body">
-
         <table id="example" class="table table-striped text-left border" style="width:100%">
-
             <thead class="border">
-
                 <tr>
-
                     <th><b>SR.</b></th>
-
-                    <th><b>Username</b></th>
-
                     <th><b>Name</b></th>
-
-                    <th><b>Created By</b></th>
-
-                    <th><b>Date</b></th>
-
-                    <th><b>status</b></th>
-
-                    <th><b>Action</b></th>
-
+                    <th><b>Category</b></th>
+                    <th><b>Region</b></th>
+                    <th><b>City</b></th>
+                    <th><b>Latitude</b></th>
+                    <th><b>Longitude</b></th>
                 </tr>
-
             </thead>
-
             <tbody class="border">
-                
+
+                @foreach($places as $key=> $places_data)
+                    <tr> 
+                        <td>{{$key+1}}</td>
+                        <td>{{$places_data->Name}}</td>
+                        <td>{{$places_data->Category}}</td>
+                        <td>{{$places_data->Region}}</td>
+                        <td>{{$places_data->City}}</td>
+                        <td>{{$places_data->Latitude}}</td>
+                        <td>{{$places_data->Longitude}}</td>
+                    </tr>
+                @endforeach
             </tbody>
+
         </table>
     </div>
+
 </div>
+
 @endsection
 
 @section('scripts') @parent
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
 
 <script>
@@ -107,15 +109,9 @@
     $(document).ready(function() {
 
         $('#example').DataTable({
-
-            "order": [[ 5, "asc" ]],
-
-            dom: 'Bfrtip',
-
-            buttons: [
-                'excel'
-            ]
-
+            lengthMenu: [ 10, 25, 50, 75, 100 ],
+            // "pageLength": 50,
+            dom: 'Bfrtip'
         });
 
     });
@@ -155,16 +151,30 @@
                     data: {"_token": "{{ csrf_token() }}","id": id},
 
                     success:function(response){
+
                         Swal.fire(
+
                             'Deleted!',
+
                             'Your item has been deleted.',
+
                             'success'
+
                         )
+
                         location.reload();
+
                     }
+
                 });
+
             }
+
         })
+
     });
 </script>
+
+
+
 @endsection

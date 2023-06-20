@@ -1442,11 +1442,18 @@ class ApiController extends Controller
             $agent_id = $request->agent_id;
             if(!empty($agent_id) && !empty($name)){
                 $last_group_id = Group::orderBy('id','DESC')->pluck('id')->first();
+                $check_group_id = Group::where('agent_id',$agent_id)->first();
                 $add = new Group;
                 $add->group_code = rand(1,9).time().rand(1,9);
                 $add->name = $name;
                 $add->partner_id = $agent_id;
                 $add->agent_id = $agent_id;
+                if(!empty($check_group_id))
+                {
+                    $add->default_status = 0;
+                }else{
+                    $add->default_status = 1;
+                }
                 if($add->save()){
                     $datas = Group::where('id', $last_group_id+1)->first();
                     $response = array('status'=>true ,'message' => 'Group created successfully','data'=>$datas);
@@ -1669,6 +1676,33 @@ class ApiController extends Controller
                 }
             }else{
                 $response = array('status'=>false ,'message' => 'ID Not Found');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function make_as_default_status(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $group_id = $request->group_id;
+            if(!empty($group_id)){
+                $check_data_update = Group::where(['agent_id'=>$request->header('id'),'default_status'=>1])->first();
+                $check_data_update->default_status = 0;
+                if($check_data_update->save()){
+                    $check_data = Group::where('id',$group_id)->first();
+                    $check_data->default_status = 1;
+                    if($check_data->save()){
+                        $response = array('status'=>true ,'message' => 'Group Updated Successfully');
+                    }else{
+                        $response = array('status'=>false ,'message' => 'Something went wrong');
+                    }
+                }else{
+                    $response = array('status'=>false,'message'=>'Something went wrong');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'Group id missing');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');

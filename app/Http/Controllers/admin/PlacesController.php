@@ -13,7 +13,8 @@ class PlacesController extends Controller
 {
     public function index()
     {
-        return view('admin.places');
+        $places = Places::all();
+        return view('admin.places',compact('places'));
     }
 
     public function add_places()
@@ -27,8 +28,9 @@ class PlacesController extends Controller
         if($_FILES["file"]["size"] > 0)
         {
             $file = fopen($filename, "r");
-            while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
+            while (($getData = fgetcsv($file, 100000, ",")) !== FALSE)
             {
+                $check_data_place = Places::where('Name',$getData[1])->first();
                 $add_places = new Places;
                 $add_places->CSV_Id = $getData[0];
                 $add_places->Name = $getData[1];
