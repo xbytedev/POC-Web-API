@@ -1515,7 +1515,7 @@ class ApiController extends Controller
         return response()->json($response);
     }
 
-    public function add_group_people(Request $request)
+    public function check_people(Request $request)
     {
         $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
@@ -1525,21 +1525,62 @@ class ApiController extends Controller
             $agent_id = $request->agent_id;
             $trip_people = TripPeople::where('people_id_code',$people_code)->first();
             if(!empty($trip_people)){
-                $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
-                if(empty($check_group_people_data)){
-                    $group_people = new GroupPeople;
-                    $group_people->people_id = $trip_people->id;
-                    $group_people->people_code = $trip_people->people_id_code;
-                    $group_people->group_id = $group_id;
-                    $group_people->group_code = $group_code;
-                    $group_people->partner_id = $agent_id;
-                    if($group_people->save()){
-                        $response = array('status'=>true ,'message' => 'People Added Successfully');
+                $response = array('status'=>true ,'message' => 'People Added Successfully','code'=>$people_code);
+            }else{
+                $response = array('status'=>false ,'message' => 'People Not Found');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function add_group_people(Request $request)
+    {
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $type = $request->people_code;
+            $people_code = $request->people_code;
+            $group_id = $request->group_id;
+            $group_code = $request->group_code;
+            $agent_id = $request->agent_id;
+            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+            if(!empty($trip_people)){
+                if($type == 'single'){
+                    $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
+                    if(empty($check_group_people_data)){
+                        $group_people = new GroupPeople;
+                        $group_people->people_id = $trip_people->id;
+                        $group_people->people_code = $trip_people->people_id_code;
+                        $group_people->group_id = $group_id;
+                        $group_people->group_code = $group_code;
+                        $group_people->partner_id = $agent_id;
+                        if($group_people->save()){
+                            $response = array('status'=>true ,'message' => 'People Added Successfully');
+                        }else{
+                            $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                        }
                     }else{
-                        $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                        $response = array('status'=>false ,'message' => 'People Already Exist');
                     }
                 }else{
-                    $response = array('status'=>false ,'message' => 'People Already Exist');
+                    $get_trip_data = TripPeople::where('people_id_code',$people_code)->first();
+                    $check_group_people_data = GroupPeople::where('people_id',$trip_people->id)->where('group_id',$group_id)->first();
+                    if(empty($check_group_people_data)){
+                        $group_people = new GroupPeople;
+                        $group_people->people_id = $trip_people->id;
+                        $group_people->people_code = $trip_people->people_id_code;
+                        $group_people->group_id = $group_id;
+                        $group_people->group_code = $group_code;
+                        $group_people->partner_id = $agent_id;
+                        if($group_people->save()){
+                            $response = array('status'=>true ,'message' => 'People Added Successfully');
+                        }else{
+                            $response = array('status'=>false ,'message' => 'Something Went Wrong');
+                        }
+                    }else{
+                        $response = array('status'=>false ,'message' => 'People Already Exist');
+                    }
                 }
             }else{
                 $response = array('status'=>false ,'message' => 'People Not Found');
@@ -1709,4 +1750,5 @@ class ApiController extends Controller
         }
         return response()->json($response);
     }
+
 }

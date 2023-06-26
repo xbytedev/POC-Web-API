@@ -30,7 +30,7 @@ class PlacesController extends Controller
             $file = fopen($filename, "r");
             while (($getData = fgetcsv($file, 100000, ",")) !== FALSE)
             {
-                $check_data_place = Places::where('Name',$getData[1])->first();
+                // $check_data_place = Places::where('Name',$getData[1])->first();
                 $add_places = new Places;
                 $add_places->CSV_Id = $getData[0];
                 $add_places->Name = $getData[1];
