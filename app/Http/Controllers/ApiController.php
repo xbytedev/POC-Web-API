@@ -1523,9 +1523,10 @@ class ApiController extends Controller
             $group_id = $request->group_id;
             $group_code = $request->group_code;
             $agent_id = $request->agent_id;
-            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+            $trip_people = TripPeople::select('id','name','family_name','residence_country','residence_city','residence_post_code','contacts_email','contacts_phone','gender','trip_id')->where('people_id_code',$people_code)->first();
+            $get_trip_count = TripPeople::where('id','!=',$trip_people->id)->where('trip_id',$trip_people->trip_id)->count();
             if(!empty($trip_people)){
-                $response = array('status'=>true ,'message' => 'People verified Successfully','code'=>$people_code);
+                $response = array('status'=>true ,'message' => 'People verified Successfully','people_data'=>$trip_people,'people_count'=>$get_trip_count);
             }else{
                 $response = array('status'=>false ,'message' => 'People Not Found');
             }
