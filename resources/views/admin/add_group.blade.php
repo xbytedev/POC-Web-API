@@ -89,7 +89,7 @@
 
                     <select name="agent_id" id="" class="form-control p-2" required>
                         
-                        <option>Select Agent</option>
+                        <option value="">Select Agent</option>
 
                         @foreach($agent as $agent_data)
 
