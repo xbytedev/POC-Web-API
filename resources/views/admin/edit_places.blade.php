@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Add Places')
+@section('title','Edit Places')
 
 @section('content')
 
@@ -61,79 +61,79 @@
 
 <div class="card">
     <div class="card-body">
-        <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('insert_place')}}">
+        <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('update_place/'.base64_encode($places->id))}}">
             @csrf
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Karavshin Valley</label>
-                        <input type="text" name="Name" required class="form-control" id="exampleInputEmail1" placeholder="Karavshin Valley">
+                        <input type="text" name="Name" required value="{{$places->Name}}" class="form-control" id="exampleInputEmail1" placeholder="Karavshin Valley">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Category</label>
-                        <input type="text" name="Category" required class="form-control" id="exampleInputEmail1" placeholder="Category">
+                        <input type="text" name="Category" required class="form-control" id="exampleInputEmail1" value="{{$places->Category}}" placeholder="Category">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Attraction_Type</label>
-                        <input type="text" name="Attraction_Type" required class="form-control" id="exampleInputEmail1" placeholder="Attraction_Type">
+                        <input type="text" name="Attraction_Type" required class="form-control" id="exampleInputEmail1" value="{{$places->Attraction_Type}}" placeholder="Attraction_Type">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Region</label>
-                        <input type="text" name="Region" required class="form-control" id="exampleInputEmail1" placeholder="Region">
+                        <input type="text" name="Region" required class="form-control" id="exampleInputEmail1" value="{{$places->Region}}" placeholder="Region">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Rayon</label>
-                        <input type="text" name="Rayon" required class="form-control" id="exampleInputEmail1" placeholder="Rayon">
+                        <input type="text" name="Rayon" required class="form-control" id="exampleInputEmail1" value="{{$places->Rayon}}" placeholder="Rayon">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">City</label>
-                        <input type="text" name="City" class="form-control" placeholder="City">
+                        <input type="text" name="City" value="{{$places->City}}" class="form-control" placeholder="City">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Address</label>
-                        <input type="text" name="Address" class="form-control" placeholder="Address">
+                        <input type="text" name="Address" value="{{$places->Address}}" class="form-control" placeholder="Address">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Website</label>
-                        <input type="text" name="Website" class="form-control" placeholder="Website">
+                        <input type="text" name="Website" value="{{$places->Website}}" class="form-control" placeholder="Website">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Telephone</label>
-                        <input type="text" name="Telephone" class="form-control" placeholder="Telephone">
+                        <input type="text" name="Telephone" value="{{$places->Telephone}}" class="form-control" placeholder="Telephone">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="text" name="Email" class="form-control" placeholder="Email">
+                        <input type="text" name="Email" value="{{$places->Email}}" class="form-control" placeholder="Email">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Latitude</label>
-                        <input type="text" name="Latitude" class="form-control" placeholder="Latitude">
+                        <input type="text" name="Latitude" value="{{$places->Latitude}}" class="form-control" placeholder="Latitude">
                     </div><br>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Longitude</label>
-                        <input type="text" name="Longitude" class="form-control" placeholder="Longitude">
+                        <input type="text" name="Longitude" value="{{$places->Longitude}}" class="form-control" placeholder="Longitude">
                     </div><br>
                 </div>
             </div>

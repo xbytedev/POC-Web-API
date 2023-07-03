@@ -25,17 +25,11 @@
 @endif
 
 @if(Session::has('error'))
-
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-
         <strong>{{ Session::get('error') }}</strong>
-        
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
         </button>
-
     </div>
-
 @endif
 
 <div class="card">
@@ -52,6 +46,10 @@
                 <div class="col-md-4">
                     <br>
                     <button class="btn btn-primary">Submit</button>
+                </div>
+                <div class="col-md-4 text-end">
+                    <br>
+                    <a href="{{url('demo.csv')}}" class="btn btn-info">Download Format</a>
                 </div>
             </div><hr>
         </form>
@@ -72,6 +70,7 @@
                     <th><b>City</b></th>
                     <th><b>Latitude</b></th>
                     <th><b>Longitude</b></th>
+                    <th><b>Action</b></th>
                 </tr>
             </thead>
             <tbody class="border">
@@ -85,13 +84,12 @@
                         <td>{{$places_data->City}}</td>
                         <td>{{$places_data->Latitude}}</td>
                         <td>{{$places_data->Longitude}}</td>
+                        <td><a href="{{url('edit_places/'.base64_encode($places_data->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> <a data-id="{{$places_data->id}}" class="btn btn-sm btn-danger delete_place"><i class="fa fa-trash"></i></a></td>
                     </tr>
                 @endforeach
             </tbody>
-
         </table>
     </div>
-
 </div>
 
 @endsection
@@ -116,13 +114,13 @@
 
     });
 
-    $(document).on("click","#delete_category",function() {
+    $(document).on("click",".delete_place",function() {
 
         Swal.fire({
 
         title: 'Are you sure?',
 
-        text: "You won't to delete this customer!",
+        text: "You won't to delete this!",
 
         icon: 'warning',
 
@@ -139,10 +137,10 @@
             if(result.isConfirmed) {
 
                 var id = $(this).data('id');
-
+                
                 $.ajax({
 
-                    url:"{{url('customer_delete')}}",//the page containing php script
+                    url:"{{url('delete_place')}}",//the page containing php script
 
                     type: "POST",//request type,
 
@@ -152,15 +150,29 @@
 
                     success:function(response){
 
-                        Swal.fire(
+                        if(response.status == true){
 
-                            'Deleted!',
+                            Swal.fire(
 
-                            'Your item has been deleted.',
+                                'Deleted!',
 
-                            'success'
+                                response.message,
 
-                        )
+                                'success'
+
+                            )
+                        }else{
+                            Swal.fire(
+
+                                'Oops!',
+
+                                response.message,
+
+                                'warning'
+
+                            )
+                        }
+                        
 
                         location.reload();
 

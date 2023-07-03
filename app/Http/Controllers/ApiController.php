@@ -1523,12 +1523,23 @@ class ApiController extends Controller
             $group_id = $request->group_id;
             $group_code = $request->group_code;
             $agent_id = $request->agent_id;
-            $trip_people = TripPeople::select('id','name','family_name','residence_country','residence_city','residence_post_code','contacts_email','contacts_phone','gender','trip_id')->where('people_id_code',$people_code)->first();
-            $get_trip_count = TripPeople::where('id','!=',$trip_people->id)->where('trip_id',$trip_people->trip_id)->count();
-            if(!empty($trip_people)){
-                $response = array('status'=>true ,'message' => 'People verified Successfully','people_data'=>$trip_people,'people_count'=>$get_trip_count);
+            $check_group_people_data = GroupPeople::where('people_code',$people_code)->where('group_id',$group_id)->first();
+            if(empty($check_group_people_data)){
+                $trip_people = TripPeople::with('residence_countrys')->select('id','name','family_name','residence_country','residence_city','residence_post_code','contacts_email','contacts_phone','gender','trip_id')->where('people_id_code',$people_code)->first();
+                $get_trip_count = TripPeople::where('id','!=',$trip_people->id)->where('trip_id',$trip_people->trip_id)->count();
+                if($trip_people->residence_countrys->name){
+                    $trip_people['residence_country'] = $trip_people->residence_countrys->name;
+                }
+                $trip_people['people_count'] = $get_trip_count;
+                $trip_people['people_code'] = $people_code;
+                
+                if(!empty($trip_people)){
+                    $response = array('status'=>true ,'message' => 'People verified Successfully','people_data'=>$trip_people,'people_count'=>$get_trip_count,'people_code'=>$people_code);
+                }else{
+                    $response = array('status'=>false ,'message' => 'People Not Found');
+                }
             }else{
-                $response = array('status'=>false ,'message' => 'People Not Found');
+                $response = array('status'=>false ,'message' => 'People Already Exist');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');

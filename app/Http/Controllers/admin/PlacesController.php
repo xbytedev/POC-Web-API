@@ -13,7 +13,7 @@ class PlacesController extends Controller
 {
     public function index()
     {
-        $places = Places::all();
+        $places = Places::where('created_by',Auth::user()->id)->get();
         return view('admin.places',compact('places'));
     }
 
@@ -22,6 +22,50 @@ class PlacesController extends Controller
         return view('admin.add_places');
     }
  
+    
+    public function edit_places($id)
+    {
+        $places = Places::where('id',base64_decode($id))->first();
+        return view('admin.edit_places',compact('places'));
+    }
+
+    public function delete_place(Request $request)
+    {
+        $id = $request->id;
+        if($id){
+            $places = Places::where('id',$id)->delete();
+            $response = array('status'=>true,'message'=>'Location deleted successfully');
+        }else{
+            $response = array('status'=>false,'message'=>'Something went wrong');
+        }
+        return response()->json($response);
+     
+    }
+
+    public function update_place(Request $request,$id)
+    {
+        $add_places = Places::where('id',base64_decode($id))->first();
+        $add_places->Name = $request->Name;
+        $add_places->Category = $request->Category;
+        $add_places->Attraction_Type = $request->Attraction_Type;
+        $add_places->Region = $request->Region;
+        $add_places->Rayon = $request->Rayon;
+        $add_places->City = $request->City;
+        $add_places->Address = $request->Address;
+        $add_places->Website = $request->Website;
+        $add_places->Telephone = $request->Telephone;
+        $add_places->Email = $request->Email;
+        $add_places->Latitude = $request->Latitude;
+        $add_places->Longitude = $request->Longitude;
+        $add_places->created_by = Auth::user()->id;
+        if($add_places->save()){
+            session()->flash('success','Places successfully edited');
+        }else{
+            session()->flash('error','Something went wrong');
+        }
+        return redirect('places');
+    }
+    
     public function importCsv(Request $request)
     {
         $filename = $_FILES["file"]["tmp_name"];
@@ -30,7 +74,7 @@ class PlacesController extends Controller
             $file = fopen($filename, "r");
             while (($getData = fgetcsv($file, 100000, ",")) !== FALSE)
             {
-                $check_data_place = Places::where('Name',$getData[1])->first();
+                $check_data_place = Places::where('created_by',Auth::user()->id)->where('Name',$getData[1])->first();
                 if(empty($check_data_place)){
                     $add_places = new Places;
                     $add_places->CSV_Id = $getData[0];
@@ -58,5 +102,31 @@ class PlacesController extends Controller
         return redirect()->back();
         // Excel::import(new PlacesImport, $request->file);
         // return redirect()->back();
+    }
+
+     public function insert_place(Request $request)
+    {
+        $add_places = new Places;
+        $add_places->CSV_Id = 0;
+        $add_places->Name = $request->Name;
+        $add_places->Category = $request->Category;
+        $add_places->Attraction_Type = $request->Attraction_Type;
+        $add_places->Region = $request->Region;
+        $add_places->Rayon = $request->Rayon;
+        $add_places->City = $request->City;
+        $add_places->Address = $request->Address;
+        $add_places->Website = $request->Website;
+        $add_places->Telephone = $request->Telephone;
+        $add_places->Email = $request->Email;
+        $add_places->Latitude = $request->Latitude;
+        $add_places->Longitude = $request->Longitude;
+        $add_places->status = 1;
+        $add_places->created_by = Auth::user()->id;
+        if($add_places->save()){
+            session()->flash('success','Places successfully added');
+        }else{
+            session()->flash('error','Something went wrong');
+        }
+        return redirect('places');
     }
 }

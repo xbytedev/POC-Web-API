@@ -90,6 +90,13 @@ Route::group(['middleware' => ['role:partner']], function () {
     Route::get('/places', [App\Http\Controllers\admin\PlacesController::class, 'index'])->middleware("auth");
     Route::get('/add_places', [App\Http\Controllers\admin\PlacesController::class, 'add_places'])->middleware("auth");
     Route::post('/importCsv', [App\Http\Controllers\admin\PlacesController::class, 'importCsv'])->middleware("auth");
+    Route::post('/insert_place', [App\Http\Controllers\admin\PlacesController::class, 'insert_place'])->middleware("auth");
+    Route::post('/delete_place', [App\Http\Controllers\admin\PlacesController::class, 'delete_place'])->middleware("auth");
+
+    Route::get('/edit_places/{id}', [App\Http\Controllers\admin\PlacesController::class, 'edit_places'])->middleware("auth");
+    Route::post('/update_place/{id}', [App\Http\Controllers\admin\PlacesController::class, 'update_place'])->middleware("auth");
+
+    
 
     // group people opration
     Route::post('/add_group_people', [App\Http\Controllers\admin\GroupController::class, 'add_group_people'])->middleware("auth");
