@@ -215,7 +215,7 @@
                             <option @if($edit_scanner_partner->business_type == 'accommodation') selected @endif value="accommodation">Accommodation</option>
                             <option @if($edit_scanner_partner->business_type == 'hospitality') selected @endif value="hospitality">Hospitality</option>
                             <option @if($edit_scanner_partner->business_type == 'attraction') selected @endif value="attraction">Attraction</option>
-                            <option @if($edit_agent->business_type == 'operator') selected @endif value="operator">Operator</option>
+                            <option @if($edit_scanner_partner->business_type == 'operator') selected @endif value="operator">Operator</option>
                         </select>
                     </div><br>
                 </div>

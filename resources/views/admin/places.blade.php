@@ -34,25 +34,30 @@
 
 <div class="card">
     <div class="card-body">
-        <form action="{{url('importCsv')}}" method="post" enctype='multipart/form-data' class="p-11">
-            @csrf
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="csv_files">Places CSV</label>
-                        <input type="file" name="file" required class="form-control" id="csv_files">
-                    </div><br>
-                </div>
-                <div class="col-md-4">
-                    <br>
-                    <button class="btn btn-primary">Submit</button>
-                </div>
-                <div class="col-md-4 text-end">
-                    <br>
-                    <a href="{{url('demo.csv')}}" class="btn btn-info">Download Format</a>
-                </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form action="{{url('importCsv')}}" method="post" enctype='multipart/form-data' class="p-11">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="csv_files">Places CSV</label>
+                                <input type="file" name="file" required class="form-control" id="csv_files">
+                            </div><br>
+                        </div>
+                        <div class="col-md-4">
+                            <br>
+                            <button class="btn btn-primary">Submit</button>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 text-end mt-10">
+                <br>
+                <a href="{{url('demo.csv')}}" class="btn btn-info" download>Download Format</a>
             </div><hr>
-        </form>
+        </div>
         <div class="card-header border-0 pt-6">
             <div class="col-md-12">
                 <div class="text-end">
