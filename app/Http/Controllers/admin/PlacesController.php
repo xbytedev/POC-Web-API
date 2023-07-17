@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Imports\PlacesImport;
 use App\Models\Places;
+use App\Models\User;
+use App\Models\UserPlaces;
 use Excel;
 use Auth;
 
@@ -129,4 +131,36 @@ class PlacesController extends Controller
         }
         return redirect('places');
     }
+
+    public function add_people_in_place(Request $request,$id){
+        $id = base64_decode($id);
+
+        $user_place_dd = UserPlaces::where('place_id',$id)->get();
+        $user_place = array();
+        foreach($user_place_dd as $user_place_data){
+            array_push($user_place,$user_place_data->user_id);
+        }
+
+        $places = Places::where('id',$id)->first();
+        $user_details = User::where('role','partner')->get();
+        return view('admin.add_places_user',compact('user_details','places','user_place'));
+    }
+
+    public function insert_people_in_place(Request $request){
+
+        $place_id = $request->place_id;
+        $user = $request->user;
+        $delete_datas = UserPlaces::where('place_id',$place_id)->delete();
+        
+        foreach($user as $user_data){
+            $add_user_place = new UserPlaces;
+            $add_user_place->user_id = $user_data;
+            $add_user_place->place_id = $place_id;
+            $add_user_place->save();
+        }
+        session()->flash('success','Places assigned successfully added');
+        return redirect('places');
+        
+    }
+
 }

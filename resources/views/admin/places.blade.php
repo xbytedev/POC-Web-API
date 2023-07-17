@@ -89,7 +89,11 @@
                         <td>{{$places_data->City}}</td>
                         <td>{{$places_data->Latitude}}</td>
                         <td>{{$places_data->Longitude}}</td>
-                        <td><a href="{{url('edit_places/'.base64_encode($places_data->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> <a data-id="{{$places_data->id}}" class="btn btn-sm btn-danger delete_place"><i class="fa fa-trash"></i></a></td>
+                        <td>
+                            <a href="{{url('edit_places/'.base64_encode($places_data->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                            <a href="{{url('add_people_in_place/'.base64_encode($places_data->id))}}" class="btn btn-sm btn-info"><i class="fa fa-user-plus"></i></a>
+                            <a data-id="{{$places_data->id}}" class="btn btn-sm btn-danger delete_place"><i class="fa fa-trash"></i></a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -66,8 +66,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Karavshin Valley</label>
-                        <input type="text" name="Name" required class="form-control" id="exampleInputEmail1" placeholder="Karavshin Valley">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" name="Name" required class="form-control" id="exampleInputEmail1" placeholder="Name">
                     </div><br>
                 </div>
                 <div class="col-md-6">

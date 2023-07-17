@@ -39,6 +39,18 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/update_password/{id}',[App\Http\Controllers\SendMailController::class, 'update_password']);
     Route::post('/update_pass',[App\Http\Controllers\SendMailController::class, 'update_pass']);
 
+    // PlacesController
+    Route::get('/places', [App\Http\Controllers\admin\PlacesController::class, 'index'])->middleware("auth");
+    Route::get('/add_places', [App\Http\Controllers\admin\PlacesController::class, 'add_places'])->middleware("auth");
+    Route::post('/importCsv', [App\Http\Controllers\admin\PlacesController::class, 'importCsv'])->middleware("auth");
+    Route::post('/insert_place', [App\Http\Controllers\admin\PlacesController::class, 'insert_place'])->middleware("auth");
+    Route::post('/delete_place', [App\Http\Controllers\admin\PlacesController::class, 'delete_place'])->middleware("auth");
+    Route::get('/edit_places/{id}', [App\Http\Controllers\admin\PlacesController::class, 'edit_places'])->middleware("auth");
+    Route::post('/update_place/{id}', [App\Http\Controllers\admin\PlacesController::class, 'update_place'])->middleware("auth");
+    Route::get('/add_people_in_place/{id}', [App\Http\Controllers\admin\PlacesController::class, 'add_people_in_place'])->middleware("auth");
+    Route::post('/insert_people_in_place', [App\Http\Controllers\admin\PlacesController::class, 'insert_people_in_place'])->middleware("auth");
+
+
 
     // UserController
     Route::get('/user_list', [App\Http\Controllers\admin\UserController::class, 'user_list'])->middleware("auth");
@@ -85,17 +97,6 @@ Route::group(['middleware' => ['role:partner']], function () {
     Route::get('/edit_agent/{id}', [App\Http\Controllers\admin\AgentController::class, 'edit_agent'])->middleware("auth");
     Route::post('/update_agent/{id}', [App\Http\Controllers\admin\AgentController::class, 'update_agent'])->middleware("auth");
     Route::post('/insert_agent', [App\Http\Controllers\admin\AgentController::class, 'insert_agent'])->middleware("auth");
-
-    // PlacesController
-    Route::get('/places', [App\Http\Controllers\admin\PlacesController::class, 'index'])->middleware("auth");
-    Route::get('/add_places', [App\Http\Controllers\admin\PlacesController::class, 'add_places'])->middleware("auth");
-    Route::post('/importCsv', [App\Http\Controllers\admin\PlacesController::class, 'importCsv'])->middleware("auth");
-    Route::post('/insert_place', [App\Http\Controllers\admin\PlacesController::class, 'insert_place'])->middleware("auth");
-    Route::post('/delete_place', [App\Http\Controllers\admin\PlacesController::class, 'delete_place'])->middleware("auth");
-
-    Route::get('/edit_places/{id}', [App\Http\Controllers\admin\PlacesController::class, 'edit_places'])->middleware("auth");
-    Route::post('/update_place/{id}', [App\Http\Controllers\admin\PlacesController::class, 'update_place'])->middleware("auth");
-
     
 
     // group people opration
