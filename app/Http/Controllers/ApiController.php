@@ -18,8 +18,10 @@ use App\Models\DepartureCrossingPoint;
 use App\Models\UserLogs;
 use App\Models\PartnerScannerLogs;
 use App\Models\ScanLogs;
+use App\Models\UserPlaces;
 use App\Models\GroupPeople;
 use App\Models\Group;
+use App\Models\Places;
 use Hash;
 use File;
 use Mail;
@@ -1378,7 +1380,7 @@ class ApiController extends Controller
             $response = array('status'=>false,'message'=>'Please Enter OTP','user_id'=>'');
         }
         return response()->json($response);
-    }
+    } 
     
     // public function border_scanner_partner_reset_password(Request $request){
     //     $email = $request->email;
@@ -1753,6 +1755,35 @@ class ApiController extends Controller
                 }
             }else{
                 $response = array('status'=>false ,'message' => 'Group id missing');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function agent_place_list(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $user_places = User::where('id',$request->header('id'))->pluck('created_by');
+            $places = UserPlaces::whereIn('user_id',$user_places)->pluck('place_id');
+            $user_places_data = Places::select('id','CSV_Id','Name','Category','Attraction_Type','Region','Rayon','City')->whereIn('id',$places)->get();
+            $response = array('status'=>true ,'data' => $user_places_data);
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function agent_place_details(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $place_id = $request->place_id;
+            if(!empty($place_id)){
+                $user_places_data = Places::where('id',$place_id)->first();
+                $response = array('status'=>true ,'data' => $user_places_data);
+            }else{
+                $response = array('status'=>false ,'message' => 'Place id not found');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');

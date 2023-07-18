@@ -50,8 +50,6 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/add_people_in_place/{id}', [App\Http\Controllers\admin\PlacesController::class, 'add_people_in_place'])->middleware("auth");
     Route::post('/insert_people_in_place', [App\Http\Controllers\admin\PlacesController::class, 'insert_people_in_place'])->middleware("auth");
 
-
-
     // UserController
     Route::get('/user_list', [App\Http\Controllers\admin\UserController::class, 'user_list'])->middleware("auth");
     Route::get('/add_user', [App\Http\Controllers\admin\UserController::class, 'index'])->middleware("auth");

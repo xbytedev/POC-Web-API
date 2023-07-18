@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/agent_place_details', [App\Http\Controllers\ApiController::class, 'agent_place_details']);
+Route::post('/agent_place_list', [App\Http\Controllers\ApiController::class, 'agent_place_list']);
 Route::post('/check_people', [App\Http\Controllers\ApiController::class, 'check_people']);
 Route::post('/make_as_default_status', [App\Http\Controllers\ApiController::class, 'make_as_default_status']);
 Route::post('/delete_group_people', [App\Http\Controllers\ApiController::class, 'delete_group_people']);
