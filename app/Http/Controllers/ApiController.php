@@ -1448,7 +1448,7 @@ class ApiController extends Controller
                 $add = new Group;
                 $add->group_code = rand(1,9).time().rand(1,9);
                 $add->name = $name;
-                $add->partner_id = $agent_id;
+                $add->partner_id = $check_token->created_by;
                 $add->agent_id = $agent_id;
                 if(!empty($check_group_id))
                 {
@@ -1767,7 +1767,7 @@ class ApiController extends Controller
         if(!empty($check_token)){
             $user_places = User::where('id',$request->header('id'))->pluck('created_by');
             $places = UserPlaces::whereIn('user_id',$user_places)->pluck('place_id');
-            $user_places_data = Places::select('id','CSV_Id','Name','Category','Attraction_Type','Region','Rayon','City')->whereIn('id',$places)->get();
+            $user_places_data = Places::select('id','Name','Category','Attraction_Type','Region','Rayon','City')->whereIn('id',$places)->get();
             $response = array('status'=>true ,'data' => $user_places_data);
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');
