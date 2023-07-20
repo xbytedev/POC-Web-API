@@ -156,7 +156,9 @@
 
                 <div class="form-group">
 
-                    <img style="height: 135px;width: 50%;" src="{{asset('document_image/'.$edit_scanner_partner->document_image)}}" alt="">
+                    <a style="color:red;cursor: pointer;" class="">Remove</a><br>
+                    
+                    <img style="height: 135px;width: 50%;" src="{{asset('document_image/'.$edit_scanner_partner->document_image)}}" alt=""><br>
 
                     <label for="exampleInputEmail1">Document Image</label>
 
