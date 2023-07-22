@@ -22,6 +22,7 @@ use App\Models\UserPlaces;
 use App\Models\GroupPeople;
 use App\Models\Group;
 use App\Models\Places;
+use App\Models\CheckIn;
 use Hash;
 use File;
 use Mail;
@@ -1781,9 +1782,40 @@ class ApiController extends Controller
             $place_id = $request->place_id;
             if(!empty($place_id)){
                 $user_places_data = Places::where('id',$place_id)->first();
+                $user_places_data['image'] = asset('image.jpg');
                 $response = array('status'=>true ,'data' => $user_places_data);
             }else{
                 $response = array('status'=>false ,'message' => 'Place id not found');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function people_check_in(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $type = $request->type;
+            $people_code = $request->people_code;
+            $agent_id = $request->agent_id;
+            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+            
+            if(!empty($trip_people)){
+
+                if(!empty($type)){
+                    
+                    if($type == "single"){
+                        $people_group_check = GroupPeople::where('people_code',$people_code)->get();
+                        // if(sizeof($people_group_check) > 0){
+                    }else{
+
+                    }
+                }else{
+                    $response = array('status'=>false ,'message' => 'Type not found');
+                }
+            }else{
+
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');
