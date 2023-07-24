@@ -1793,29 +1793,84 @@ class ApiController extends Controller
         return response()->json($response);
     }
 
-    public function people_check_in(Request $request){
+    public function people_individual_check_in(Request $request){
         $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
-            $type = $request->type;
             $people_code = $request->people_code;
-            $agent_id = $request->agent_id;
+            $place_id = $request->place_id;
             $trip_people = TripPeople::where('people_id_code',$people_code)->first();
-            
             if(!empty($trip_people)){
-
-                if(!empty($type)){
-                    
-                    if($type == "single"){
-                        $people_group_check = GroupPeople::where('people_code',$people_code)->get();
-                        // if(sizeof($people_group_check) > 0){
+                $check_in_check_data = CheckIn::where('people_code',$people_code)->where('place_id',$place_id)->first();
+                if(!empty($place_id)){
+                    if(empty($check_in_check_data)){
+                        $check_in = new CheckIn;
+                        $check_in->people_id = $trip_people->id;
+                        $check_in->people_code = $people_code;
+                        $check_in->place_id = $place_id;
+                        $check_in->agent_id = $request->header('id');
+                        if($check_in->save()){
+                            $response = array('status'=>true ,'message' => 'People check-in successfully');
+                        }else{
+                            $response = array('status'=>false ,'message' => 'Something went wrong');
+                        }
                     }else{
-
+                        $response = array('status'=>false ,'message' => 'People already exist');
                     }
                 }else{
-                    $response = array('status'=>false ,'message' => 'Type not found');
+                    $response = array('status'=>false ,'message' => 'Place id not found');
                 }
             }else{
+                $response = array('status'=>false ,'message' => 'People Not Found');
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
 
+    public function check_people_check_in(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $people_code = $request->people_code;
+            $trip_people = TripPeople::with('residence_countrys')->select('id','name','family_name','residence_country','residence_city','residence_post_code','contacts_email','contacts_phone','gender','trip_id')->where('people_id_code',$people_code)->first();
+            if(!empty($trip_people)){
+                if($trip_people->residence_countrys->name){
+                    $trip_people['residence_country'] = $trip_people->residence_countrys->name;
+                }
+                $response = array('status'=>true ,'message' => 'People verified Successfully','people_data'=>$trip_people,'people_code'=>$people_code);
+            }else{
+                $response = array('status'=>false ,'message' => 'People Not Found');
+            }
+            
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function people_group_check_in(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $people_code = $request->people_code;
+            $place_id = $request->place_id;
+            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
+            if(!empty($trip_people)){
+                if(empty($check_in_check_data)){
+                    $check_in = new CheckIn;
+                    $check_in->people_id = $trip_people->id;
+                    $check_in->people_code = $people_code;
+                    $check_in->place_id = $place_id;
+                    $check_in->agent_id = $request->header('id');
+                    if($check_in->save()){
+                        $response = array('status'=>true ,'message' => 'People check-in successfully');
+                    }else{
+                        $response = array('status'=>false ,'message' => 'Something went wrong');
+                    }
+                }else{
+                    $response = array('status'=>false ,'message' => 'People already exist');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'People Not Found');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');
