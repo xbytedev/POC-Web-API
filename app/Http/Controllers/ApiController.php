@@ -1851,26 +1851,22 @@ class ApiController extends Controller
     public function people_group_check_in(Request $request){
         $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         if(!empty($check_token)){
-            $people_code = $request->people_code;
+            $group_id = $request->group_id;
             $place_id = $request->place_id;
-            $trip_people = TripPeople::where('people_id_code',$people_code)->first();
-            if(!empty($trip_people)){
-                if(empty($check_in_check_data)){
+
+            $group_people_datas = GroupPeople::where('status',1)->where('group_id',$group_id)->get();
+            if(sizeof($group_people_datas) > 0){
+                foreach($group_people_datas as $group_people_data){
                     $check_in = new CheckIn;
-                    $check_in->people_id = $trip_people->id;
-                    $check_in->people_code = $people_code;
+                    $check_in->people_id = $group_people_data->people_id;
+                    $check_in->people_code = $group_people_data->people_code;
                     $check_in->place_id = $place_id;
                     $check_in->agent_id = $request->header('id');
-                    if($check_in->save()){
-                        $response = array('status'=>true ,'message' => 'People check-in successfully');
-                    }else{
-                        $response = array('status'=>false ,'message' => 'Something went wrong');
-                    }
-                }else{
-                    $response = array('status'=>false ,'message' => 'People already exist');
+                    $check_in->save();
                 }
+                $response = array('status'=>true ,'message' => 'Group check-in successfully');
             }else{
-                $response = array('status'=>false ,'message' => 'People Not Found');
+                $response = array('status'=>true ,'message' => 'In this group people not found');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');

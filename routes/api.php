@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/people_group_check_in', [App\Http\Controllers\ApiController::class, 'people_group_check_in']);
 Route::post('/check_people_check_in', [App\Http\Controllers\ApiController::class, 'check_people_check_in']);
 Route::post('/people_individual_check_in', [App\Http\Controllers\ApiController::class, 'people_individual_check_in']);
 Route::post('/agent_place_details', [App\Http\Controllers\ApiController::class, 'agent_place_details']);
