@@ -1477,8 +1477,28 @@ class ApiController extends Controller
         if(!empty($check_token)){
             $agent_id = $request->agent_id;
             if(!empty($agent_id)){
-                $datas = Group::where(['is_delete'=>0,'agent_id'=>$agent_id])->get();
-                $response = array('status'=>true ,'data' => $datas);
+                $group_list_data = array();
+                $datas = Group::with('group_people_data')->where(['is_delete'=>0,'agent_id'=>$agent_id])->get();
+                foreach($datas as $datas_group){
+                    $data_gorup_obj['id'] = $datas_group->id;
+                    $data_gorup_obj['group_code'] = $datas_group->group_code;
+                    $data_gorup_obj['name'] = $datas_group->name;
+                    $data_gorup_obj['partner_id'] = $datas_group->partner_id;
+                    $data_gorup_obj['status'] = $datas_group->status;
+                    $data_gorup_obj['is_delete'] = $datas_group->is_delete;
+                    $data_gorup_obj['agent_id'] = $datas_group->agent_id;
+                    $data_gorup_obj['default_status'] = $datas_group->default_status;
+                    $data_gorup_obj['created_at'] = $datas_group->created_at;
+                    $data_gorup_obj['updated_at'] = $datas_group->updated_at;
+                    if(isset($datas_group->group_people_data)){
+                        $data_gorup_obj['group_people_count'] = sizeof($datas_group->group_people_data);
+                    }else{
+                        $data_gorup_obj['group_people_count'] = 0;
+                    }
+                    array_push($group_list_data,$data_gorup_obj);
+                }
+
+                $response = array('status'=>true ,'data' => $group_list_data);
             }else{
                 $response = array('status'=>false ,'message' => 'some required field missing');
             }
