@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Trips')
+@section('title','Group')
 
 @section('content')
 
@@ -27,36 +27,20 @@
 @if(Session::has('error'))
 
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span><strong>{{ Session::get('error') }}</strong></button>
+
 </div>
+
 @endif
 
 <div class="card">
+
     <div class="card-body">
-        <form action="" class="mb-3" method="get">
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="">From Date</label>
-                    <input @if(isset($_GET['from_date'])) value="{{$_GET['from_date']}}" @endif type="date" name="from_date" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <label for="">To Date</label>
-                    <input @if(isset($_GET['to_date'])) value="{{$_GET['to_date']}}" @endif type="date" name="to_date" class="form-control">
-                </div>
-                <div class="col-md-1">
-                    <label for="">Search</label><br>
-                    <button type="submit" class="btn btn-sm btn-primary">Search</button>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Clear</label><br>
-                    <a href="{{url('trip')}}" class="btn btn-sm btn-warning">Clear</a>
-                </div>
-                <div class="col-md-3 text-end">
-                    <label for=""></label><br>
-                    <a href="{{url('create_trip')}}" class="btn btn-primary">Create Trip</a>
-                </div>
-            </div>
-        </form>
+
+        <div class="text-end">
+            <a href="{{url('add_group')}}" class="btn btn-primary">Add Group</a>
+        </div>
 
         <table id="example" class="table table-striped text-left border" style="width:100%">
 
@@ -66,56 +50,39 @@
 
                     <th><b>SR.</b></th>
 
-                    <th><b>Trip Name</b></th>
+                    <th><b>Name</b></th>
 
-                    <th><b>Trip Number</b></th>
+                    <th><b>Code</b></th>
 
-                    <th><b>Created By</b></th>
+                    <th><b>Status</b></th>
 
-                    <th><b>Start Date</b></th>
-
-                    <th><b>End Date</b></th>
-
-                    <th><b>status</b></th>
-
-                    <th><b>View Trip</b></th>
+                    <th><b>Action</b></th>
 
                 </tr>
 
             </thead>
 
             <tbody class="border">
-
-                @foreach($trip as $key=> $trip_data)
-
+                @foreach($group_data as $key=> $group)
                     <tr>
-
                         <td>{{$key+1}}</td>
-
-                        <td>{{$trip_data->trip_name}}</td>
-
-                        <td>{{$trip_data->trip_number}}</td>
-
-                        <td>@if(isset($trip_data->created_by_data->name)) {{$trip_data->created_by_data->name}} @endif</td>
-
-                        <td>{{$trip_data->trip_start_date}}</td>
-
-                        <td>{{$trip_data->trip_end_date}}</td>
-                        
-                        <td> <p @if($trip_data->trip_status == 'draft') style="color:black" @elseif($trip_data->trip_status == 'active') style="color:green;" @else style="color:red;" @endif> {{$trip_data->trip_status}} </p></td>
-
-                        <td><a href="{{url('view_trip_peopel/'.$trip_data->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a> <a href="{{url('edit_trip/'.$trip_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
-
+                        <td>{{$group->name}}</td>
+                        <td>{{$group->group_code}}</td>
+                        <td>
+                            @if($group->status == 1)
+                                <span style="color:green;">Active</span>
+                            @else
+                                <span style="color:red;">Deactive</span>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{url('edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> <a data-id="{{$group->id}}" class="btn btn-sm btn-success" href="{{url('group_wise_people/'.base64_encode($group->id))}}"><i class="fa fa-user-plus"></i></a>
+                        </td>
                     </tr>
-
                 @endforeach
-
             </tbody>
-
         </table>
-
     </div>
-
 </div>
 
 @endsection
@@ -146,13 +113,13 @@
 
     });
 
-    $(document).on("click","#delete_category",function() {
+    $(document).on("click",".delete_group",function() {
 
         Swal.fire({
 
         title: 'Are you sure?',
 
-        text: "You won't to delete this customer!",
+        text: "You won't to delete this Group!",
 
         icon: 'warning',
 
@@ -191,20 +158,11 @@
                             'success'
 
                         )
-
                         location.reload();
-
                     }
-
                 });
-
             }
-
         })
-
     });
 </script>
-
-
-
 @endsection

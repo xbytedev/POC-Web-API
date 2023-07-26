@@ -71,7 +71,11 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/trip', [App\Http\Controllers\admin\TripController::class, 'index'])->middleware("auth");
     Route::get('/view_trip_peopel/{id}', [App\Http\Controllers\admin\TripController::class, 'view_trip_peopel'])->middleware("auth");
     Route::get('/view_people_individual/{id}', [App\Http\Controllers\admin\TripController::class, 'view_people_individual'])->middleware("auth");
-
+    Route::get('/create_trip', [App\Http\Controllers\admin\TripController::class, 'create_trip'])->middleware("auth");
+    Route::post('/add_create_trip', [App\Http\Controllers\admin\TripController::class, 'add_create_trip'])->middleware("auth");
+    Route::get('/edit_trip/{id}', [App\Http\Controllers\admin\TripController::class, 'edit_trip'])->middleware("auth");
+    Route::post('/edit_update_trip/{id}', [App\Http\Controllers\admin\TripController::class, 'edit_update_trip'])->middleware("auth");
+    
     // PaymentController
     Route::get('/payment_list', [App\Http\Controllers\admin\PaymentController::class, 'payment_list'])->middleware("auth");
 
