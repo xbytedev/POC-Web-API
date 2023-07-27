@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Group')
+@section('title','People List In Group')
 
 @section('content')
 
@@ -39,7 +39,7 @@
     <div class="card-body">
 
         <div class="text-end">
-            <a href="{{url('admin_add_group')}}" class="btn btn-primary">Add Group</a>
+            <a href="{{url('admin_add_group_wise_people/'.request('id'))}}" class="btn btn-primary">Add People</a>
         </div>
 
         <table id="example" class="table table-striped text-left border" style="width:100%">
@@ -50,10 +50,12 @@
 
                     <th><b>SR.</b></th>
 
-                    <th><b>Name</b></th>
+                    <th><b>Group Name</b></th>
 
-                    <th><b>Code</b></th>
+                    <th><b>People Name</b></th>
 
+                    <th><b>People QR Code</b></th>
+                    
                     <th><b>Status</b></th>
 
                     <th><b>Action</b></th>
@@ -63,11 +65,12 @@
             </thead>
 
             <tbody class="border">
-                @foreach($group_data as $key=> $group)
+                @foreach($group_people_data as $key=> $group)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$group->name}}</td>
-                        <td>{{$group->group_code}}</td>
+                        <td>{{$group->group_details->name}}</td>
+                        <td>{{$group->group_people_details->name}}</td>
+                        <td>{{$group->people_code}}</td>
                         <td>
                             @if($group->status == 1)
                                 <span style="color:green;">Active</span>
@@ -76,8 +79,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{url('admin_edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> 
-                            <a data-id="{{$group->id}}" class="btn btn-sm btn-success" href="{{url('admin_group_wise_people/'.base64_encode($group->partner_id))}}"><i class="fa fa-user-plus"></i></a>
+                            <a href="{{url('edit_group_wise_people/'.base64_encode($group->id).'/'.request('id'))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -159,11 +161,17 @@
                             'success'
 
                         )
+
                         location.reload();
+
                     }
+
                 });
+
             }
+
         })
+
     });
 </script>
 @endsection

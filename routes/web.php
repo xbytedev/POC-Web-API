@@ -24,6 +24,30 @@ Route::get('/home', function () {
 // HomeController
 Route::group(['middleware' => ['role:admin']], function () {
 
+
+     // group people opration
+    Route::post('/admin_add_group_people', [App\Http\Controllers\AdminGroup::class, 'add_group_people'])->middleware("auth");
+
+    Route::get('/admin_group_wise_people/{id}', [App\Http\Controllers\AdminGroup::class, 'group_wise_people'])->middleware("auth");
+
+    Route::get('/admin_edit_group_wise_people/{id}/{group_id}', [App\Http\Controllers\AdminGroup::class, 'edit_group_wise_people'])->middleware("auth");
+
+    Route::post('/admin_update_group_people/{id}', [App\Http\Controllers\AdminGroup::class, 'update_group_people'])->middleware("auth");
+
+    Route::get('/admin_add_group_wise_people/{id}', [App\Http\Controllers\AdminGroup::class, 'add_group_wise_people'])->middleware("auth");
+
+
+    // Only for group
+
+    Route::get('/admin_group', [App\Http\Controllers\AdminGroup::class, 'group'])->middleware("auth");
+    Route::get('/admin_add_group', [App\Http\Controllers\AdminGroup::class, 'add_group'])->middleware("auth");
+    Route::post('/admin_inser_group', [App\Http\Controllers\AdminGroup::class, 'inser_group'])->middleware("auth");
+    Route::get('/admin_edit_group/{id}', [App\Http\Controllers\AdminGroup::class, 'edit_group'])->middleware("auth");
+    Route::post('/admin_update_group/{id}', [App\Http\Controllers\AdminGroup::class, 'update_group'])->middleware("auth");
+    Route::post('/get_partner_wise_agent', [App\Http\Controllers\AdminGroup::class, 'get_partner_wise_agent'])->middleware("auth");
+
+
+
     Route::get('/add_arrival_crossing', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'index']);
     Route::get('/manage_arrival', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'manage_arrival']);
     Route::post('/arrival_crossing_insert', [App\Http\Controllers\admin\ArrivalCrossingPointController::class, 'arrival_crossing_insert']);
