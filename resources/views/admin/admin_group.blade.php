@@ -77,7 +77,7 @@
                         </td>
                         <td>
                             <a href="{{url('admin_edit_group/'.base64_encode($group->id))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a> 
-                            <a data-id="{{$group->id}}" class="btn btn-sm btn-success" href="{{url('admin_group_wise_people/'.base64_encode($group->partner_id))}}"><i class="fa fa-user-plus"></i></a>
+                            <a data-id="{{$group->id}}" class="btn btn-sm btn-success" href="{{url('admin_group_wise_people/'.base64_encode($group->id))}}"><i class="fa fa-user-plus"></i></a>
                         </td>
                     </tr>
                 @endforeach

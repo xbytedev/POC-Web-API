@@ -63,7 +63,7 @@
 
     <div class="card-body">
 
-    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('admin_inser_group')}}">
+    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('admin_update_group/'.base64_encode($group_data->id))}}">
 
         @csrf
 
@@ -123,7 +123,7 @@
 
         <div class="form-group form-check">
 
-            <input type="checkbox" name="status" class="form-check-input" checked id="exampleCheck1">
+            <input type="checkbox" name="status" class="form-check-input" @if($group_data->status == 1) checked @endif id="exampleCheck1">
 
             <label class="form-check-label" for="exampleCheck1">Active</label>
 

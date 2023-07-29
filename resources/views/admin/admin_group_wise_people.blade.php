@@ -79,7 +79,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{url('edit_group_wise_people/'.base64_encode($group->id).'/'.request('id'))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                            <a href="{{url('admin_edit_group_wise_people/'.base64_encode($group->id).'/'.request('id'))}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                         </td>
                     </tr>
                 @endforeach

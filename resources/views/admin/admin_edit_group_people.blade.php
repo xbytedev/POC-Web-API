@@ -8,7 +8,7 @@
 
 @endsection
 
-@section('title','Add Group People')
+@section('title','Edit Group People')
 
 @section('content')
 
@@ -63,7 +63,7 @@
 
     <div class="card-body">
 
-    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('admin_add_group_people')}}">
+    <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('admin_update_group_people/'.$group_people_data->id)}}">
 
         @csrf
 
@@ -75,11 +75,11 @@
 
                     <label for="exampleInputEmail1">Code</label>
 
-                    <input type="text" name="people_code" required class="form-control" id="exampleInputEmail1" placeholder="Code">
+                    <input type="text" name="people_code" value="{{$group_people_data->people_code}}" required class="form-control" id="exampleInputEmail1" placeholder="Code">
                     
-                    <input type="hidden" name="group_id" value="{{$group_people_data->id}}">
+                    <input type="hidden" name="group_id" value="{{$group_data->id}}">
                     
-                    <input type="hidden" name="group_code" value="{{$group_people_data->group_code}}">
+                    <input type="hidden" name="group_code" value="{{$group_data->group_code}}">
 
                 </div><br>
 
@@ -89,7 +89,7 @@
 
         <div class="form-group form-check">
 
-            <input type="checkbox" name="status" class="form-check-input" checked id="exampleCheck1">
+            <input type="checkbox" name="status" class="form-check-input" @if($group_people_data->status == 1) checked @endif id="exampleCheck1">
 
             <label class="form-check-label" for="exampleCheck1">Active</label>
 
@@ -97,7 +97,7 @@
 
         <button type="submit" class="btn btn-primary">Submit</button> 
         
-        <a href="{{url('admin_group_wise_people/'.request('id'))}}" class="btn btn-danger">Cancel</a>
+            <a href="{{url('admin_group_wise_people/'.request('id'))}}" class="btn btn-danger">Cancel</a>
 
         </form>
 

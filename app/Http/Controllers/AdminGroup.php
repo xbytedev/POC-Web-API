@@ -52,9 +52,8 @@ class AdminGroup extends Controller
     public function update_group(Request $request,$id){
         $add_data = Group::where('id',base64_decode($id))->first();
         $add_data->name = $request->name;
-        $add_data->partner_id = Auth::user()->id;
+        $add_data->partner_id = $request->partner_id;
         $add_data->agent_id = $request->agent_id;
-
         if($request->status == 'on'){
             $add_data->status = 1;
         }else{
@@ -63,7 +62,7 @@ class AdminGroup extends Controller
 
         if($add_data->save()){
             session()->flash('success','Group updated successfully');
-            return redirect('group');
+            return redirect('admin_group');
         }else{
             session()->flash('error','Something went wrong');
             return redirect()->back();
@@ -99,7 +98,7 @@ class AdminGroup extends Controller
                 $group_people->partner_id = Auth::user()->id;
                 if($group_people->save()){
                     session()->flash('success','People add in group successfully');
-                    return redirect('group_wise_people/'.base64_encode($group_id));
+                    return redirect('admin_group_wise_people/'.base64_encode($group_id));
                 }else{
                     session()->flash('error','Something went wrong');
                     return redirect()->back();
@@ -120,16 +119,15 @@ class AdminGroup extends Controller
     }
 
     public function add_group_wise_people($id){
-        $group_people_data = Group::with('group_people_details','group_details')->where('partner_id',Auth::user()->id)->where('id',base64_decode($id))->first();
+        $group_people_data = Group::with('group_people_details','group_details')->where('id',base64_decode($id))->first();
         return view('admin.admin_add_group_people',compact('group_people_data'));
     }
 
     public function edit_group_wise_people($id,$group_id){
-        $group_data = Group::with('group_people_details','group_details')->where('partner_id',Auth::user()
-        ->id)->where('id',base64_decode($group_id))->first();
+        $group_data = Group::with('group_people_details','group_details')->where('id',base64_decode($group_id))->first();
         $group_people_data = GroupPeople::with('group_people_details','group_details')->where('partner_id',Auth::user()->id)->where('id',base64_decode($id))->first();
 
-        return view('admin.edit_group_people',compact('group_people_data','group_data'));
+        return view('admin.admin_edit_group_people',compact('group_people_data','group_data'));
     }
 
     public function update_group_people(Request $request,$id)
@@ -146,7 +144,7 @@ class AdminGroup extends Controller
                 $group_people->people_code = $trip_people->people_id_code;
                 $group_people->group_id = $group_id;
                 $group_people->group_code = $group_code;
-                $group_people->partner_id = Auth::user()->id;
+                $group_people->partner_id = Auth::user()->id;                
                 if($request->status == 'on'){
                     $group_people->status = 1;
                 }else{
@@ -154,7 +152,7 @@ class AdminGroup extends Controller
                 }
                 if($group_people->save()){
                     session()->flash('success','People updated in group successfully');
-                    return redirect('group_wise_people/'.base64_encode($group_id));
+                    return redirect('admin_group_wise_people/'.base64_encode($group_id));
                 }else{
                     session()->flash('error','Something went wrong');
                     return redirect()->back();

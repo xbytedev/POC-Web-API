@@ -23,6 +23,7 @@ use App\Models\GroupPeople;
 use App\Models\Group;
 use App\Models\Places;
 use App\Models\CheckIn;
+use App\Models\GroupLogs;
 use Hash;
 use File;
 use Mail;
@@ -1458,7 +1459,12 @@ class ApiController extends Controller
                     $add->default_status = 1;
                 }
                 if($add->save()){
-                    $datas = Group::where('id', $last_group_id+1)->first();
+                    $datas = Group::with('group_people_data')->where('id', $last_group_id+1)->first();
+                    if(isset($datas->group_people_data)){
+                        $datas['group_people_count'] = sizeof($datas->group_people_data);
+                    }else{
+                        $datas['group_people_count'] = 0;
+                    }
                     $response = array('status'=>true ,'message' => 'Group created successfully','data'=>$datas);
                 }else{
                     $response = array('status'=>false ,'message' => 'Something went wrong');
@@ -1557,6 +1563,11 @@ class ApiController extends Controller
                 $trip_people['people_code'] = $people_code;
                 
                 if(!empty($trip_people)){
+                    $group_logs = new GroupLogs;
+                    $group_logs->group_id = $group_id;
+                    $group_logs->agent_id = $request->header('id');
+                    $group_logs->save();
+
                     $response = array('status'=>true ,'message' => 'People verified Successfully','people_data'=>$trip_people,'people_count'=>$get_trip_count,'people_code'=>$people_code);
                 }else{
                     $response = array('status'=>false ,'message' => 'People Not Found');
@@ -1822,19 +1833,15 @@ class ApiController extends Controller
             if(!empty($trip_people)){
                 $check_in_check_data = CheckIn::where('people_code',$people_code)->where('place_id',$place_id)->first();
                 if(!empty($place_id)){
-                    if(empty($check_in_check_data)){
-                        $check_in = new CheckIn;
-                        $check_in->people_id = $trip_people->id;
-                        $check_in->people_code = $people_code;
-                        $check_in->place_id = $place_id;
-                        $check_in->agent_id = $request->header('id');
-                        if($check_in->save()){
-                            $response = array('status'=>true ,'message' => 'People check-in successfully');
-                        }else{
-                            $response = array('status'=>false ,'message' => 'Something went wrong');
-                        }
+                    $check_in = new CheckIn;
+                    $check_in->people_id = $trip_people->id;
+                    $check_in->people_code = $people_code;
+                    $check_in->place_id = $place_id;
+                    $check_in->agent_id = $request->header('id');
+                    if($check_in->save()){
+                        $response = array('status'=>true ,'message' => 'People check-in successfully');
                     }else{
-                        $response = array('status'=>false ,'message' => 'People already exist');
+                        $response = array('status'=>false ,'message' => 'Something went wrong');
                     }
                 }else{
                     $response = array('status'=>false ,'message' => 'Place id not found');
@@ -1886,7 +1893,7 @@ class ApiController extends Controller
                 }
                 $response = array('status'=>true ,'message' => 'Group check-in successfully');
             }else{
-                $response = array('status'=>true ,'message' => 'In this group people not found');
+                $response = array('status'=>false ,'message' => 'In this group people not found');
             }
         }else{
             $response = array('status'=>false ,'message' => 'Access Denied');
