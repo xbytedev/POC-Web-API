@@ -117,6 +117,10 @@ Route::group(['middleware' => ['role:partner']], function () {
     Route::get('/edit_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'edit_group'])->middleware("auth");
     Route::post('/update_group/{id}', [App\Http\Controllers\admin\GroupController::class, 'update_group'])->middleware("auth");
 
+    // GroupLogsController
+    Route::get('/group_log', [App\Http\Controllers\admin\GroupLogsController::class, 'group_log'])->middleware("auth");
+
+
     // AgentController
     Route::get('/agent', [App\Http\Controllers\admin\AgentController::class, 'index'])->middleware("auth");
     Route::get('/add_agent', [App\Http\Controllers\admin\AgentController::class, 'add_agent'])->middleware("auth");

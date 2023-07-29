@@ -11,4 +11,11 @@ class GroupLogs extends Model
 
     protected $table = 'group_logs';
 
+    public function group_data(){
+        return $this->hasOne(Group::class, 'id', 'group_id');
+    }
+
+    public function user_data(){
+        return $this->hasOne(User::class, 'id', 'agent_id');
+    }
 }
