@@ -626,8 +626,8 @@ class ApiController extends Controller
         $email = $request->email;
         $password = $request->password;
         if(!empty($email) && !empty($password)){
-            $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password) && $check_email_password->role == 'agent'){
+            $check_email_password = User::where('email',$email)->first();
+            if(!empty($check_email_password) && $check_email_password->role == 'agent' && Hash::check($request->password,$check_email_password->password)){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();
@@ -659,8 +659,9 @@ class ApiController extends Controller
         // $email = $request->email;
         // $password = $request->password;
         // if(!empty($email) && !empty($password)){
-        //     $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-        //     if($check_email_password->status == 1){
+        //     $check_email_password = User::where('email',$email)->first();
+        
+        //     if($check_email_password->status == 1 && Hash::check($request->password,$check_email_password->password)){
         //         if(!empty($check_email_password)){
         //             $details = rand(1000,9999);
         //             $update_user = User::where('email',$check_email_password->email)->first();
@@ -1240,8 +1241,9 @@ class ApiController extends Controller
         $email = $request->email;
         $password = $request->password;
         if(!empty($email) && !empty($password)){
-            $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-            if(!empty($check_email_password) && $check_email_password->role == 'agent'){
+            $check_email_password = User::where('email',$email)->first();
+            
+            if(!empty($check_email_password) && $check_email_password->role == 'agent' && Hash::check($request->password,$check_email_password->password)){
                 if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
                     if($email == 'testid@gmail.com'){
                         $user_details = User::where('email',$check_email_password->email)->first();
@@ -1274,8 +1276,9 @@ class ApiController extends Controller
         // $email = $request->email;
         // $password = $request->password;
         // if(!empty($email) && !empty($password)){
-        //     $check_email_password = User::where('email',$email)->where('view_password',$password)->first();
-        //     print_r($check_email_password);
+        //     $check_email_password = User::where('email',$email)->first();
+        
+        //     print_r($check_email_password && Hash::check($request->password,$check_email_password->password));
         //     if(!empty($check_email_password)){
         //         if($check_email_password['status'] == 1 && isset($check_email_password['status'])){
         //             if($email == 'testid@gmail.com'){
