@@ -93,8 +93,6 @@ class AgentController extends Controller
         $add->name = $request->name;
         $add->email = $request->email;
         $add->number = $request->number;
-        $add->view_password = $request->password;
-        $add->password =  Hash::make($request->password);
         $add->location = $request->location;
         $add->document_name = $request->document_name;
 
