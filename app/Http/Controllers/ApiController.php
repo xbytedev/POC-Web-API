@@ -1519,9 +1519,8 @@ class ApiController extends Controller
         if(!empty($check_token)){
             $group_id = $request->group_id;
             if(!empty($group_id)){
-                $datas = GroupPeople::with('group_people_details')->where(['group_id'=>$group_id,'partner_id'=>$request->header('id')])->get();
+                $datas = GroupPeople::with('group_people_details')->where(['group_id'=>$group_id])->get();
                 $datas_array = array();
-
                 foreach($datas as $group_people_data){
                     $new_data['id'] = $group_people_data->id;
                     $new_data['group_id'] = $group_people_data->group_id;
@@ -1533,7 +1532,6 @@ class ApiController extends Controller
                     $new_data['people_name'] = $group_people_data->group_people_details->name;
                     array_push($datas_array,$new_data);
                 }
-
                 $response = array('status'=>true ,'data' => $datas_array);
             }else{
                 $response = array('status'=>false ,'message' =>'Some Required Field Missing');
@@ -1563,11 +1561,6 @@ class ApiController extends Controller
                 $trip_people['people_code'] = $people_code;
                 
                 if(!empty($trip_people)){
-                    $group_logs = new GroupLogs;
-                    $group_logs->group_id = $group_id;
-                    $group_logs->agent_id = $request->header('id');
-                    $group_logs->save();
-
                     $response = array('status'=>true ,'message' => 'People verified Successfully','people_data'=>$trip_people,'people_count'=>$get_trip_count,'people_code'=>$people_code);
                 }else{
                     $response = array('status'=>false ,'message' => 'People Not Found');
@@ -1773,8 +1766,20 @@ class ApiController extends Controller
             $group_id = $request->group_id;
             if(!empty($group_id)){
                 $check_data_update = Group::where(['agent_id'=>$request->header('id'),'default_status'=>1])->first();
-                $check_data_update->default_status = 0;
-                if($check_data_update->save()){
+                if(!empty($check_data_update)){
+                    $check_data_update->default_status = 0;
+                    if($check_data_update->save()){
+                        $check_data = Group::where('id',$group_id)->first();
+                        $check_data->default_status = 1;
+                        if($check_data->save()){
+                            $response = array('status'=>true ,'message' => 'Group Updated Successfully');
+                        }else{
+                            $response = array('status'=>false ,'message' => 'Something went wrong');
+                        }
+                    }else{
+                        $response = array('status'=>false,'message'=>'Something went wrong');
+                    }
+                }else{
                     $check_data = Group::where('id',$group_id)->first();
                     $check_data->default_status = 1;
                     if($check_data->save()){
@@ -1782,8 +1787,6 @@ class ApiController extends Controller
                     }else{
                         $response = array('status'=>false ,'message' => 'Something went wrong');
                     }
-                }else{
-                    $response = array('status'=>false,'message'=>'Something went wrong');
                 }
             }else{
                 $response = array('status'=>false ,'message' => 'Group id missing');
@@ -1813,7 +1816,11 @@ class ApiController extends Controller
             $place_id = $request->place_id;
             if(!empty($place_id)){
                 $user_places_data = Places::where('id',$place_id)->first();
-                $user_places_data['image'] = asset('image.jpg');
+                if(!empty($user_places_data->image)){
+                    $user_places_data['image'] = asset('place_image/'.$user_places_data->image);
+                }else{
+                    $user_places_data['image'] = asset('image.jpg');
+                }
                 $response = array('status'=>true ,'data' => $user_places_data);
             }else{
                 $response = array('status'=>false ,'message' => 'Place id not found');
@@ -1890,7 +1897,12 @@ class ApiController extends Controller
                     $check_in->place_id = $place_id;
                     $check_in->agent_id = $request->header('id');
                     $check_in->save();
+
                 }
+                $group_logs = new GroupLogs;
+                $group_logs->group_id = $group_id;
+                $group_logs->agent_id = $request->header('id');
+                $group_logs->save();
                 $response = array('status'=>true ,'message' => 'Group check-in successfully');
             }else{
                 $response = array('status'=>false ,'message' => 'In this group people not found');

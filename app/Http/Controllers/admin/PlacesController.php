@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserPlaces;
 use Excel;
 use Auth;
+use File;
 
 class PlacesController extends Controller
 {
@@ -56,6 +57,21 @@ class PlacesController extends Controller
         $add_places->Address = $request->Address;
         $add_places->Website = $request->Website;
         $add_places->Telephone = $request->Telephone;
+          if($request->hasFile('image')){
+
+            if(!empty($add_places->image)){
+                $imagePath = public_path('place_image/'.$add_places->image);
+                if(File::exists($imagePath)){
+                    unlink($imagePath);
+                }
+            }
+
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/place_image');
+            $image->move($destinationPath, $name);
+            $add_places->image = $name;
+        }
         $add_places->Email = $request->Email;
         $add_places->Latitude = $request->Latitude;
         $add_places->Longitude = $request->Longitude;
@@ -123,6 +139,13 @@ class PlacesController extends Controller
         $add_places->Latitude = $request->Latitude;
         $add_places->Longitude = $request->Longitude;
         $add_places->status = 1;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/place_image');
+            $image->move($destinationPath, $name);
+            $add_places->image = $name;
+        }
         $add_places->created_by = Auth::user()->id;
         if($add_places->save()){
             session()->flash('success','Places successfully added');

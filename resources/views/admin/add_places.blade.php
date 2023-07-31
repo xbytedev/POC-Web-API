@@ -64,6 +64,12 @@
         <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('insert_place')}}">
             @csrf
             <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Image</label>
+                        <input type="file" name="image" class="form-control" id="exampleInputEmail1">
+                    </div><br>
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>

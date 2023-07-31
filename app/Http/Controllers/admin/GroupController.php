@@ -114,7 +114,7 @@ class GroupController extends Controller
     }
 
     public function group_wise_people($id){
-        $group_people_data = GroupPeople::with('group_people_details','group_details')->where('partner_id',Auth::user()->id)->where('group_id',base64_decode($id))->get();
+        $group_people_data = GroupPeople::with('group_people_details','group_details')->where('group_id',base64_decode($id))->get();
         return view('admin.group_wise_people',compact('group_people_data'));
     }
 
@@ -167,5 +167,4 @@ class GroupController extends Controller
             return redirect()->back();
         }
     }
-
 }

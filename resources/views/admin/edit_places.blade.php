@@ -64,6 +64,15 @@
         <form data-parsley-validate method="post" enctype="multipart/form-data" action="{{url('update_place/'.base64_encode($places->id))}}">
             @csrf
             <div class="row">
+                <div class="col-md-12">
+                    @if(!empty($places->image))
+                        <img style="height: 130px;" src="{{asset('place_image/'.$places->image)}}" alt="">
+                    @endif
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Image</label>
+                        <input type="file" name="image" class="form-control" id="exampleInputEmail1">
+                    </div><br>
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
