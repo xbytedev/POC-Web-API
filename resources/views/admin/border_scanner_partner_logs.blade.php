@@ -81,17 +81,19 @@
 
             <tbody class="border">
                 @foreach($partner_scanner_logs as $key=> $partner_scanner_logs_data)
-                    <tr>
-                        <td>{{$key+1}}</td>
-                        <td>{{$partner_scanner_logs_data->partnerscanner_data->name}}</td>
-                        <td>{{$partner_scanner_logs_data->partnerscanner_data->email}}</td>
-                        @if($partner_scanner_logs_data->partnerscanner_data->role == 'border_scanner')
-                            <td>Border Scanner</td>
-                        @else
-                            <td>Partner</td>
-                        @endif
-                        <td>{{$partner_scanner_logs_data->date}}</td>
-                    </tr>
+                    @if(isset($partner_scanner_logs_data->partnerscanner_data->name))
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{$partner_scanner_logs_data->partnerscanner_data->name}}</td>
+                            <td>{{$partner_scanner_logs_data->partnerscanner_data->email}}</td>
+                            @if($partner_scanner_logs_data->partnerscanner_data->role == 'border_scanner')
+                                <td>Border Scanner</td>
+                            @else
+                                <td>Partner</td>
+                            @endif
+                            <td>{{$partner_scanner_logs_data->date}}</td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
