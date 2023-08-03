@@ -104,7 +104,11 @@
                         
                         <td> <p @if($trip_data->trip_status == 'draft') style="color:black" @elseif($trip_data->trip_status == 'active') style="color:green;" @else style="color:red;" @endif> {{$trip_data->trip_status}} </p></td>
 
-                        <td><a href="{{url('view_trip_peopel/'.$trip_data->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a> <a href="{{url('edit_trip/'.$trip_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
+                        <td>
+                            <a href="{{url('view_trip_peopel/'.$trip_data->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
+                            
+                            <a href="{{url('edit_trip/'.$trip_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                        </td>
 
                     </tr>
 

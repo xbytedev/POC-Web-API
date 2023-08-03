@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Trip;
 use App\Models\TripPeople;
 use App\Models\RegisterUser;
+use App\Models\DocumentType;
+use App\Models\Country;
+use App\Models\MotivationOfTrip;
+use App\Models\MeanOfTransport;
 
 class TripController extends Controller
 {
@@ -22,13 +26,18 @@ class TripController extends Controller
     }
 
     public function view_trip_peopel($id){
+        $document_type = DocumentType::all();
         $trip_people = TripPeople::where('trip_id',$id)->where('is_draft',1)->get();
-        return view('admin.view_trip_people',compact('trip_people'));
+        return view('admin.view_trip_people',compact('trip_people','document_type'));
     }
 
     public function view_people_individual($id){
+        $document_type = DocumentType::all();
+        $country = Country::all();
+        $motivation_of_trip = MotivationOfTrip::all();
+        $mean_of_transport = MeanOfTransport::all();
         $trip_people = TripPeople::with('document_types','document_countrys','motivation_of_trips','visa_motives','mean_of_transports','orginating_form_countrys','arrival_crossing','departure_crossing')->where('id',$id)->first();
-        return view('admin.view_user_in_trip',compact('trip_people'));
+        return view('admin.view_user_in_trip',compact('trip_people','document_type','country','motivation_of_trip','mean_of_transport'));
     }
 
     public function create_trip(){
