@@ -11,6 +11,7 @@ use App\Models\DocumentType;
 use App\Models\Country;
 use App\Models\MotivationOfTrip;
 use App\Models\MeanOfTransport;
+use App\Models\ArrivalCrossingPoint;
 
 class TripController extends Controller
 {
@@ -36,8 +37,10 @@ class TripController extends Controller
         $country = Country::all();
         $motivation_of_trip = MotivationOfTrip::all();
         $mean_of_transport = MeanOfTransport::all();
+        $arrival_crossing_point = ArrivalCrossingPoint::all();
+        
         $trip_people = TripPeople::with('document_types','document_countrys','motivation_of_trips','visa_motives','mean_of_transports','orginating_form_countrys','arrival_crossing','departure_crossing')->where('id',$id)->first();
-        return view('admin.view_user_in_trip',compact('trip_people','document_type','country','motivation_of_trip','mean_of_transport'));
+        return view('admin.view_user_in_trip',compact('arrival_crossing_point','trip_people','document_type','country','motivation_of_trip','mean_of_transport'));
     }
 
     public function create_trip(){
