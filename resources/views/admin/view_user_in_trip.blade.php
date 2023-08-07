@@ -17,8 +17,8 @@
 </div>
 @endif
 <div class="card">
-    <div class="card-body"> 
-        <form action="" method="post">
+    <div class="card-body">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -35,23 +35,14 @@
 
                 <div class="col-md-4">
                     <div class="form-group">
-
                     <label for="" class="form-label">Gender</label><br>
-
                         <div class="form-check form-check-inline">
-
                             <input @if($trip_people->gender == 'Female' || $trip_people->gender == 'female') checked @endif id="credit" name="gender" type="radio" class="form-check-input" required/>
                             <label class="form-check-label" for="credit" value="Female">Female</label>
                         </div>
                         <div class="form-check form-check-inline">
-
-                            <input @if ($trip_people->gender == 'Male' || $trip_people->gender == 'male') checked @endif
-                                id="debit" name="gender" type="radio"
-                                value="Male" class="form-check-input"
-                                required />
-
+                            <input @if ($trip_people->gender == 'Male' || $trip_people->gender == 'male') checked @endif id="debit" name="gender" type="radio" value="Male" class="form-check-input" required/>
                             <label class="form-check-label" for="debit">Male</label>
-
                         </div>
                     </div>
                 </div>
@@ -86,7 +77,7 @@
                 <div class="col-md-4 mt-2">
                     <div class="form-group">
                         <label for=""><b> Valid Untill</b></label>
-                        <input type="text" class="form-control" name="valid_untill" @if(isset($trip_people->valid_untill)) value="{{$trip_people->valid_untill}}" @endif>
+                        <input type="date" class="form-control" name="valid_untill" @if(isset($trip_people->valid_untill)) value="{{$trip_people->valid_untill}}" @endif>
                     </div>
                 </div>
 
@@ -213,6 +204,8 @@
                     </div>
                 </div>
             </div>
+            <button class="btn mt-5 btn-success">Submit</button>
+            <a href="{{url('view_trip_peopel/'.$trip_people->trip_id)}}" class="btn mt-5 btn-danger">Cancel</a>
         </form>
     </div>
 </div>

@@ -125,7 +125,7 @@ class AdminGroup extends Controller
 
     public function edit_group_wise_people($id,$group_id){
         $group_data = Group::with('group_people_details','group_details')->where('id',base64_decode($group_id))->first();
-        $group_people_data = GroupPeople::with('group_people_details','group_details')->where('partner_id',Auth::user()->id)->where('id',base64_decode($id))->first();
+        $group_people_data = GroupPeople::with('group_people_details','group_details')->where('id',base64_decode($id))->first();
 
         return view('admin.admin_edit_group_people',compact('group_people_data','group_data'));
     }
@@ -144,7 +144,7 @@ class AdminGroup extends Controller
                 $group_people->people_code = $trip_people->people_id_code;
                 $group_people->group_id = $group_id;
                 $group_people->group_code = $group_code;
-                $group_people->partner_id = Auth::user()->id;                
+                $group_people->partner_id = Auth::user()->id;
                 if($request->status == 'on'){
                     $group_people->status = 1;
                 }else{

@@ -91,4 +91,33 @@ class TripController extends Controller
             return redirect()->back();
         }
     }
+
+    public function update_trip_people(Request $request){
+        $update_trip_people->name = $request->name;
+        $update_trip_people->family_name = $request->family_name;
+        $update_trip_people->gender = $request->gender;
+        $update_trip_people->dob = date('Y-m-d', strtotime(date('Y-m-d', strtotime($request->dob))));
+        $update_trip_people->document_type = $request->document_type;
+        $update_trip_people->document_number = $request->document_number;
+        $update_trip_people->valid_untill = date('Y-m-d', strtotime($request->valid_untill));
+        $update_trip_people->document_country = $request->document_country;
+        $update_trip_people->residence_address = $request->residence_address;
+        $update_trip_people->residence_city = $request->residence_city;
+        $update_trip_people->residence_post_code = $request->residence_post_code;
+        $update_trip_people->profession = $request->profession;
+        $update_trip_people->contacts_email = $request->contacts_email;
+        $update_trip_people->contacts_phone = $request->contacts_phone;
+        $update_trip_people->motivation_of_trip = $request->motivation_of_trip;
+        $update_trip_people->mean_of_transport = $request->mean_of_transport;
+        $update_trip_people->orginating_form_via = $request->originating_from_via;
+        $update_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
+        $update_trip_people->departure_crossing_point_border_crossing_point = $request->departure_crossing_point_border_crossing_point;
+        if($update_trip_people->save()){
+            session()->flash('success','Trip people updated successfully');
+            return redirect()->back();
+        }else{
+            session()->flash('error','Something went wrong');
+            return redirect()->back();
+        }
+    }
 }

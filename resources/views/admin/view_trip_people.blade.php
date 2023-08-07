@@ -70,7 +70,7 @@
                         <td>{{$trip_people_data->contacts_email}}</td>
                         <td>{{$trip_people_data->dob}}</td>
                         <td>{{$trip_people_data->created_at->toDateString()}}</td>
-                        <td><a href="{{url('view_people_individual/'.$trip_people_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
+                        <td><a href="{{url('view_people_individual/'.$trip_people_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a></td>
                     </tr>
                 @endforeach
             @endif

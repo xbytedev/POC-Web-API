@@ -480,27 +480,24 @@
                                                                     person to this trip
                                                                 </button>
                                                             </div> -->
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="align-items-start gap-3 mt-4">
-                                                                        <button type="submit" name="add_person"
-                                                                            class="btn btn-primary btn-label left ms-auto nexttab nexttab"
-                                                                            data-nexttab="v-pills-payment-tab">
-                                                                            <i class="ri-arrow-left-line label-icon m-lg-0 align-middle fs-16 ms-2"></i>Add person to this trip </button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="align-items-end text-end gap-3 mt-4">
-                                                                        <button type="submit"
-                                                                            class="btn btn-success btn-label right ms-auto nexttab nexttab"
-                                                                            data-nexttab="v-pills-payment-tab">
-                                                                            <i
-                                                                                class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go
-                                                                            to Payment
-                                                                        </button>
-                                                                    </div>
+                                                            
+                                                            <div class="col-md-12 text-end">
+                                                                <div class="align-items-start gap-3 mt-4">
+                                                                    <button type="submit" name="add_person"
+                                                                        class="btn btn-primary btn-label left ms-auto nexttab nexttab" data-nexttab="v-pills-payment-tab">
+                                                                        <i class="ri-arrow-right-line label-icon m-lg-0 align-middle fs-16 ms-2"></i>Add person to this trip </button>
                                                                 </div>
                                                             </div>
+                                                            <!-- <div class="col-md-6">
+                                                                <div class="align-items-end text-end gap-3 mt-4">
+                                                                    <button type="submit"
+                                                                        class="btn btn-success btn-label right ms-auto nexttab nexttab"
+                                                                        data-nexttab="v-pills-payment-tab">
+                                                                        <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go
+                                                                        to Payment
+                                                                    </button>
+                                                                </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </form>

@@ -72,7 +72,7 @@
                         <table id="example" class="table table-striped text-left border dataTable no-footer" style="width: 100%;" aria-describedby="example_info">
                             <tbody>
                                 <tr class="border">
-                                    <td style="width: 412px;" class="border"><b class="ml-3" style="font-size: 16px;">{{$user_details_data->email}}</b></td>
+                                    <td style="width: 412px;" class="border"><b class="ml-3" style="font-size: 16px;">{{$user_details_data->name}}</b><br><p class="ml-3" style="font-size: 16px;">{{$user_details_data->email}}</p></td>
                                     <td class="border"><input @if(in_array($user_details_data->id,$user_place)) checked @endif style="height:25px;width:25px;" type="checkbox" value="{{$user_details_data->id}}" name="user[]"></td>
                                 </tr>
                             </tbody>

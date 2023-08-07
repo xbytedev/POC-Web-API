@@ -95,9 +95,9 @@
 
         </div><br>
 
-        <button type="submit" class="btn btn-primary">Submit</button> 
-        
-            <a href="{{url('admin_group_wise_people/'.request('id'))}}" class="btn btn-danger">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+            <a href="{{url('admin_group_wise_people/'.request('group_id'))}}" class="btn btn-danger">Cancel</a>
 
         </form>
 
