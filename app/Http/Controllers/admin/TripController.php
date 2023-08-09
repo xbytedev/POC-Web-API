@@ -43,6 +43,18 @@ class TripController extends Controller
         return view('admin.view_user_in_trip',compact('arrival_crossing_point','trip_people','document_type','country','motivation_of_trip','mean_of_transport'));
     }
 
+
+    public function add_trip_people($id){
+        $document_type = DocumentType::all();
+        $country = Country::all();
+        $motivation_of_trip = MotivationOfTrip::all();
+        $mean_of_transport = MeanOfTransport::all();
+        $arrival_crossing_point = ArrivalCrossingPoint::all();
+        
+        $trip_people = TripPeople::with('document_types','document_countrys','motivation_of_trips','visa_motives','mean_of_transports','orginating_form_countrys','arrival_crossing','departure_crossing')->where('id',$id)->first();
+        return view('admin.add_trip_people',compact('arrival_crossing_point','document_type','country','motivation_of_trip','mean_of_transport','id'));
+    }
+
     public function create_trip(){
         $register_user = RegisterUser::where('status',1)->get();
         return view('admin.add_trip',compact('register_user'));
@@ -92,7 +104,8 @@ class TripController extends Controller
         }
     }
 
-    public function update_trip_people(Request $request){
+    public function update_trip_people_from_admin(Request $request){
+        $update_trip_people = TripPeople::where('contacts_email',$request->contacts_email)->first();
         $update_trip_people->name = $request->name;
         $update_trip_people->family_name = $request->family_name;
         $update_trip_people->gender = $request->gender;
@@ -113,6 +126,39 @@ class TripController extends Controller
         $update_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
         $update_trip_people->departure_crossing_point_border_crossing_point = $request->departure_crossing_point_border_crossing_point;
         if($update_trip_people->save()){
+            session()->flash('success','Trip people updated successfully');
+            return redirect()->back();
+        }else{
+            session()->flash('error','Something went wrong');
+            return redirect()->back();
+        }
+    }
+
+    public function insert_trip_people_from_admin(Request $request){
+        $add_trip_people = new TripPeople;
+        $add_trip_people->people_id_code = rand(1,9).time().rand(1,9);
+        $add_trip_people->trip_id = $request->trip_id;
+        $add_trip_people->user_id = $user_id;
+        $add_trip_people->name = $request->name;
+        $add_trip_people->family_name = $request->family_name;
+        $add_trip_people->gender = $request->gender;
+        $add_trip_people->dob = date('Y-m-d', strtotime(date('Y-m-d', strtotime($request->dob))));
+        $add_trip_people->document_type = $request->document_type;
+        $add_trip_people->document_number = $request->document_number;
+        $add_trip_people->valid_untill = date('Y-m-d', strtotime($request->valid_untill));
+        $add_trip_people->document_country = $request->document_country;
+        $add_trip_people->residence_address = $request->residence_address;
+        $add_trip_people->residence_city = $request->residence_city;
+        $add_trip_people->residence_post_code = $request->residence_post_code;
+        $add_trip_people->profession = $request->profession;
+        $add_trip_people->contacts_email = $request->contacts_email;
+        $add_trip_people->contacts_phone = $request->contacts_phone;
+        $add_trip_people->motivation_of_trip = $request->motivation_of_trip;
+        $add_trip_people->mean_of_transport = $request->mean_of_transport;
+        $add_trip_people->orginating_form_via = $request->originating_from_via;
+        $add_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
+        $add_trip_people->departure_crossing_point_border_crossing_point = $request->departure_crossing_point_border_crossing_point;
+        if($add_trip_people->save()){
             session()->flash('success','Trip people updated successfully');
             return redirect()->back();
         }else{

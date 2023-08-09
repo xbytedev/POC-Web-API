@@ -38,6 +38,10 @@
 
     <div class="card-body">
 
+        <div class="text-end mb-5">
+            <a href="{{url('add_trip_people/'.request('id'))}}" class="btn btn-primary">Add Traveler</a>
+        </div>
+
         <table id="example" class="table table-striped text-center border" style="width:100%">
 
             <thead class="border">
