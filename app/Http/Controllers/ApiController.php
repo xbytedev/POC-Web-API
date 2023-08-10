@@ -1915,4 +1915,84 @@ class ApiController extends Controller
         }
         return response()->json($response);
     }
+
+    public function check_in_people_list(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        if(!empty($check_token)){
+            $check_in = CheckIn::with('people_details','places_data')->where('agent_id',$request->header('id'))->get();
+            $datas = [];
+            foreach($check_in as $check_in_data){
+                $data['id'] = $check_in_data->id;
+                $data['people_id'] = $check_in_data->people_id;
+                $data['people_code'] = $check_in_data->people_code;
+                $data['people_code'] = $check_in_data->people_code;
+                if(!empty($check_in_data->people_details->name)){
+                    $data['people_name'] = $check_in_data->people_details->name;
+                }else{
+                    $data['people_name'] = '';
+                }
+                if(!empty($check_in_data->places_data->Name)){
+                    $data['place_name'] = $check_in_data->places_data->Name;
+                }else{
+                    $data['place_name'] = '';
+                }
+                $partner_data = User::where('id',$check_token->created_by)->first();
+                $data['partner_name'] = $partner_data->name;
+                $data['date'] = $check_in_data->created_at->format('d-m-Y h:i:s');
+                array_push($datas,$data);
+            }
+            $response = array('status'=>true ,'data' => $datas);
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
+
+    public function check_in_people_details(Request $request){
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        $place_id = $request->place_id;
+        if(!empty($check_token)){
+            if(!empty($place_id)){
+                $check_in_data = CheckIn::with('people_details','places_data')->where('id',$place_id)->first();
+                if(!empty($check_in_data)){
+                    $data['id'] = $check_in_data->id;
+                    $data['people_id'] = $check_in_data->people_id;
+                    $data['people_code'] = $check_in_data->people_code; 
+                    if(!empty($check_in_data->people_details->residence_city)){
+                        $data['people_city'] = $check_in_data->people_details->residence_city;
+                    }else{
+                        $data['people_city'] = '';
+                    }
+                    $data['partner_id'] = $check_token->created_by;
+                    if(!empty($check_in_data->people_details->residence_country)){
+                        $country_datas = Country::where('id',$check_in_data->people_details->residence_country)->first();
+                        $data['people_country'] = $country_datas->name;
+                    }else{
+                        $data['people_country'] = '';
+                    }
+                    if(!empty($check_in_data->people_details->name)){
+                        $data['people_name'] = $check_in_data->people_details->name;
+                    }else{
+                        $data['people_name'] = '';
+                    }
+                    if(!empty($check_in_data->places_data->Name)){
+                        $data['place_name'] = $check_in_data->places_data->Name;
+                    }else{
+                        $data['place_name'] = '';
+                    }
+                    $partner_data = User::where('id',$check_token->created_by)->first();
+                    $data['partner_name'] = $partner_data->name;
+                    $data['date'] = $check_in_data->created_at->format('d-m-Y h:i:s');
+                    $response = array('status'=>true ,'data' => $data);
+                }else{
+                    $response = array('status'=>false ,'message' => 'Place Not Found');
+                }
+            }else{
+                $response = array('status'=>false ,'message' => 'Place Id Not Found');                
+            }
+        }else{
+            $response = array('status'=>false ,'message' => 'Access Denied');
+        }
+        return response()->json($response);
+    }
 }

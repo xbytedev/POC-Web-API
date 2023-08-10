@@ -18,8 +18,9 @@
 @endif
 <div class="card">
     <div class="card-body">
-        <form action="{{url('update_trip_people_from_admin')}}" method="post" enctype="multipart/form-data">
+        <form action="{{url('insert_trip_people_from_admin')}}" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" value="{{request('id')}}" name="trip_id">
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -109,7 +110,7 @@
                 <div class="col-md-4 mt-2">
                     <div class="form-group">
                         <label for=""><b> Contacts Email</b></label>
-                        <input type="text" class="form-control" placeholder="Contacts Email" name="contacts_email" readonly>
+                        <input type="text" class="form-control" placeholder="Contacts Email" name="contacts_email">
                     </div>
                 </div>
                 <div class="col-md-4 mt-2">

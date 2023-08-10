@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/check_in_people_details', [App\Http\Controllers\ApiController::class, 'check_in_people_details']);
+Route::post('/check_in_people_list', [App\Http\Controllers\ApiController::class, 'check_in_people_list']);
 Route::post('/people_group_check_in', [App\Http\Controllers\ApiController::class, 'people_group_check_in']);
 Route::post('/check_people_check_in', [App\Http\Controllers\ApiController::class, 'check_people_check_in']);
 Route::post('/people_individual_check_in', [App\Http\Controllers\ApiController::class, 'people_individual_check_in']);

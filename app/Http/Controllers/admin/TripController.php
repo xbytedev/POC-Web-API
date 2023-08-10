@@ -28,7 +28,7 @@ class TripController extends Controller
 
     public function view_trip_peopel($id){
         $document_type = DocumentType::all();
-        $trip_people = TripPeople::where('trip_id',$id)->where('is_draft',1)->get();
+        $trip_people = TripPeople::where('trip_id',$id)->get();
         return view('admin.view_trip_people',compact('trip_people','document_type'));
     }
 
@@ -138,7 +138,6 @@ class TripController extends Controller
         $add_trip_people = new TripPeople;
         $add_trip_people->people_id_code = rand(1,9).time().rand(1,9);
         $add_trip_people->trip_id = $request->trip_id;
-        $add_trip_people->user_id = $user_id;
         $add_trip_people->name = $request->name;
         $add_trip_people->family_name = $request->family_name;
         $add_trip_people->gender = $request->gender;
@@ -158,12 +157,13 @@ class TripController extends Controller
         $add_trip_people->orginating_form_via = $request->originating_from_via;
         $add_trip_people->arrival_crossing_point_border_crossing_point = $request->arrival_crossing_point_border_crossing_point;
         $add_trip_people->departure_crossing_point_border_crossing_point = $request->departure_crossing_point_border_crossing_point;
+        $add_trip_people->is_draft = 1;
         if($add_trip_people->save()){
-            session()->flash('success','Trip people updated successfully');
-            return redirect()->back();
+            session()->flash('success','Trip people added successfully');
+            return redirect('view_trip_peopel/'.$request->trip_id);
         }else{
             session()->flash('error','Something went wrong');
-            return redirect()->back();
+            return redirect('view_trip_peopel/'.$request->trip_id);
         }
     }
 }
