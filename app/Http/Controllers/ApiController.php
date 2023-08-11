@@ -1949,7 +1949,7 @@ class ApiController extends Controller
     }
 
     public function check_in_people_details(Request $request){
-        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first(); 
         $place_id = $request->place_id;
         if(!empty($check_token)){
             if(!empty($place_id)){

@@ -39,7 +39,7 @@
     <div class="card-body">
 
         <div class="text-end">
-            <a href="{{url('add_group_wise_people/'.request('id'))}}" class="btn btn-primary">Add Group</a>
+            <a href="{{url('add_group_wise_people/'.request('id'))}}" class="btn btn-primary">Add People</a>
         </div>
 
         <table id="example" class="table table-striped text-left border" style="width:100%">
