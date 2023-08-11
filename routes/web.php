@@ -110,6 +110,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/user_logs', [App\Http\Controllers\admin\LogsController::class, 'user_logs'])->middleware("auth");
     Route::get('/border_patner_logs', [App\Http\Controllers\admin\LogsController::class, 'border_patner_logs'])->middleware("auth");
     Route::get('/scan_logs_list', [App\Http\Controllers\admin\LogsController::class, 'scan_logs'])->middleware("auth");
+    Route::get('/admin_group_log', [App\Http\Controllers\admin\LogsController::class, 'admin_group_log'])->middleware("auth");
 });
 
 Route::group(['middleware' => ['role:partner']], function () {

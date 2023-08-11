@@ -227,7 +227,18 @@
 
                                     </a>
 
-                                    
+                                    <a class="menu-link @if(Request::segment(1) == 'admin_group_log') active @endif" href="{{url('admin_group_log')}}">
+
+                                        <span class="menu-bullet">
+
+                                            <span class="bullet bullet-dot"></span>
+
+                                        </span>
+
+                                        <span class="menu-title">Group Check-In Logs</span>
+
+                                    </a>
+
 
                                 </div>
 

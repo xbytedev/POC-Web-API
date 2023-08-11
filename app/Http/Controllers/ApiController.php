@@ -521,8 +521,7 @@ class ApiController extends Controller
                     $trip_peo['residence_country'] = $trip_people_datas->residence_countrys->name;
                 }else{
                     $trip_peo['residence_country'] = '';
-                }
-                
+                }                
                 $trip_peo['residence_city'] = $trip_people_datas->residence_city;
                 $trip_peo['residence_post_code'] = $trip_people_datas->residence_post_code;
                 $trip_peo['contacts_email'] = $trip_people_datas->contacts_email;
@@ -1949,7 +1948,7 @@ class ApiController extends Controller
     }
 
     public function check_in_people_details(Request $request){
-        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first(); 
+        $check_token = User::where('id',$request->header('id'))->where('api_token',$request->header('token'))->first();
         $place_id = $request->place_id;
         if(!empty($check_token)){
             if(!empty($place_id)){
