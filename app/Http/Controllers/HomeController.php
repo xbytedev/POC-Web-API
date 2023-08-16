@@ -32,10 +32,11 @@ class HomeController extends Controller
         $user_count = RegisterUser::all()->count();
         $scanner = User::where('role','border_scanner')->count();
         $accommodation = User::where('business_type','accommodation')->where('role','partner')->count();
+        $operator = User::where('business_type','operator')->where('role','partner')->count();
         $hospitality = User::where('business_type','hospitality')->where('role','partner')->count();
         $attraction = User::where('business_type','attraction')->where('role','partner')->count();
         $partner = User::where('role','partner')->count();
         $payment = Payment::all()->sum('amount');
-        return view('admin.dashbord',compact('user_count','partner','scanner','payment','accommodation','attraction','hospitality'));
+        return view('admin.dashbord',compact('operator','user_count','partner','scanner','payment','accommodation','attraction','hospitality'));
     }
 }

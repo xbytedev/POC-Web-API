@@ -10,7 +10,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-3 mt-3">
-        <a href="{{url('border_scanner_partner')}}">
+        <a href="{{url('border_scanner_partner')}}?type=accommodation">
             <div class="card card_height">
                 <div class="card_body">
                     <div class="container mt-4">
@@ -22,7 +22,7 @@
         </a>
     </div>
     <div class="col-md-3 mt-3">
-        <a href="{{url('border_scanner_partner')}}">
+        <a href="{{url('border_scanner_partner')}}?type=hospitality">
             <div class="card card_height">
                 <div class="card_body">
                     <div class="container mt-4">
@@ -34,12 +34,24 @@
         </a>
     </div>
     <div class="col-md-3 mt-3">
-        <a href="{{url('border_scanner_partner')}}">
+        <a href="{{url('border_scanner_partner')}}?type=attraction">
             <div class="card card_height">
                 <div class="card_body">
                     <div class="container mt-4">
                         <h2 style="color: gray;">Attraction</h2>
                         <h3 style="font-family: cursive;">{{$attraction}}</h3>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3 mt-3">
+        <a href="{{url('border_scanner_partner')}}?type=operator">
+            <div class="card card_height">
+                <div class="card_body">
+                    <div class="container mt-4">
+                        <h2 style="color: gray;">Operator</h2>
+                        <h3 style="font-family: cursive;">{{$operator}}</h3>
                     </div>
                 </div>
             </div>
@@ -69,7 +81,7 @@
             </div>
         </a>
     </div>
-    <div class="col-md-3 mt-3">
+    <!-- <div class="col-md-3 mt-3">
         <a href="{{url('border_scanner_partner')}}">
             <div class="card card_height">
                 <div class="card_body">
@@ -80,8 +92,8 @@
                 </div>
             </div>
         </a>
-    </div>
-    <div class="col-md-3 mt-3">
+    </div> -->
+    <!-- <div class="col-md-3 mt-3">
         <a href="{{url('payment_list')}}">
             <div class="card card_height">
                 <div class="card_body">
@@ -92,6 +104,6 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
 </div>
 @endsection

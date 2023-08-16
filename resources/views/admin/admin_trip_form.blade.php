@@ -74,9 +74,13 @@
                         <td>@if(isset($feedback_data->trips->trip_end_date)) {{$feedback_data->trips->trip_end_date}} @endif</td>
                         <td>
                             @if($feedback_data->user_type == 'created_By')
-                                @if(isset($feedback_data->create_bys->name)) {{$feedback_data->create_bys->name}} @endif
+                                @if(isset($feedback_data->create_bys->name))
+                                    {{$feedback_data->create_bys->name}}
+                                @endif
                             @else
-                                @if(isset($feedback_data->user_only->name)) {{$feedback_data->user_only->name}} @endif
+                                @if(isset($feedback_data->user_only->name)) 
+                                    {{$feedback_data->user_only->name}} 
+                                @endif
                             @endif
                         </td>
                         <td><a href="{{url('view_feedback_details_data/'.$feedback_data->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
@@ -105,7 +109,15 @@
 
     $(document).ready(function() {
 
-        $('#example').DataTable();
+        $('#example').DataTable({
+
+            dom: 'Bfrtip',
+
+            buttons: [
+                'excel'
+            ]
+            
+        });
 
     });
 

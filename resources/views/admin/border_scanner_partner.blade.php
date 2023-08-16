@@ -134,17 +134,35 @@
 
     $(document).ready(function() {
 
-        $('#example').DataTable({
 
-            "order": [[ 5, "asc" ]],
+        @if(isset($_GET['type']) && !empty($_GET['type']))
 
-            dom: 'Bfrtip',
+            $('#example').DataTable({
 
-            buttons: [
-                'excel'
-            ]
+                "order": [[ 5, "asc" ]],
 
-        });
+                dom: 'Bfrtip',
+
+                buttons: [
+                    'excel'
+                ]
+
+            }).column(4).search("{{$_GET['type']}}").draw();
+        @else
+        
+            $('#example').DataTable({
+
+                "order": [[ 5, "asc" ]],
+
+                dom: 'Bfrtip',
+
+                buttons: [
+                    'excel'
+                ]
+
+            });
+
+        @endif
 
     });
 

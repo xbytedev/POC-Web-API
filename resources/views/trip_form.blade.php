@@ -99,19 +99,24 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h5>A. Total expenses for this trip in Country and in your country</h5>
+                <h5>A. Total expenses for this trip in Country and in your country - Done</h5>
             </div>
             <div class="card-body">
                 <div class="form-group">
                     <h6>How much money did you spend for this trip to Country overall, including the expenses made in your country and the expenses made.</h6>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="">WRITE THE AMOUNT</label>
                             <input class="form-control" type="number" name="a_one_country_overall_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="">WRITE THE CURRENCY</label>
                             <input class="form-control" type="text" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)</label>
+                            <input class="form-control" type="text" name="a_two_w_t_c_c_f_t_l_a" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)"><br>
                         </div>
                     </div>
                 </div>
