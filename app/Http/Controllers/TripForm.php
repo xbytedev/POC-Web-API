@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\RegisterUser;
 use App\Models\Trip;
 use App\Models\TripPeople;
+use App\Models\Country;
 use App\Models\TripFormModel;
 
 class TripForm extends Controller
 {
    public function trip_form()
    {
-      return view('trip_form');
+      $country = Country::all();
+      return view('trip_form',compact('country'));
    }
    
    public function insert_user_feedback(Request $request){

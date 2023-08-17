@@ -23,6 +23,33 @@
     <input type="hidden" name="user_id" value="{{Request::segment(4)}}">
     <div class="container">
         <div class="card">
+            <div class="card-header">
+                <h5>A. Total expenses for this trip in Country and in your country</h5>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <h6>How much money did you spend for this trip to Country overall, including the expenses made in your country and the expenses made.</h6>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="">WRITE THE AMOUNT</label>
+                            <input class="form-control" type="number" name="a_one_country_overall_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">WRITE THE CURRENCY</label>
+                            <input class="form-control" type="text" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <label for="">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)</label>
+                            <input class="form-control" type="text" name="a_two_w_t_c_c_f_t_l_a" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)"><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
             <div class="card-body">
 
                 @if(Session::has('success'))
@@ -50,11 +77,17 @@
                     </div>
                 @endif
 
-                <table class="table border">
+                <table class="table border" style="text-transform: uppercase">
                     <thead class="border">
+                        <tr class="border">
+                            <th class="border" scope="col">PLEASE FILL IN</th>
+                            <th class="border" colspan="2" scope="col">These columns</th>
+                            <th class="border" scope="col" colspan="2">this column only if you do not remember the amount</th>
+                        </tr>
                         <tr class="border">
                             <th class="border" scope="col">#</th>
                             <th class="border" scope="col">WRITE THE AMOUNT</th>
+                            <th class="border" scope="col">WRITE THE % OF THE TOTAL</th>
                             <th class="border" scope="col">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED</th>
                             <th class="border" scope="col">ESTIMATE THE PERCENTAGE (%) CORRESPONDING TO EACH CATEGORY</th>
                         </tr>
@@ -63,63 +96,50 @@
                         <tr class="border">
                             <th scope="row" class="border">Accommodation in Country - Hotels, camping, rented rooms, youth hostels, staying in boats, trains etc.</th>
                             <td class="border"><input type="text" class="form-control" name="hotels_camping_w_t_amt"></td>
+                            <td class="border"><input type="text" class="form-control" name="hotels_camping_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="hotels_camping_w_t_c_code"></td>
                             <td class="border"><input type="text" class="form-control" name="hotels_camping_estimate_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Restaurants and Bars in Country For any reason (to eat, for business, for pleasure etc.)</th>
                             <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_w_t_amt"></td>
+                            <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_w_t_c_code"></td>
                             <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Transportation in Country  - (by train, by car, by boat, by plane, rent a car, gastolls, etc.)</th>
                             <td class="border"><input type="text" class="form-control" name="transportation_in_country_w_t_amt"></td>
+                            <td class="border"><input type="text" class="form-control" name="transportation_in_country_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="transportation_in_country_w_t_c_code"></td>
                             <td class="border"><input type="text" class="form-control" name="transportation_in_country_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Entertainment, Cultural & Sports Activities in Country - (visiting museums, cultural events, sports activities, parks, zoos, historical monuments, games etc.)</th>
                             <td class="border"><input type="text" class="form-control" name="entertainment_cultural_w_t_amt"></td>
+                            <td class="border"><input type="text" class="form-control" name="entertainment_cultural_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="entertainment_cultural_w_t_c_code"></td>
                             <td class="border"><input type="text" class="form-control" name="entertainment_cultural_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Purchases and other expenditure in Country  - (purchasing of goods & services ex. packaged food, drinks, personal care, souvenirs, clothes, shoes etc, phone calls, post, commission for exchanging money, etc.)</th>
                             <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_w_t_amt"></td>
+                            <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_w_t_c_code"></td>
                             <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_t_r_c"></td>
                         </tr>
+
+                        <tfoot class="border">
+                            <tr class="border">
+                                <th scope="row" class="border">TOTAL AGGREGATE</th>
+                                <td class="border">-</td>
+                                <td class="border">-</td>
+                                <td class="border">-</td>
+                                <td class="border">-</td>
+                            </tr>
+                        </tfoot>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h5>A. Total expenses for this trip in Country and in your country - Done</h5>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <h6>How much money did you spend for this trip to Country overall, including the expenses made in your country and the expenses made.</h6>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="">WRITE THE AMOUNT</label>
-                            <input class="form-control" type="number" name="a_one_country_overall_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="">WRITE THE CURRENCY</label>
-                            <input class="form-control" type="text" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <label for="">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)</label>
-                            <input class="form-control" type="text" name="a_two_w_t_c_c_f_t_l_a" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)"><br>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -135,11 +155,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="">COUNTRY</label>
-                            <input class="form-control" type="text" name="one_traveller_and_trip_country" id="COUNTRY" placeholder="COUNTRY"><br>
+                            <select name="one_traveller_and_trip_country" class="form-control one_traveller_and_trip_country" id="">
+                                <option>SELECT COUNTRY</option>
+                                @foreach($country as $country_data)
+                                    <option data-code="{{$country_data->country_code}}" value="{{$country_data->id}}">{{$country_data->name}}</option>
+                                @endforeach
+                            </select>
+
+                            <!-- <input class="form-control" type="text" name="one_traveller_and_trip_country" id="COUNTRY" placeholder="COUNTRY"><br> -->
                         </div>
                         <div class="col-md-6">
                             <label for="">COUNTRY CODE</label>
-                            <input class="form-control" type="text" name="one_traveller_and_trip_country_code" id="COUNTRY_CODE" placeholder="COUNTRY CODE"><br>
+                            <input class="form-control one_traveller_and_trip_country_code" type="text" name="one_traveller_and_trip_country_code" id="COUNTRY_CODE" placeholder="COUNTRY CODE"><br>
                         </div>
                     </div>
                 </div>
@@ -257,7 +284,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h5>C. Expenses you made in your home country before departing for Country </h5>
+                <h5>C. Expenses you made in your home country before departing for Country</h5>
             </div>
             <div class="card-body">
                 <div class="form-group">
@@ -414,9 +441,8 @@
                             <th class="border" scope="col">COLUMN 3 Expenditure estimation %</th>
                         </tr>
                     </thead>
-                    
                     <tbody class="border">
-                        @for($i=1; $i < 14 ; $i++) 
+                        @for($i=1; $i < 14 ; $i++)
                             <tr class="border">
                                 <th scope="row" class="border">{{$i}}</th>
                                 <td class="border"><input type="text" class="form-control" name="e_column_two_no_of_night_stays_{{$i}}"></td>
@@ -448,5 +474,12 @@
     </div>
     <br>
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>    
+<script>
+    $(".one_traveller_and_trip_country").change(function(){
+        var code = $(this).find(':selected').data('code');
+        $('.one_traveller_and_trip_country_code').val(code);
+    })
+</script>
 </body>
 </html>
