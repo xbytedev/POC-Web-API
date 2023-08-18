@@ -166,11 +166,11 @@
                         </div>
                         <div class="col-md-6">
                             <label for="">COUNTRY CODE</label>
-                            <input class="form-control one_traveller_and_trip_country_code" type="text" name="one_traveller_and_trip_country_code" id="COUNTRY_CODE" placeholder="COUNTRY CODE"><br>
+                            <input class="form-control one_traveller_and_trip_country_code" type="text" name="one_traveller_and_trip_country_code" id="COUNTRY_CODE" placeholder="COUNTRY CODE" readonly><br>
                         </div>
                     </div>
                 </div>
-                <h6>2) What was the main purpose for your trip to Country </h6>
+                <h6>2) What was the main purpose for your trip to Country</h6>
                 <div class="form-group">
                     <label>PLEASE TICK () ONE BOX</label><br>
                     <b>1) Holidays / Recreation</b><br>
@@ -193,13 +193,20 @@
                     <input class="form-check-input" type="radio" value="permanently and return" name="two_three_question_two_is_code_traveller_and_trip" id="is_code2"> <label for="">H) I work in Country X permanently and return home every day/ week/ month</label>
                 </div>
                 <br>
-                <h6>4) What was the total number of overnight stays in Country on this trip?</h6>
+                <h6>6) Did you travel alone or with other people with which you shared the expenses of the trip (shared budget)? Please write the number of people with which you shared expenses (including yourself). PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</h6>
+                <div class="form-group">
+                    <label>PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</label><br>
+                    <input class="form-check-input" type="checkbox" name="six_TRAVELLED_ALONE" id="travelled_alone"> <label for="">I travelled alone </label> <br>
+                    <label for="">I travelled with other people with which I shared expenses</label>
+                    <input class="form-control w-25" type="number" name="six_travelled_with_other" id="travelled_with_other2"><br>
+                </div><br>
+                <!-- <h6>4) What was the total number of overnight stays in Country on this trip?</h6>
                 <div class="form-group">
                     <label>PLEASE WRITE THE NUMBER OF NIGHTS OR TICK () THE BOX  IF YOU DID NOT STAY OVER NIGHT</label><br>
                     <input class="form-check-input" type="checkbox" name="two_for_WRITE_THE_NUMBER_OF_NIGHTS_traveller_and_trip" id="number_of_overnigh_checkbox"> <label for="">No overnight stays, I stayed less than 1 day </label> <br>
                     <label for="">No overnight stays, I stayed less than 1 day </label>
                     <input class="form-control w-25" type="number" name="two_for_number_of_overnigh_traveller_and_trip" id="number_of_overnigh2"><br>
-                </div>
+                </div> -->
                 <h6>5) Where did you stay overnight in this trip to Country ? And how many nights did you stay?</h6>
                 <label for="">PLEASE TICK () THE APPROPRIATE BOX AND WRITE THE NUMBER OF OVERNIGHT STAYS NEXT TO YOUR ANSWER</label><br>
                 <div class="form-group">
@@ -270,13 +277,7 @@
                         </tbody>
                     </table>
                 </div>
-                <h6>6) Did you travel alone or with other people with which you shared the expenses of the trip (shared budget)? Please write the number of people with which you shared expenses (including yourself). PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</h6>
-                <div class="form-group">
-                    <label>PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</label><br>
-                    <input class="form-check-input" type="checkbox" name="six_TRAVELLED_ALONE" id="travelled_alone"> <label for="">I travelled alone </label> <br>
-                    <label for="">I travelled with other people with which I shared expenses</label>
-                    <input class="form-control w-25" type="number" name="six_travelled_with_other" id="travelled_with_other2"><br>
-                </div>
+                
             </div>
         </div>
     </div>
