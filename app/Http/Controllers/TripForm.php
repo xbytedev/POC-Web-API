@@ -26,6 +26,12 @@ class TripForm extends Controller
          $add->trip_id = $request->trip_id;
          $add->user_type = $request->user_type;
          $add->hotels_camping_w_t_amt = $request->hotels_camping_w_t_amt;
+         $add->hotels_camping_w_t_amt_t = $request->hotels_camping_w_t_amt_t;
+         $add->restaurants_and_bars_w_t_amt_t = $request->restaurants_and_bars_w_t_amt_t;
+         $add->transportation_in_country_w_t_amt_t = $request->transportation_in_country_w_t_amt_t;
+         $add->entertainment_cultural_w_t_amt_t = $request->entertainment_cultural_w_t_amt_t;
+         $add->purchases_and_other_expenditure_w_t_amt_t = $request->purchases_and_other_expenditure_w_t_amt_t;
+         $add->a_two_w_t_c_c_f_t_l_a = $request->a_two_w_t_c_c_f_t_l_a;
          $add->hotels_camping_w_t_c_code = $request->hotels_camping_w_t_c_code;
          $add->hotels_camping_estimate_t_r_c = $request->hotels_camping_estimate_t_r_c;
          $add->restaurants_and_bars_w_t_amt = $request->restaurants_and_bars_w_t_amt;
@@ -123,6 +129,14 @@ class TripForm extends Controller
          $add->e_column_three_expenditure_estimation_13 = $request->e_column_three_expenditure_estimation_13;
          $add->e_luxury_goods_w_t_amt = $request->e_luxury_goods_w_t_amt;
          $add->e_luxury_goods_w_t_currency = $request->e_luxury_goods_w_t_currency;
+         $add->please_fill_in_rating_a_i_c = $request->please_fill_in_rating_a_i_c;
+         $add->please_fill_in_rating_r_a_b_i_c = $request->please_fill_in_rating_r_a_b_i_c;
+         $add->please_fill_in_rating_t_i_c = $request->please_fill_in_rating_t_i_c;
+         $add->please_fill_in_rating_e_c_s_a_i_c = $request->please_fill_in_rating_e_c_s_a_i_c;
+         $add->please_fill_in_rating_p_a_s_i_c = $request->please_fill_in_rating_p_a_s_i_c;
+         $add->please_fill_in_rating_p_s_i_c = $request->please_fill_in_rating_p_s_i_c;
+         $add->please_fill_in_rating_o = $request->please_fill_in_rating_o;
+         $add->any_comments = $request->any_comments;
          if($add->save()){
             session()->flash('success','Thank you for the feedback and support');
             return redirect()->back();
@@ -143,7 +157,7 @@ class TripForm extends Controller
 
    public function admin_view_feedback_details_data($id){
       $feedback = TripFormModel::where('id',$id)->with('trips','user_only','create_bys')->first();
-      return view('admin.view_feedback_details',compact('feedback'));
-   }
-
+      $country = Country::all();
+      return view('admin.view_feedback_details',compact('feedback','country'));
+   }  
 }

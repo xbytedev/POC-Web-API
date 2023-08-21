@@ -15,6 +15,30 @@
     <div class="mb-4 mt-3">
         <img src="{{asset('front/img/logo-sm.png')}}" alt="">
     </div>
+      @if(Session::has('success'))
+
+        <div class="alert alert-primary">
+
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+        <strong>{{Session::get('success')}}</strong>
+
+        </div>
+
+    @endif
+
+    @if(Session::has('error'))
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+
+            <strong>{{ Session::get('error') }}</strong>
+
+            </button>
+
+        </div>
+    @endif
 </center>
 <form action="{{url('insert_user_feedback')}}" method="post">
     @csrf
@@ -48,34 +72,9 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container mt-4">
         <div class="card">
             <div class="card-body">
-
-                @if(Session::has('success'))
-
-                    <div class="alert alert-primary">
-
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
-                    <strong>{{Session::get('success')}}</strong>
-
-                    </div>
-
-                @endif
-
-                @if(Session::has('error'))
-
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-
-                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-
-                        <strong>{{ Session::get('error') }}</strong>
-
-                        </button>
-
-                    </div>
-                @endif
 
                 <table class="table border" style="text-transform: uppercase">
                     <thead class="border">
@@ -95,41 +94,40 @@
                     <tbody class="border">
                         <tr class="border">
                             <th scope="row" class="border">Accommodation in Country - Hotels, camping, rented rooms, youth hostels, staying in boats, trains etc.</th>
-                            <td class="border"><input type="text" class="form-control" name="hotels_camping_w_t_amt"></td>
-                            <td class="border"><input type="text" class="form-control" name="hotels_camping_w_t_amt_t"></td>
+                            <td class="border"><input type="number" class="form-control" name="hotels_camping_w_t_amt"></td>
+                            <td class="border"><input type="number" class="form-control" name="hotels_camping_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="hotels_camping_w_t_c_code"></td>
-                            <td class="border"><input type="text" class="form-control" name="hotels_camping_estimate_t_r_c"></td>
+                            <td class="border"><input type="number" class="form-control" name="hotels_camping_estimate_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Restaurants and Bars in Country For any reason (to eat, for business, for pleasure etc.)</th>
-                            <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_w_t_amt"></td>
-                            <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_w_t_amt_t"></td>
+                            <td class="border"><input type="number" class="form-control" name="restaurants_and_bars_w_t_amt"></td>
+                            <td class="border"><input type="number" class="form-control" name="restaurants_and_bars_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_w_t_c_code"></td>
-                            <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_t_r_c"></td>
+                            <td class="border"><input type="number" class="form-control" name="restaurants_and_bars_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Transportation in Country  - (by train, by car, by boat, by plane, rent a car, gastolls, etc.)</th>
-                            <td class="border"><input type="text" class="form-control" name="transportation_in_country_w_t_amt"></td>
-                            <td class="border"><input type="text" class="form-control" name="transportation_in_country_w_t_amt_t"></td>
+                            <td class="border"><input type="number" class="form-control" name="transportation_in_country_w_t_amt"></td>
+                            <td class="border"><input type="number" class="form-control" name="transportation_in_country_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="transportation_in_country_w_t_c_code"></td>
-                            <td class="border"><input type="text" class="form-control" name="transportation_in_country_t_r_c"></td>
+                            <td class="border"><input type="number" class="form-control" name="transportation_in_country_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Entertainment, Cultural & Sports Activities in Country - (visiting museums, cultural events, sports activities, parks, zoos, historical monuments, games etc.)</th>
-                            <td class="border"><input type="text" class="form-control" name="entertainment_cultural_w_t_amt"></td>
-                            <td class="border"><input type="text" class="form-control" name="entertainment_cultural_w_t_amt_t"></td>
+                            <td class="border"><input type="number" class="form-control" name="entertainment_cultural_w_t_amt"></td>
+                            <td class="border"><input type="number" class="form-control" name="entertainment_cultural_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="entertainment_cultural_w_t_c_code"></td>
-                            <td class="border"><input type="text" class="form-control" name="entertainment_cultural_t_r_c"></td>
+                            <td class="border"><input type="number" class="form-control" name="entertainment_cultural_t_r_c"></td>
                         </tr>
                         <tr class="border">
                             <th scope="row" class="border">Purchases and other expenditure in Country  - (purchasing of goods & services ex. packaged food, drinks, personal care, souvenirs, clothes, shoes etc, phone calls, post, commission for exchanging money, etc.)</th>
-                            <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_w_t_amt"></td>
-                            <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_w_t_amt_t"></td>
+                            <td class="border"><input type="number" class="form-control" name="purchases_and_other_expenditure_w_t_amt"></td>
+                            <td class="border"><input type="number" class="form-control" name="purchases_and_other_expenditure_w_t_amt_t"></td>
                             <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_w_t_c_code"></td>
-                            <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_t_r_c"></td>
+                            <td class="border"><input type="number" class="form-control" name="purchases_and_other_expenditure_t_r_c"></td>
                         </tr>
-
-                        <tfoot class="border">
+                        <!-- <tfoot class="border">
                             <tr class="border">
                                 <th scope="row" class="border">TOTAL AGGREGATE</th>
                                 <td class="border">-</td>
@@ -137,7 +135,7 @@
                                 <td class="border">-</td>
                                 <td class="border">-</td>
                             </tr>
-                        </tfoot>
+                        </tfoot> -->
                     </tbody>
                 </table>
             </div>
@@ -207,7 +205,7 @@
                     <label for="">No overnight stays, I stayed less than 1 day </label>
                     <input class="form-control w-25" type="number" name="two_for_number_of_overnigh_traveller_and_trip" id="number_of_overnigh2"><br>
                 </div> -->
-                <h6>5) Where did you stay overnight in this trip to Country ? And how many nights did you stay?</h6>
+                <!-- <h6>5) Where did you stay overnight in this trip to Country ? And how many nights did you stay?</h6>
                 <label for="">PLEASE TICK () THE APPROPRIATE BOX AND WRITE THE NUMBER OF OVERNIGHT STAYS NEXT TO YOUR ANSWER</label><br>
                 <div class="form-group">
                     <table class="table border">
@@ -276,13 +274,13 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div> -->
                 
             </div>
         </div>
     </div>
     <br>
-    <div class="container">
+    <!-- <div class="container">
         <div class="card">
             <div class="card-header">
                 <h5>C. Expenses you made in your home country before departing for Country</h5>
@@ -341,15 +339,15 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <br>
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h5>D. Expenses you made in Country X during your stay</h5>
+                <h5>C. Satisfaction with your trip</h5>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <h5>How much money did you spend during your stay in Country? Please include all expenses made by you and the people travelling with you (on transport, accommodation and food, shopping, off board in ports by cruise liner passengers etc.)?</h5>
                     <div class="row">
                         <div class="col-md-6">
@@ -361,11 +359,11 @@
                             <input class="form-control" type="text" name="during_your_stay_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group">
-                    <h5>In the table of the following page, please split the money you spent in Country (thus, excluding the amount you spent in your country for this trip) and which you have indicated in q.11 into the following categories (the total of these amounts should be equal to the amount mentioned in question</h5>
-                    <p><b>Note: </b>Alternatively, if it is difficult for you to fill in the amounts, you can estimate approximately what percentage of your total spending in Country X corresponds to each one of the categories on the table. In this case the sum should be 100%.</p>
-                    <table class="table border">
+                    <!-- <h5>In the table of the following page, please split the money you spent in Country (thus, excluding the amount you spent in your country for this trip) and which you have indicated in q.11 into the following categories (the total of these amounts should be equal to the amount mentioned in question</h5> -->
+                    <!-- <p><b>Note: </b>Alternatively, if it is difficult for you to fill in the amounts, you can estimate approximately what percentage of your total spending in Country X corresponds to each one of the categories on the table. In this case the sum should be 100%.</p> -->
+                    <!-- <table class="table border">
                         <thead class="border">
                             <tr class="border">
                                 <th class="border" scope="col">#</th>
@@ -407,13 +405,56 @@
                                 <td class="border"><input type="text" class="form-control" name="c_purchases_split_the_money_you_spent_e_t_p"></td>
                             </tr> 
                         </tbody>
-                    </table>
+                    </table> -->
+                    <table class="table border">
+                        <thead class="border">
+                            <tr class="border">
+                                <th class="border" scope="col">PLEASE FILL IN, rating from 1 to 5</th>
+                                <th class="border" scope="col">1 (horrific), 2( bad), 3 (acceptable), 4 (good), 5 (excellent)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border">
+                            <tr class="border">
+                                <td scope="row" class="border"><b>Accommodation in Country X</b> - Hotels, camping, rented rooms, youth hostels, staying in boats, trains etc.</td>
+                                <td class="border"><input type="text" class="form-control" name="please_fill_in_rating_a_i_c"></td>
+                            </tr>
+
+                            <tr class="border">
+                                <td scope="row" class="border"><b>Restaurants and Bars in Country X</b> - For any reason (to eat, for business, for pleasure etc.)</td>
+                                <td class="border"><input type="text" class="form-control" name="please_fill_in_rating_r_a_b_i_c"></td>
+                            </tr>
+                            <tr class="border">
+                                <td scope="row" class="border"><b>Transportation in Country X </b> - (by train, by car, by boat, by plane, rent a car, gastolls, etc.)</td>
+                                <td class="border"><input type="text" class="form-control" name="please_fill_in_rating_t_i_c"></td>
+                            </tr>
+                            <tr class="border">
+                                <td scope="row" class="border"><b>Entertainment, Cultural & Sports Activities in Country X</b> - (visiting museums, cultural events, sports activities, parks, zoos, historical monuments, games etc.)</td>
+                                <td class="border"><input type="text" class="form-control" name="please_fill_in_rating_e_c_s_a_i_c"></td>
+                            </tr>
+                            <tr class="border">
+                                <td scope="row" class="border"><b>Purchases and shopping in Country X</b> - (purchasing of goods & services ex. packaged food, drinks, personal care, souvenirs, clothes, shoes etc, phone calls, post, commission for exchanging money, etc.)</td>
+                                <td class="border"><input type="text" class="form-control" name="please_fill_in_rating_p_a_s_i_c"></td>
+                            </tr>
+                            <tr class="border">
+                                <td scope="row" class="border"><b>Professional services in Country X </b> - (travel agent, tour operators, travel guides, translators, etc.)</td>
+                                <td class="border"><input type="text" class="form-control" name="please_fill_in_rating_p_s_i_c"></td>
+                            </tr>
+                            <tr class="border">
+                                <td scope="row" class="border"><b>Overall</b></td>
+                                <td class="border"><input type="text" class="form-control" name="please_fill_in_rating_o"></td>
+                            </tr>
+                        </tbody>
+                    </table><br>
+                    <div class="form-group">
+                        <label><b>Are there any comments you would like to make, claims or suggestions for improvement?</b></label><br>
+                        <textarea name="any_comments" cols="15" class="form-control" rows="5"></textarea>
+                    </div><br>
                 </div>
             </div>
         </div>
     </div>
     <br>
-    <div class="container">
+    <!-- <div class="container">
         <div class="card">
             <div class="card-header">
                 <h5>E. Expenses you made in Country X during your stay</h5>
@@ -468,7 +509,7 @@
                 <b>*Thank you very much for the cooperation. Please hand the questionnaire to the interviewer.</b>
             </div>
         </div>
-    </div>
+    </div> -->
     <br>
     <div class="container">
         <button class="btn btn-primary">Submit</button>
