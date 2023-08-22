@@ -87,44 +87,44 @@
                             <th class="border" scope="col">#</th>
                             <th class="border" scope="col">WRITE THE AMOUNT</th>
                             <th class="border" scope="col">WRITE THE % OF THE TOTAL</th>
-                            <th class="border" scope="col">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED</th>
-                            <th class="border" scope="col">ESTIMATE THE PERCENTAGE (%) CORRESPONDING TO EACH CATEGORY</th>
+                            <th class="border" scope="col">ESTIMATE THE PERCENTAGE (%) CORRESPONDING TO EACH CATEGORY IN COUNTRY X IN RELATION TO THE TOTAL OF THE CATEGORY</th>
+                            <th class="border" scope="col">ESTIMATE THE PERCENTAGE (%) CORRESPONDING TO EACH CATEGORY IN YOUR COUNTRY OF RESIDENCE IN RELATION TO THE TOTAL OF THE CATEGORY</th>
                         </tr>
                     </thead>
                     <tbody class="border">
                         <tr class="border">
-                            <th scope="row" class="border">Accommodation in Country - Hotels, camping, rented rooms, youth hostels, staying in boats, trains etc.</th>
+                            <th scope="row" class="border"><b>Accommodation in Country X</b> - Hotels, camping, rented rooms, youth hostels, staying in boats, trains etc.</th>
                             <td class="border"><input type="number" class="form-control" name="hotels_camping_w_t_amt"></td>
                             <td class="border"><input type="number" class="form-control" name="hotels_camping_w_t_amt_t"></td>
-                            <td class="border"><input type="text" class="form-control" name="hotels_camping_w_t_c_code"></td>
+                            <td class="border"><input type="number" class="form-control" name="hotels_camping_w_t_c_code"></td>
                             <td class="border"><input type="number" class="form-control" name="hotels_camping_estimate_t_r_c"></td>
                         </tr>
                         <tr class="border">
-                            <th scope="row" class="border">Restaurants and Bars in Country For any reason (to eat, for business, for pleasure etc.)</th>
+                            <th scope="row" class="border"><b>Restaurants and Bars in Country X</b> - For any reason (to eat, for business, for pleasure etc.)</th>
                             <td class="border"><input type="number" class="form-control" name="restaurants_and_bars_w_t_amt"></td>
                             <td class="border"><input type="number" class="form-control" name="restaurants_and_bars_w_t_amt_t"></td>
-                            <td class="border"><input type="text" class="form-control" name="restaurants_and_bars_w_t_c_code"></td>
+                            <td class="border"><input type="number" class="form-control" name="restaurants_and_bars_w_t_c_code"></td>
                             <td class="border"><input type="number" class="form-control" name="restaurants_and_bars_t_r_c"></td>
                         </tr>
                         <tr class="border">
-                            <th scope="row" class="border">Transportation in Country  - (by train, by car, by boat, by plane, rent a car, gastolls, etc.)</th>
+                            <th scope="row" class="border"><b>Transportation in Country X</b>  - (by train, by car, by boat, by plane, rent a car, gastolls, etc.)</th>
                             <td class="border"><input type="number" class="form-control" name="transportation_in_country_w_t_amt"></td>
                             <td class="border"><input type="number" class="form-control" name="transportation_in_country_w_t_amt_t"></td>
-                            <td class="border"><input type="text" class="form-control" name="transportation_in_country_w_t_c_code"></td>
+                            <td class="border"><input type="number" class="form-control" name="transportation_in_country_w_t_c_code"></td>
                             <td class="border"><input type="number" class="form-control" name="transportation_in_country_t_r_c"></td>
                         </tr>
                         <tr class="border">
-                            <th scope="row" class="border">Entertainment, Cultural & Sports Activities in Country - (visiting museums, cultural events, sports activities, parks, zoos, historical monuments, games etc.)</th>
+                            <th scope="row" class="border"><b>Entertainment, Cultural & Sports Activities in Country X</b>- (visiting museums, cultural events, sports activities, parks, zoos, historical monuments, games etc.)</th>
                             <td class="border"><input type="number" class="form-control" name="entertainment_cultural_w_t_amt"></td>
                             <td class="border"><input type="number" class="form-control" name="entertainment_cultural_w_t_amt_t"></td>
-                            <td class="border"><input type="text" class="form-control" name="entertainment_cultural_w_t_c_code"></td>
+                            <td class="border"><input type="number" class="form-control" name="entertainment_cultural_w_t_c_code"></td>
                             <td class="border"><input type="number" class="form-control" name="entertainment_cultural_t_r_c"></td>
                         </tr>
                         <tr class="border">
-                            <th scope="row" class="border">Purchases and other expenditure in Country  - (purchasing of goods & services ex. packaged food, drinks, personal care, souvenirs, clothes, shoes etc, phone calls, post, commission for exchanging money, etc.)</th>
+                            <th scope="row" class="border"><b>Purchases and other expenditure in Country X</b> - (purchasing of goods & services ex. packaged food, drinks, personal care, souvenirs, clothes, shoes etc, phone calls, post, commission for exchanging money, etc.)</th>
                             <td class="border"><input type="number" class="form-control" name="purchases_and_other_expenditure_w_t_amt"></td>
                             <td class="border"><input type="number" class="form-control" name="purchases_and_other_expenditure_w_t_amt_t"></td>
-                            <td class="border"><input type="text" class="form-control" name="purchases_and_other_expenditure_w_t_c_code"></td>
+                            <td class="border"><input type="number" class="form-control" name="purchases_and_other_expenditure_w_t_c_code"></td>
                             <td class="border"><input type="number" class="form-control" name="purchases_and_other_expenditure_t_r_c"></td>
                         </tr>
                         <!-- <tfoot class="border">
@@ -149,7 +149,8 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <h6>1) The country of your permanent residence</h6>
+                    <b>Please write the country of your permanent residence.</b>
+                    <h6>PLEASE USE THE COUNTRY CODE FROM THE ATTACHED LIST</h6>
                     <div class="row">
                         <div class="col-md-6">
                             <label for="">COUNTRY</label>
@@ -168,7 +169,7 @@
                         </div>
                     </div>
                 </div>
-                <h6>2) What was the main purpose for your trip to Country</h6>
+                <h6>1) What was the main purpose for your trip to Country X</h6>
                 <div class="form-group">
                     <label>PLEASE TICK () ONE BOX</label><br>
                     <b>1) Holidays / Recreation</b><br>
@@ -183,7 +184,7 @@
                     <input class="form-check-input" type="radio" value="Transit" name="two_two_family_visit_traveller_and_trip" id="family_visit"> <label for="">E) Transit</label> <br>
                 </div>
                <br>
-               <h6>3) If your answer in Question 2 is Code 5 (professional reasons/work), please specify.</h6>
+               <h6>2) If your answer in Question 2 is Code 5 (professional reasons/work), please specify.</h6>
                 <div class="form-group">
                     <label>PLEASE NOTE () ONE ANSWER</label><br>
                     <input class="form-check-input" type="radio" value="hort business trip" name="two_three_question_two_is_code_traveller_and_trip" id="is_code2" checked> <label for="">F) Short business trip (consulting services, commercial transactions, conferences and other business reasons</label> <br>
@@ -191,11 +192,11 @@
                     <input class="form-check-input" type="radio" value="permanently and return" name="two_three_question_two_is_code_traveller_and_trip" id="is_code2"> <label for="">H) I work in Country X permanently and return home every day/ week/ month</label>
                 </div>
                 <br>
-                <h6>6) Did you travel alone or with other people with which you shared the expenses of the trip (shared budget)? Please write the number of people with which you shared expenses (including yourself). PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</h6>
+                <h6>3) Did you travel alone or with other people with which you shared the expenses of the trip (shared budget)? Please write the number of people with which you shared expenses (including yourself). PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</h6>
                 <div class="form-group">
                     <label>PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</label><br>
                     <input class="form-check-input" type="checkbox" name="six_TRAVELLED_ALONE" id="travelled_alone"> <label for="">I travelled alone </label> <br>
-                    <label for="">I travelled with other people with which I shared expenses</label>
+                    <label for="">I travelled with other people with which I shared expenses ( Number Of People including yourself )</label>
                     <input class="form-control w-25" type="number" name="six_travelled_with_other" id="travelled_with_other2"><br>
                 </div><br>
                 <!-- <h6>4) What was the total number of overnight stays in Country on this trip?</h6>

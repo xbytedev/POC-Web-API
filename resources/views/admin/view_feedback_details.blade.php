@@ -110,8 +110,8 @@
                         <th class="border" scope="col">#</th>
                         <th class="border" scope="col">WRITE THE AMOUNT</th>
                         <th class="border" scope="col">WRITE THE % OF THE TOTAL</th>
-                        <th class="border" scope="col">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED</th>
-                        <th class="border" scope="col">ESTIMATE THE PERCENTAGE (%) CORRESPONDING TO EACH CATEGORY</th>
+                        <th class="border" scope="col">ESTIMATE THE PERCENTAGE (%) CORRESPONDING TO EACH CATEGORY IN COUNTRY X IN RELATION TO THE TOTAL OF THE CATEGORY</th>
+                        <th class="border" scope="col">ESTIMATE THE PERCENTAGE (%) CORRESPONDING TO EACH CATEGORY IN YOUR COUNTRY OF RESIDENCE IN RELATION TO THE TOTAL OF THE CATEGORY</th>
                     </tr>
                 </thead>
                 <tbody class="border">
@@ -195,7 +195,7 @@
         </div>
         <div class="card-body">
             <div class="form-group">
-                <h6>1) The country of your permanent residence</h6>
+                <h6>The country of your permanent residence</h6>
                 <div class="row">
                     <div class="col-md-6">
                         <label class="ml-3" for="">COUNTRY</label>
@@ -212,7 +212,7 @@
                     </div>
                 </div>
             </div>
-            <h6>2) What was the main purpose for your trip to Country </h6>
+            <h6>1) What was the main purpose for your trip to Country </h6>
             <div class="form-group">
                 <label class="ml-3">PLEASE TICK () ONE BOX</label><br>
                 <b>1) Holidays / Recreation</b><br>
@@ -227,7 +227,7 @@
                 <input class="form-check-input" type="radio" value="Transit" @if($feedback->two_two_family_visit_traveller_and_trip == 'Transit') checked @endif name="two_two_family_visit_traveller_and_trip" id="family_visit"> <label class="ml-3" for="">E) Transit</label> <br>
             </div>
         <br>
-        <h6>3) If your answer in Question 2 is Code 5 (professional reasons/work), please specify.</h6>
+        <h6>2) If your answer in Question 2 is Code 5 (professional reasons/work), please specify.</h6>
             <div class="form-group">
                 <label class="ml-3">PLEASE NOTE () ONE ANSWER</label><br>
                 <input class="form-check-input" type="radio" value="hort business trip" @if($feedback->two_three_question_two_is_code_traveller_and_trip == 'hort business trip') checked @endif name="two_three_question_two_is_code_traveller_and_trip" id="is_code2" checked> <label class="ml-3" for="">F) Short business trip (consulting services, commercial transactions, conferences and other business reasons</label> <br>
@@ -312,7 +312,7 @@
                     </tbody>
                 </table>
             </div> -->
-            <h6>6) Did you travel alone or with other people with which you shared the expenses of the trip (shared budget)? Please write the number of people with which you shared expenses (including yourself). PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</h6>
+            <h6>3) Did you travel alone or with other people with which you shared the expenses of the trip (shared budget)? Please write the number of people with which you shared expenses (including yourself). PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</h6>
             <div class="form-group">
                 <label class="ml-3">PLEASE TICK () THE BOX IF YOU TRAVELLED ALONE OR WRITE THE NUMBER OF PEOPLE</label><br>
                 <input class="form-check-input" type="checkbox" @if($feedback->six_TRAVELLED_ALONE == 'on') checked @endif name="six_TRAVELLED_ALONE" id="travelled_alone"> <label class="ml-3" for="">I travelled alone </label> <br>
