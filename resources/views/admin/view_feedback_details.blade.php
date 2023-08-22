@@ -159,7 +159,7 @@
                             <th scope="row" class="border">TOTAL AGGREGATE</th>
                             <td class="border">{{$feedback->hotels_camping_w_t_amt+$feedback->restaurants_and_bars_w_t_amt+$feedback->transportation_in_country_w_t_amt+$feedback->entertainment_cultural_w_t_amt+$feedback->purchases_and_other_expenditure_w_t_amt}}</td>
                             <td class="border">{{$feedback->hotels_camping_w_t_amt_t+$feedback->restaurants_and_bars_w_t_amt_t+$feedback->transportation_in_country_w_t_amt_t+$feedback->entertainment_cultural_w_t_amt_t+$feedback->purchases_and_other_expenditure_w_t_amt_t}}</td>
-                            <td class="border">-</td>
+                            <td class="border">{{$feedback->hotels_camping_w_t_amt_t+$feedback->restaurants_and_bars_w_t_amt_t+$feedback->transportation_in_country_w_t_amt_t+$feedback->entertainment_cultural_w_t_amt_t+$feedback->purchases_and_other_expenditure_w_t_amt_t}}</td>
                             <td class="border">{{$feedback->hotels_camping_estimate_t_r_c+$feedback->restaurants_and_bars_t_r_c+$feedback->transportation_in_country_t_r_c+$feedback->entertainment_cultural_t_r_c+$feedback->purchases_and_other_expenditure_t_r_c}}</td>
                         </tr>
                     </tfoot>
