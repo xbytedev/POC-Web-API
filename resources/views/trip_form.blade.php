@@ -60,12 +60,18 @@
                         </div>
                         <div class="col-md-4">
                             <label for="">WRITE THE CURRENCY</label>
-                            <input class="form-control" type="text" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                            <!-- <input class="form-control" type="text" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br> -->
+                            <select name="a_two_w_t_c" class="form-control a_two_w_t_c" id="">
+                                <option>SELECT COUNTRY</option>
+                                @foreach($country as $country_data)
+                                    <option data-code="{{$country_data->country_code}}" value="{{$country_data->id}}">{{$country_data->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         
                         <div class="col-md-4">
-                            <label for="">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)</label>
-                            <input class="form-control" type="text" name="a_two_w_t_c_c_f_t_l_a" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)"><br>
+                            <label for="">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED</label>
+                            <input class="form-control a_two_w_t_c_code" type="text" name="a_two_w_t_c_c_f_t_l_a" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)"><br>
                         </div>
                     </div>
                 </div>
@@ -522,6 +528,11 @@
     $(".one_traveller_and_trip_country").change(function(){
         var code = $(this).find(':selected').data('code');
         $('.one_traveller_and_trip_country_code').val(code);
+    })
+
+    $(".a_two_w_t_c").change(function(){
+        var code = $(this).find(':selected').data('code');
+        $('.a_two_w_t_c_code').val(code);
     })
 </script>
 </body>

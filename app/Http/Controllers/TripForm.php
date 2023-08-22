@@ -145,7 +145,7 @@ class TripForm extends Controller
             return redirect()->back();
          }
       }else{
-         session()->flash('error','Your feedback also we have');
+         session()->flash('error','Your feedback already exists');
          return redirect()->back();
       }
    }

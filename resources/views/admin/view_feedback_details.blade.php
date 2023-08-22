@@ -91,16 +91,20 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label for="">WRITE THE AMOUNT</label>
-                        <input class="form-control" type="number" name="a_one_country_overall_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT" value="{{$feedback->a_one_country_overall_w_t_amt}}"><br>
+                        <input class="form-control" readonly type="number" name="a_one_country_overall_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT" value="{{$feedback->a_one_country_overall_w_t_amt}}"><br>
                     </div>
                     <div class="col-md-4">
                         <label for="">WRITE THE CURRENCY</label>
-                        <input class="form-control" type="text" value="{{$feedback->a_two_w_t_c}}" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        @foreach($country as $country_data)
+                            @if($feedback->a_two_w_t_c == $country_data->id)
+                                <input class="form-control" readonly type="text" value="{{$country_data->name}}" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                            @endif
+                        @endforeach
                     </div>
                     
                     <div class="col-md-4">
-                        <label for="">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)</label>
-                        <input class="form-control" value="{{$feedback->a_two_w_t_c_c_f_t_l_a}}" type="text" name="a_two_w_t_c_c_f_t_l_a" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)"><br>
+                        <label for="">WRITE THE CURRENCY CODE FROM THE LIST ATTACHED</label>
+                        <input class="form-control" readonly value="{{$feedback->a_two_w_t_c_c_f_t_l_a}}" type="text" name="a_two_w_t_c_c_f_t_l_a" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY CODE FROM THE LIST ATTACHED (PAGE 7)"><br>
                     </div>
                 </div>
             </div>
@@ -176,11 +180,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE AMOUNT</label>
-                        <input class="form-control" type="number" value="{{$feedback->a_one_country_overall_w_t_amt}}" name="a_one_country_overall_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
+                        <input class="form-control" readonly type="number" value="{{$feedback->a_one_country_overall_w_t_amt}}" name="a_one_country_overall_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
                     </div>
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE CURRENCY</label>
-                        <input class="form-control" type="text" value="{{$feedback->a_two_w_t_c}}" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        <input class="form-control" readonly type="text" value="{{$feedback->a_two_w_t_c}}" name="a_two_w_t_c" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                     </div>
                 </div>
             </div>
@@ -201,14 +205,14 @@
                         <label class="ml-3" for="">COUNTRY</label>
                             @foreach($country as $country_data)
                                 @if($feedback->one_traveller_and_trip_country == $country_data->id)
-                                    <input class="form-control" type="text" value="{{$country_data->name}}" name="one_traveller_and_trip_country" id="COUNTRY" placeholder="COUNTRY" readonly><br>
+                                    <input class="form-control" readonly type="text" value="{{$country_data->name}}" name="one_traveller_and_trip_country" id="COUNTRY" placeholder="COUNTRY"><br>
                                 @endif
                             @endforeach
                         
                     </div>
                     <div class="col-md-6">
                         <label class="ml-3" for="">COUNTRY CODE</label>
-                        <input class="form-control" type="text" value="{{$feedback->one_traveller_and_trip_country_code}}" name="one_traveller_and_trip_country_code" id="COUNTRY_CODE" placeholder="COUNTRY CODE" readonly><br>
+                        <input class="form-control" readonly type="text" value="{{$feedback->one_traveller_and_trip_country_code}}" name="one_traveller_and_trip_country_code" id="COUNTRY_CODE" placeholder="COUNTRY CODE"><br>
                     </div>
                 </div>
             </div>
@@ -334,11 +338,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="">WRITE THE AMOUNT</label>
-                            <input class="form-control" type="number" name="during_your_stay_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
+                            <input class="form-control" readonly type="number" name="during_your_stay_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
                         </div>
                         <div class="col-md-6">
                             <label for="">WRITE THE CURRENCY</label>
-                            <input class="form-control" type="text" name="during_your_stay_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                            <input class="form-control" readonly type="text" name="during_your_stay_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                         </div>
                     </div>
                 </div> -->
@@ -429,7 +433,7 @@
                     </table><br>
                     <div class="form-group">
                         <label><b>Are there any comments you would like to make, claims or suggestions for improvement?</b></label><br>
-                        <textarea name="any_comments" cols="15" class="form-control" rows="5">{{$feedback->any_comments}}</textarea>
+                        <textarea name="any_comments" cols="15" class="form-control" rows="5" readonly>{{$feedback->any_comments}}</textarea>
                     </div><br>
                 </div>
             </div>
@@ -471,11 +475,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE AMOUNT</label>
-                        <input class="form-control" type="number" value="{{$feedback->c_solely_for_the_tickets_w_t_amt}}" name="c_solely_for_the_tickets_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
+                        <input class="form-control" readonly type="number" value="{{$feedback->c_solely_for_the_tickets_w_t_amt}}" name="c_solely_for_the_tickets_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
                     </div>
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE CURRENCY</label>
-                        <input class="form-control" type="text" value="{{$feedback->c_solely_for_the_tickets_w_t_currency}}" name="c_solely_for_the_tickets_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        <input class="form-control" readonly type="text" value="{{$feedback->c_solely_for_the_tickets_w_t_currency}}" name="c_solely_for_the_tickets_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                     </div>
                 </div>
                 <div class="form-group">
@@ -483,11 +487,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="ml-3" for="">WRITE THE AMOUNT</label>
-                            <input class="form-control" type="number" value="{{$feedback->total_before_your_departure_w_t_amt}}" name="total_before_your_departure_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
+                            <input class="form-control" readonly type="number" value="{{$feedback->total_before_your_departure_w_t_amt}}" name="total_before_your_departure_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
                         </div>
                         <div class="col-md-6">
                             <label class="ml-3" for="">WRITE THE CURRENCY</label>
-                            <input class="form-control" type="text" value="{{$feedback->total_before_your_departure_w_t_currency}}" name="total_before_your_departure_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                            <input class="form-control" readonly type="text" value="{{$feedback->total_before_your_departure_w_t_currency}}" name="total_before_your_departure_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                         </div>
                     </div>
                 </div>
@@ -507,11 +511,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE AMOUNT</label>
-                        <input class="form-control" type="number" value="{{$feedback->during_your_stay_w_t_amt}}" name="during_your_stay_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
+                        <input class="form-control" readonly type="number" value="{{$feedback->during_your_stay_w_t_amt}}" name="during_your_stay_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
                     </div>
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE CURRENCY</label>
-                        <input class="form-control" type="text" value="{{$feedback->during_your_stay_w_t_currency}}" name="during_your_stay_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        <input class="form-control" readonly type="text" value="{{$feedback->during_your_stay_w_t_currency}}" name="during_your_stay_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                     </div>
                 </div>
             </div>
@@ -577,11 +581,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE AMOUNT</label>
-                        <input class="form-control" type="number" value="{{$feedback->e_overall_including_w_t_amt}}" name="e_overall_including_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
+                        <input class="form-control" readonly type="number" value="{{$feedback->e_overall_including_w_t_amt}}" name="e_overall_including_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT"><br>
                     </div>
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE CURRENCY</label>
-                        <input class="form-control" type="text" value="{{$feedback->e_overall_including_w_t_currency}}" name="e_overall_including_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        <input class="form-control" readonly type="text" value="{{$feedback->e_overall_including_w_t_currency}}" name="e_overall_including_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                     </div>
                 </div>
             </div>
@@ -611,11 +615,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE AMOUNT OF LUXURY GOODS</label>
-                        <input class="form-control" type="number" value="{{$feedback->e_luxury_goods_w_t_amt}}" name="e_luxury_goods_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT OF LUXURY GOODS"><br>
+                        <input class="form-control" readonly type="number" value="{{$feedback->e_luxury_goods_w_t_amt}}" name="e_luxury_goods_w_t_amt" id="WRITE_THE_AMOUNT" placeholder="WRITE THE AMOUNT OF LUXURY GOODS"><br>
                     </div>
                     <div class="col-md-6">
                         <label class="ml-3" for="">WRITE THE CURRENCY</label>
-                        <input class="form-control" type="text" value="{{$feedback->e_luxury_goods_w_t_currency}}" name="e_luxury_goods_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
+                        <input class="form-control" readonly type="text" value="{{$feedback->e_luxury_goods_w_t_currency}}" name="e_luxury_goods_w_t_currency" id="WRITE_THE_CURRENCY" placeholder="WRITE THE CURRENCY"><br>
                     </div>
                 </div>
             </div>
