@@ -1,18 +1,14 @@
 @extends('component.master')
-
 @section('styles') @parent
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-
 <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
-
 @endsection
 
 @section('title','Feedback Details')
 
 @section('content')
 
-@if ($errors->any())
+@if($errors->any())
 
     <div class="alert alert-danger">
 

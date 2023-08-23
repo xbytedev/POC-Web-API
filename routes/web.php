@@ -200,6 +200,5 @@ Route::get('/homes', [App\Http\Controllers\HomesController::class, 'homes'])->mi
 // TripForm
 Route::get('/trip_form/{type}/{trip_id}/{user_id}', [App\Http\Controllers\TripForm::class, 'trip_form']);
 Route::post('/insert_user_feedback', [App\Http\Controllers\TripForm::class, 'insert_user_feedback']);
-
 Route::get('/view_feedback_data', [App\Http\Controllers\TripForm::class, 'admin_view_feedback_data'])->middleware("auth");
 Route::get('/view_feedback_details_data/{id}', [App\Http\Controllers\TripForm::class, 'admin_view_feedback_details_data'])->middleware("auth");
